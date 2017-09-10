@@ -14,5 +14,15 @@
 
 
 <ion-content padding>
-
+  <ion-list>
+    <ion-item>
+      <ion-input type="text" placeholder="UserName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="password" placeholder="Password"></ion-input>
+    </ion-item>
+  </ion-list>
+  <button ion-button block (click)="gotoRegister()">注册</button>
+  <button ion-button block>登录</button>
+  <button>忘记密码？</button>
 </ion-content>
