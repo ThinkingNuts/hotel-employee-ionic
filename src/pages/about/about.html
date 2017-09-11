@@ -7,5 +7,16 @@
 </ion-header>
 
 <ion-content padding>
-
+  <ion-refresher pulling-text="loading......">
+  </ion-refresher>
+  <ion-list>
+    <ion-item *ngFor="let item of items" (click)="showItemDetails(item)">
+      <a href="#">
+        <!-- <img src="img/"> -->
+        <h2>title: {{item.title}}</h2>
+        <p>compony: {{item.company}}</p>
+        <p>money: {{item.money}}</p>
+      </a>
+    </ion-item>
+  </ion-list>
 </ion-content>

@@ -28,4 +28,9 @@ export class LoginPage {
     console.log('gotoRegister');
     this.navCtrl.push("RegisterPage");
   }
+
+  gotoTabs(): void {
+    console.log('gotoTabs');
+    this.navCtrl.push("TabsPage");
+  }
 }
