@@ -4,22 +4,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { EmployeeListPage } from '../pages/employee-list/employee-list';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
-
 import { LoginPage } from '../pages/login/login';
+import { HomePage } from '../pages/home/home';
+import { EmployeeListPage } from '../pages/employee-list/employee-list';
+import { MyPage } from '../pages/my/my';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { BaseHttpServiceProvider } from '../providers/base-http-service/base-http-service';
+import { AppUrlConfigProvider } from '../providers/app-url-config/app-url-config';
 
 @NgModule({
   declarations: [
     MyApp,
     LoginPage,
-    ContactPage,
+    MyPage,
     EmployeeListPage,
     HomePage
   ],
@@ -34,10 +34,11 @@ import { BaseHttpServiceProvider } from '../providers/base-http-service/base-htt
     LoginPage,
     HomePage,
     EmployeeListPage,
-    ContactPage
+    MyPage
   ],
   providers: [
     BaseHttpServiceProvider,
+    AppUrlConfigProvider,
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
