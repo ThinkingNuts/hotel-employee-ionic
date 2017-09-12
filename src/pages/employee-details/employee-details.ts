@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { EmployeeItem } from '../../model/EmployeeItem';
+import { EmployeeViewModel } from '../../view-model/employee-model';
 
 /**
  * Generated class for the EmployeeDetailsPage page.
@@ -16,7 +16,7 @@ import { EmployeeItem } from '../../model/EmployeeItem';
 })
 export class EmployeeDetailsPage implements OnInit{
 
-  private item: EmployeeItem = null;
+  private item: EmployeeViewModel = null;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.item = navParams.data

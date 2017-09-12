@@ -11,6 +11,5 @@ export class UserViewModel {
     console.log(`name:${this.name}, password:${this.password}, 
     sex:${this.sex}, alias:${this.alias}, idCard:${this.idCard},
      phone:${this.phone}, address:${this.address}`);
-
   }
 }

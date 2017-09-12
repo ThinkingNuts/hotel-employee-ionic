@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { RegisterPage } from '../register/register';
-
 /**
  * Generated class for the LoginPage page.
  *
@@ -24,6 +22,13 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
 
+  login(userName: string, pwd: string): void {
+    console.log("login userName: " + userName + ", pwd: " + pwd);
+    if (this.infoInvalid(userName, pwd)) return;
+    //TODO login, and move line below to callback when login successfully
+    this.gotoTabs();
+  }
+
   gotoRegister(): void {
     console.log('gotoRegister');
     this.navCtrl.push("RegisterPage");
@@ -32,5 +37,24 @@ export class LoginPage {
   gotoTabs(): void {
     console.log('gotoTabs');
     this.navCtrl.push("TabsPage");
+  }
+
+  infoInvalid(userName: string, pwd: string): boolean {
+    return this.isEmpty(userName) || this.isEmpty(pwd);
+  }
+
+  isEmpty(obj: string): boolean {
+    if (obj === null) return true;
+    if (typeof obj === 'undefined') {
+      return true;
+    }
+    if (typeof obj === 'string') {
+      if (obj.trim() === "") {
+        return true;
+      }
+      var reg = new RegExp("^([ ]+)|([　]+)$");
+      return reg.test(obj);
+    }
+    return false;
   }
 }

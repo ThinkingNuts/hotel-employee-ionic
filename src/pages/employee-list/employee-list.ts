@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { EmployeeItem } from '../../model/EmployeeItem';
+import { EmployeeViewModel } from '../../view-model/employee-model';
+
+import { BaseHttpServiceProvider } from '../../providers/base-http-service/base-http-service';
 
 @Component({
   selector: 'page-employee-list',
@@ -8,41 +10,47 @@ import { EmployeeItem } from '../../model/EmployeeItem';
 })
 export class EmployeeListPage implements OnInit {
 
-  private items: EmployeeItem[] = [{
-    id: 0,
-    title: 'title-00000000000000000000',
-    quantity: 11,
-    company: 'company-0',
-    scheduling: '',
-    type: '',
-    start: 'string',
-    end: 'string',
-    billing: '10',
-    desc: 'string',
-    create: 'string'
-  }, {
-    id: 1,
-    title: 'title-11111111111111111111',
-    quantity: 22,
-    company: 'company-1',
-    scheduling: '',
-    type: '',
-    start: 'string',
-    end: 'string',
-    billing: '20',
-    desc: 'string',
-    create: 'string'
-  }];
+  private url: string = "http://123.56.15.145:5000/HotelOrder/List";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) { }
+  private item0: EmployeeViewModel = new EmployeeViewModel();
+
+  private items: EmployeeViewModel[] = new Array<EmployeeViewModel>();
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public baseHttp: BaseHttpServiceProvider) { }
 
   ngOnInit(): void {
+    console.log('ngOnInit');
 
+    this.item0.Id = 0;
+    this.item0.Title = "000000000000000000000";
+    this.item0.Num = 10;
+    this.item0.HotelName = "company0";
+    this.item0.ScheduleName = "白班";
+    this.item0.Billing = "￥30/h";
+    this.item0.TimeStr = "xxxxx";
+    this.items.push(this.item0);
+
+    this.postData(null);
   }
 
-  showItemDetails(item: EmployeeItem): void {
+  postData(refresher): void {
+    this.baseHttp.postJson<EmployeeViewModel, EmployeeViewModel[]>(this.item0, this.url).then((response) => {
+      console.log(JSON.stringify(response));
+      this.items = response;
+      if (refresher) {
+        refresher.complete();
+      }
+    });
+  }
+
+  doRefresh(refresher): void {
+    console.log("doRefresh ");
+    this.postData(refresher);
+  }
+
+  showItemDetails(item: EmployeeViewModel): void {
     console.log(item);
     this.navCtrl.push("EmployeeDetailsPage", item);
   }
 }
-

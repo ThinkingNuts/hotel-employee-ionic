@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { UserViewModel } from '../../model/user-model';
+import { UserViewModel } from '../../view-model/user-model';
 
 /**
  * Generated class for the RegisterPage page.
