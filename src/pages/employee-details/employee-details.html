@@ -7,12 +7,31 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>EmployeeDetailsPage</ion-title>
+    <ion-title>用工信息</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <div *ngIf="item != null">
+    <h3>{{item.title}}</h3>
+    <p>招{{item.quantity}}人</p>
+    <p>{{item.company}}</p>
+    <p>创建时间：{{item.create}}</p>
+    <p>工作排班：{{item.scheduling}}</p>
+
+    <p>工作类型：{{item.type}}</p>
+
+    <p>开始时间：{{item.start}}</p>
+    <p>结束时间：{{item.end}}</p>
+
+    <p>计费方式：{{item.billing}}</p>
+    <p>说明：{{item.desc}}</p>
+  
+    
+    <button ion-button block (click)="onApply()">申请</button>
+
+  </div>
 
 </ion-content>
