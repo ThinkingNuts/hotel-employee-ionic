@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { UserViewModel } from '../../model/user-model';
+
 /**
  * Generated class for the RegisterPage page.
  *
@@ -15,11 +17,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class RegisterPage {
 
+  private user: UserViewModel = new UserViewModel();
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
+  }
+
+  onRegister() {
+    console.log('onRegister RegisterPage  ' + this.user.toString());
+    this.goBack();
+  }
+
+  goBack(): void {
+    this.navCtrl.pop();
   }
 
 }

@@ -17,50 +17,52 @@
 
   <ion-list>
     <ion-item>
-      <ion-label fixed>用户名</ion-label>
-      <ion-input type="text" value="" placeholder="请输入用户名"></ion-input>
+      <ion-label fixed>昵称</ion-label>
+      <ion-input type="text" [(ngModel)]="user.alias" placeholder="请输入昵称"></ion-input>
     </ion-item>
-    <ion-list radio-group>
+
+    <ion-list radio-group [(ngModel)]="user.sex">
       <ion-list-header>
         性别
       </ion-list-header>
       <ion-item>
         <ion-label>男</ion-label>
-        <ion-radio checked="true" value="go"></ion-radio>
+        <ion-radio checked="true" value="男"></ion-radio>
       </ion-item>
       <ion-item>
         <ion-label>女</ion-label>
-        <ion-radio value="rust"></ion-radio>
+        <ion-radio value="女"></ion-radio>
       </ion-item>
     </ion-list>
+    
     <ion-item>
       <ion-label fixed>密码</ion-label>
-      <ion-input type="password" placeholder="请输入密码"></ion-input>
+      <ion-input type="password" placeholder="请输入密码" [(ngModel)]="user.password"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label fixed>真实姓名</ion-label>
-      <ion-input type="text" value="" placeholder="请输入真实姓名"></ion-input>
+      <ion-input type="text" value="" placeholder="请输入真实姓名" [(ngModel)]="user.name"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label fixed>身份证</ion-label>
-      <ion-input type="number" value="" placeholder="请输入身份证"></ion-input>
+      <ion-input type="number" value="" placeholder="请输入身份证" [(ngModel)]="user.idCard"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label fixed>手机号</ion-label>
-      <ion-input type="number" value="" placeholder="请输入手机号"></ion-input>
+      <ion-input type="number" value="" placeholder="请输入手机号" [(ngModel)]="user.phone"></ion-input>
     </ion-item>
 
 
     <ion-item>
       <ion-label fixed>通讯地址</ion-label>
-      <ion-input type="number" value="" placeholder="请输入通讯地址"></ion-input>
+      <ion-input type="text" value="" placeholder="请输入通讯地址" [(ngModel)]="user.address"></ion-input>
     </ion-item>
 
   </ion-list>
 
 
-  <button ion-button block>提交</button>
+  <button ion-button block (click)="onRegister()">注册</button>
 </ion-content>
