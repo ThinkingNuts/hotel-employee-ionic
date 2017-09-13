@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { Storage } from '@ionic/storage';
+
+import { UserViewModel } from '../../view-model/user-model';
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -14,8 +18,11 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'login.html',
 })
 export class LoginPage {
+  private user: UserViewModel;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public storage: Storage) {
+    this.user = navParams.data;
   }
 
   ionViewDidLoad() {
@@ -25,18 +32,23 @@ export class LoginPage {
   login(userName: string, pwd: string): void {
     console.log("login userName: " + userName + ", pwd: " + pwd);
     if (this.infoInvalid(userName, pwd)) return;
-    //TODO login, and move line below to callback when login successfully
-    this.gotoTabs();
+
+    this.user.name = userName;
+    this.user.password = pwd;
+    // TODO login, and move lines below to callback when login successfully
+    this.saveUserInfo();
+    this.navCtrl.pop();
+  }
+
+  saveUserInfo(): void {
+    this.storage.ready().then(() => {
+      this.storage.set("user", this.user);
+    });
   }
 
   gotoRegister(): void {
     console.log('gotoRegister');
     this.navCtrl.push("RegisterPage");
-  }
-
-  gotoTabs(): void {
-    console.log('gotoTabs');
-    this.navCtrl.push("TabsPage");
   }
 
   infoInvalid(userName: string, pwd: string): boolean {

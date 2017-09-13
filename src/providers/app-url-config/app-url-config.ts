@@ -19,9 +19,7 @@ export class AppUrlConfigProvider {
 
   constructor(public http: Http) {
     console.log('全局信息配置 Provider');
-
   }
-
 }
 
 class EmployeeConfig {
@@ -29,14 +27,10 @@ class EmployeeConfig {
 }
 
 class UserConfig {
-  public userLoginUrl: string = "http://192.168.200.250/webrtc/home/login";
-
-  public userGetListUrl: string = "http://192.168.200.250/webrtc/home/list";
-
+  public userLoginUrl: string = ""//"http://192.168.200.250/webrtc/home/login";
 }
 
 class SignalrConfig {
-
 
   /**
    * Signalr Hub名称

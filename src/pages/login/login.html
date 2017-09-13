@@ -16,10 +16,10 @@
 <ion-content padding>
   <ion-list>
     <ion-item>
-      <ion-input #userName type="text" placeholder="UserName"></ion-input>
+      <ion-input #userName type="text" placeholder="UserName" [(ngModel)]="user.name"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input #password type="password" placeholder="Password"></ion-input>
+      <ion-input #password type="password" placeholder="Password" [(ngModel)]="user.password"></ion-input>
     </ion-item>
   </ion-list>
   <button class="action-btn" ion-button block (click)="gotoRegister()">注册</button>

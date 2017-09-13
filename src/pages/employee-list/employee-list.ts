@@ -33,25 +33,30 @@ export class EmployeeListPage implements OnInit {
     // this.item0.TimeStr = "xxxxx";
     // this.items.push(this.item0);
 
-    this.postData(null);
+    this.getList(null);
   }
 
-  postData(refresher): void {
+  getList(refresher): void {
     this.baseHttp.postJson<EmployeeViewModel, EmployeeViewModel[]>(this.item0,
       this.urlConfig.employeeConfig.employeeListUrl)
-      .then((response) => {
-        console.log(response);
-        if (!response) {
-          this.showGetFailed();
-          return;
-        }
-        this.noEmployee = false;
-        this.items = response;
-        if (refresher) {
-          refresher.complete();
-        }
-      })
-      .catch(this.handleError);
+      .subscribe((res) => {
+        console.log("111111111111111111111111111");
+        console.log(res);
+
+      });
+    // .then((response) => {
+    //   console.log(response);
+    //   if (!response) {
+    //     this.showGetFailed();
+    //     return;
+    //   }
+    //   this.noEmployee = false;
+    //   this.items = response;
+    //   if (refresher) {
+    //     refresher.complete();
+    //   }
+    // })
+    // .catch(this.handleError);
   }
 
   showGetFailed(): void {
@@ -61,13 +66,13 @@ export class EmployeeListPage implements OnInit {
 
   handleError(error: any): Promise<any> {
     // this.showGetFailed();
-    console.log("An error occurred: \n", error);
+    // console.log("An error occurred: \n", error);
     return Promise.reject(error.message || error);
   }
 
   doRefresh(refresher): void {
     console.log("doRefresh ");
-    this.postData(refresher);
+    this.getList(refresher);
   }
 
   showItemDetails(item: EmployeeViewModel): void {

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import { Subject, BehaviorSubject, Observable } from 'rxjs'
 /*
   Generated class for the BaseHttpServiceProvider provider.
 
@@ -23,11 +24,21 @@ export class BaseHttpServiceProvider {
     return this.http.post(url, form, { headers: header }).toPromise().then(d => d.json());
   }
 
-  public postJson<T extends BaseViewModel, U>(obj: T, url: string): Promise<U> {
+  public postJson<T extends BaseViewModel, U>(obj: T, url: string): Observable<U> {
     let form = obj.ObjectToSerialize();
     let header = new Headers();
     header.append('Content-Type', "application/json");
-    return this.http.post(url, form, { headers: header }).toPromise().then(d => d.json());
+    return this.http
+      .post(url, form, { headers: header })
+      .map(response => response.json().data);
+    // .toPromise()
+    // .then(d => d.json())
+    // .catch(this.handleError);
+  }
+
+  handleError(error: any): Promise<any> {
+    console.log("An error occurred: \n", error);
+    return Promise.reject(error.message || error);
   }
 
   public get<T extends BaseViewModel>(query: QueryParmModel, url: string): Promise<T[]> {
@@ -36,7 +47,7 @@ export class BaseHttpServiceProvider {
     header.append('Content-Type', "application/json");
     return this.http.post(url, JSON.stringify(query), { headers: header }).toPromise().then(d => d.json());
   }
-  
+
 }
 
 export class BaseViewModel {
