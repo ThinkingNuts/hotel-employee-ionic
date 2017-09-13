@@ -9,19 +9,19 @@ export class MyPage {
 
   content = [{
     content: "我的资料",
-    pageName: "MyDetails"
+    pageName: "MyDetailsPage"
   }, {
     content: "申请记录",
-    pageName: "ApplyRecords"
+    pageName: "ApplyRecordsPage"
   }, {
     content: "我的工单",
-    pageName: "MyEmployeeList"
+    pageName: "MyEmployeeListPage"
   }, {
     content: "修改密码",
-    pageName: "ModifyPassword"
+    pageName: "ModifyPasswordPage"
   }, {
     content: "关于",
-    pageName: "About"
+    pageName: "AboutPage"
   }];
 
   constructor(public navCtrl: NavController) {

@@ -21,7 +21,7 @@ export class EmployeeListPage implements OnInit {
     public urlConfig: AppUrlConfigProvider) { }
 
   ngOnInit(): void {
-    console.log('ngOnInit');
+    console.log('EmployeeListPage ngOnInit');
 
     // test code
     // this.item0.Id = 0;
@@ -39,11 +39,23 @@ export class EmployeeListPage implements OnInit {
   getList(refresher): void {
     this.baseHttp.postJson<EmployeeViewModel, EmployeeViewModel[]>(this.item0,
       this.urlConfig.employeeConfig.employeeListUrl)
-      .subscribe((res) => {
-        console.log("111111111111111111111111111");
+      .subscribe(
+      (res) => {
         console.log(res);
-
-      });
+        if (!res) {
+          this.showGetFailed();
+          return;
+        }
+        this.noEmployee = false;
+        this.items = res;
+        if (refresher) {
+          refresher.complete();
+        }
+      },
+      (error) => {
+        this.handleError(error);
+      }
+      );
     // .then((response) => {
     //   console.log(response);
     //   if (!response) {
@@ -64,10 +76,10 @@ export class EmployeeListPage implements OnInit {
     this.whyEmpty = "获取用工信息失败";
   }
 
-  handleError(error: any): Promise<any> {
-    // this.showGetFailed();
-    // console.log("An error occurred: \n", error);
-    return Promise.reject(error.message || error);
+  handleError(error: any) {//: Promise<any> {
+    this.showGetFailed();
+    console.log("An error occurred: \n", error);
+    // return Promise.reject(error.message || error);
   }
 
   doRefresh(refresher): void {

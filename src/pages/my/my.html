@@ -8,6 +8,6 @@
 
 <ion-content>
   <ion-list inset>
-    <button ion-item *ngFor="let item of content">{{item.content}}</button>
+    <button ion-item *ngFor="let item of content" (click)="openPage(item.pageName)">{{item.content}}</button>
   </ion-list>
 </ion-content>
