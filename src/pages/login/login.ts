@@ -20,7 +20,9 @@ import { UserViewModel } from '../../view-model/user-model';
 export class LoginPage {
   private user: UserViewModel;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
     public storage: Storage) {
     this.user = navParams.data;
   }

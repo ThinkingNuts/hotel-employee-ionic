@@ -1,18 +1,25 @@
+<!--
+  Generated template for the ApplyRecordsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
 <ion-header>
+
   <ion-navbar>
-    <ion-title>
-      用工列表
-    </ion-title>
+    <ion-title>申请记录</ion-title>
   </ion-navbar>
+
 </ion-header>
+
 
 <ion-content padding>
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="Refreshing...">
     </ion-refresher-content>
   </ion-refresher>
-  <h3 class="no-employee" *ngIf="noEmployee">{{whyEmpty}}</h3>
-  <ion-list *ngIf="!noEmployee">
+  <h3 class="no-records" *ngIf="noRecords">{{whyEmpty}}</h3>
+  <ion-list *ngIf="!noRecords">
     <ion-item *ngFor="let item of items" (click)="showItemDetails(item)">
       <ion-avatar item-start>
         <!-- <img src="img/avatar-finn.png"> -->

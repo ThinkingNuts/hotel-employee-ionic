@@ -13,10 +13,12 @@ export class EmployeeListPage implements OnInit {
 
   private noEmployee: boolean = true;
   private whyEmpty: string = "当前没有用工信息";
-  private item0: EmployeeViewModel = new EmployeeViewModel();
+  // private item0: EmployeeViewModel = new EmployeeViewModel();
   private items: EmployeeViewModel[] = new Array<EmployeeViewModel>();
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
     public baseHttp: BaseHttpServiceProvider,
     public urlConfig: AppUrlConfigProvider) { }
 
@@ -37,7 +39,7 @@ export class EmployeeListPage implements OnInit {
   }
 
   getList(refresher): void {
-    this.baseHttp.postJson<EmployeeViewModel, EmployeeViewModel[]>(this.item0,
+    this.baseHttp.postJson<EmployeeViewModel, EmployeeViewModel[]>(new EmployeeViewModel(),
       this.urlConfig.employeeConfig.employeeListUrl)
       .subscribe(
       (res) => {

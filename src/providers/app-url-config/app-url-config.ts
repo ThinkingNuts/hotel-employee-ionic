@@ -24,6 +24,7 @@ export class AppUrlConfigProvider {
 
 class EmployeeConfig {
   public employeeListUrl: string = "http://123.56.15.145:5000/HotelOrder/List";
+  public applyRecordsUrl: string = "";
 }
 
 class UserConfig {
