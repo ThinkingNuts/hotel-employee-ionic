@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { BaseHttpServiceProvider } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
-import { EmployeeViewModel } from '../../view-model/employee-model';
+import { ApplyViewModel } from '../../view-model/apply-model';
 
 /**
  * Generated class for the ApplyRecordsPage page.
@@ -21,8 +21,8 @@ export class ApplyRecordsPage {
 
   private noRecords: boolean = true;
   private whyEmpty: string = "正在获取申请记录";
-  private items: EmployeeViewModel[] = new Array<EmployeeViewModel>();
-  private item0: EmployeeViewModel = new EmployeeViewModel();
+  private items: ApplyViewModel[] = new Array<ApplyViewModel>();
+  private item0: ApplyViewModel = new ApplyViewModel();
 
   constructor(
     private navCtrl: NavController,
@@ -53,7 +53,7 @@ export class ApplyRecordsPage {
   }
 
   getList(refresher): void {
-    this.baseHttp.postJson<EmployeeViewModel, EmployeeViewModel[]>(new EmployeeViewModel(),
+    this.baseHttp.postJson<ApplyViewModel, ApplyViewModel[]>(new ApplyViewModel(),
       this.urlConfig.employeeConfig.applyRecordsUrl)
       .subscribe(
       (res) => {
@@ -90,7 +90,7 @@ export class ApplyRecordsPage {
     this.getList(refresher);
   }
 
-  showItemDetails(item: EmployeeViewModel): void {
+  showItemDetails(item: ApplyViewModel): void {
     console.log(item);
     this.navCtrl.push("ApplyDetailsPage", item);
   }

@@ -15,18 +15,22 @@
 
 <ion-content padding>
   <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="Refreshing...">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
     </ion-refresher-content>
   </ion-refresher>
   <h3 class="no-records" *ngIf="noRecords">{{whyEmpty}}</h3>
   <ion-list *ngIf="!noRecords">
     <ion-item *ngFor="let item of items" (click)="showItemDetails(item)">
       <ion-avatar item-start>
-        <!-- <img src="img/avatar-finn.png"> -->
+        <ion-icon name="happy" class="item-icon"></ion-icon>
       </ion-avatar>
-      <h2>{{item.Title}}</h2>
-      <p>{{item.HotelName}}</p>
-      <p>{{item.Billing}}</p>
+      <ion-avatar class="apply-status" item-end [ngSwitch]="item.Status">
+        <div *ngSwitchCase="'1'" class="apply-status-waitcheck">{{item.StatusStr}}</div>
+        <div *ngSwitchCase="'2'" class="apply-status-pass">{{item.StatusStr}}</div>
+        <!-- <div class="apply-status" [ngClass]="{'apply-status-nocheck':item.Status=='1', 'apply-status-pass':item.Status=='2'}">{{item.StatusStr}}</div> -->
+      </ion-avatar>
+      <h2>{{item.OrderTitle}}</h2>
+      <p>{{item.Mark}}</p>
     </ion-item>
   </ion-list>
 </ion-content>
