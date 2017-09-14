@@ -1,0 +1,34 @@
+<!--
+  Generated template for the ApplyDetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  
+    <ion-navbar>
+      <ion-title>申请信息</ion-title>
+    </ion-navbar>
+  
+  </ion-header>
+  
+  
+  <ion-content padding>
+    <div *ngIf="item != null">
+      <h3>{{item.Title}}</h3>
+      <p>招{{item.Num}}人</p>
+      <p>{{item.HotelName}}</p>
+      <p>创建时间：{{item.TimeStr}}</p>
+      <p>工作排班：{{item.ScheduleName}}</p>
+  
+      <p>工作类型：{{item.WorkTypeName}}</p>
+  
+      <p>开始时间：{{item.Start}}</p>
+      <p>结束时间：{{item.End}}</p>
+  
+      <p>计费方式：{{item.Billing}}</p>
+      <p>说明：{{item.Mark}}</p>
+
+    </div>
+  
+  </ion-content>
