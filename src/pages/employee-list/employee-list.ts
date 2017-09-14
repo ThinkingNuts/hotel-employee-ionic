@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { App, NavController, NavParams } from 'ionic-angular';
 import { EmployeeViewModel } from '../../view-model/employee-model';
 
 import { BaseHttpServiceProvider } from '../../providers/base-http-service/base-http-service';
@@ -12,20 +12,22 @@ import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-con
 export class EmployeeListPage implements OnInit {
 
   private noEmployee: boolean = true;
-  private whyEmpty: string = "当前没有用工信息";
-  // private item0: EmployeeViewModel = new EmployeeViewModel();
+  private whyEmpty: string = "正在获取用工信息";
+  private item0: EmployeeViewModel = new EmployeeViewModel();
   private items: EmployeeViewModel[] = new Array<EmployeeViewModel>();
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams,
-    public baseHttp: BaseHttpServiceProvider,
-    public urlConfig: AppUrlConfigProvider) { }
+    private app: App,
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private baseHttp: BaseHttpServiceProvider,
+    private urlConfig: AppUrlConfigProvider) { }
 
   ngOnInit(): void {
     console.log('EmployeeListPage ngOnInit');
 
     // test code
+    // this.noEmployee = false;
     // this.item0.Id = 0;
     // this.item0.Title = "000000000000000000000";
     // this.item0.Num = 10;
@@ -45,10 +47,10 @@ export class EmployeeListPage implements OnInit {
       (res) => {
         console.log(res);
         if (!res) {
-          this.showGetFailed();
+          this.showResult(true, "当前没有用工信息");
           return;
         }
-        this.noEmployee = false;
+        this.showResult(false, "已获取用工信息");
         this.items = res;
         if (refresher) {
           refresher.complete();
@@ -73,13 +75,13 @@ export class EmployeeListPage implements OnInit {
     // .catch(this.handleError);
   }
 
-  showGetFailed(): void {
-    this.noEmployee = true;
-    this.whyEmpty = "获取用工信息失败";
+  showResult(isEmpty: boolean, msg: string): void {
+    this.noEmployee = isEmpty;
+    this.whyEmpty = msg;
   }
 
   handleError(error: any) {//: Promise<any> {
-    this.showGetFailed();
+    this.showResult(true, "获取用工信息失败");
     console.log("An error occurred: \n", error);
     // return Promise.reject(error.message || error);
   }
@@ -91,6 +93,6 @@ export class EmployeeListPage implements OnInit {
 
   showItemDetails(item: EmployeeViewModel): void {
     console.log(item);
-    this.navCtrl.push("EmployeeDetailsPage", item);
+    this.app.getRootNav().push("EmployeeDetailsPage", item);
   }
 }

@@ -19,9 +19,10 @@ export class TabsPage {
   tab2Root = EmployeeListPage;
   tab3Root = MyPage;
 
-  constructor(public navCtrl: NavController,
-    public navParams: NavParams,
-    public storage: Storage) { }
+  constructor(
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private storage: Storage) { }
 
   ngOnInit(): void {
     console.log("TabsPage ngOnInit");

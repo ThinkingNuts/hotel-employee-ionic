@@ -15,20 +15,20 @@ import { EmployeeViewModel } from '../../view-model/employee-model';
 @IonicPage()
 @Component({
   selector: 'page-apply-records',
-  templateUrl: 'apply-records.html',
+  templateUrl: 'apply-records.html'
 })
 export class ApplyRecordsPage {
 
   private noRecords: boolean = true;
-  private whyEmpty: string = "当前没有申请记录";
+  private whyEmpty: string = "正在获取申请记录";
   private items: EmployeeViewModel[] = new Array<EmployeeViewModel>();
   private item0: EmployeeViewModel = new EmployeeViewModel();
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public baseHttp: BaseHttpServiceProvider,
-    public urlConfig: AppUrlConfigProvider) {
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private baseHttp: BaseHttpServiceProvider,
+    private urlConfig: AppUrlConfigProvider) {
   }
 
   ionViewDidLoad() {
@@ -39,17 +39,17 @@ export class ApplyRecordsPage {
     console.log("ApplyRecordsPage ngOnInit");
 
     // test code
-    this.noRecords = false;
-    this.item0.Id = 0;
-    this.item0.Title = "000000000000000000000";
-    this.item0.Num = 10;
-    this.item0.HotelName = "company0";
-    this.item0.ScheduleName = "白班";
-    this.item0.Billing = "￥30/h";
-    this.item0.TimeStr = "xxxxx";
-    this.items.push(this.item0);
+    // this.noRecords = false;
+    // this.item0.Id = 0;
+    // this.item0.Title = "000000000000000000000";
+    // this.item0.Num = 10;
+    // this.item0.HotelName = "company0";
+    // this.item0.ScheduleName = "白班";
+    // this.item0.Billing = "￥30/h";
+    // this.item0.TimeStr = "xxxxx";
+    // this.items.push(this.item0);
 
-    // this.getList(null);
+    this.getList(null);
   }
 
   getList(refresher): void {
@@ -59,10 +59,10 @@ export class ApplyRecordsPage {
       (res) => {
         console.log(res);
         if (!res) {
-          this.showGetFailed();
+          this.showResult(true, "当前没有申请记录");
           return;
         }
-        this.noRecords = false;
+        this.showResult(false, "已获取申请记录");
         this.items = res;
         if (refresher) {
           refresher.complete();
@@ -74,20 +74,20 @@ export class ApplyRecordsPage {
       );
   }
 
-  showGetFailed(): void {
-    this.noRecords = true;
-    this.whyEmpty = "获取申请记录失败";
+  showResult(isEmpty: boolean, msg: string): void {
+    this.noRecords = isEmpty;
+    this.whyEmpty = msg;
   }
 
   handleError(error: any) {//: Promise<any> {
-    this.showGetFailed();
+    this.showResult(true, "获取申请记录失败");
     console.log("An error occurred: \n", error);
     // return Promise.reject(error.message || error);
   }
 
   doRefresh(refresher): void {
     console.log("doRefresh ");
-    // this.getList(refresher);
+    this.getList(refresher);
   }
 
   showItemDetails(item: EmployeeViewModel): void {

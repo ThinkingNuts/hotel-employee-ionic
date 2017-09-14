@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { App, NavController } from 'ionic-angular';
 
 @Component({
   selector: 'page-my',
@@ -24,11 +24,12 @@ export class MyPage {
     pageName: "AboutPage"
   }];
 
-  constructor(public navCtrl: NavController) {
-
-  }
+  constructor(
+    private app: App,
+    private navCtrl: NavController) { }
 
   openPage(pageName: string): void {
-    this.navCtrl.push(pageName);
+    // this.navCtrl.push(pageName);
+    this.app.getRootNav().push(pageName);
   }
 }

@@ -21,9 +21,9 @@ export class LoginPage {
   private user: UserViewModel;
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams,
-    public storage: Storage) {
+    private navCtrl: NavController, 
+    private navParams: NavParams,
+    private storage: Storage) {
     this.user = navParams.data;
   }
 

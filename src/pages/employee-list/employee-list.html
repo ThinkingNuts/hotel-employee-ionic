@@ -8,14 +8,14 @@
 
 <ion-content padding>
   <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="Refreshing...">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
     </ion-refresher-content>
   </ion-refresher>
   <h3 class="no-employee" *ngIf="noEmployee">{{whyEmpty}}</h3>
   <ion-list *ngIf="!noEmployee">
     <ion-item *ngFor="let item of items" (click)="showItemDetails(item)">
       <ion-avatar item-start>
-        <!-- <img src="img/avatar-finn.png"> -->
+        <ion-icon name="happy" class="item-icon"></ion-icon>
       </ion-avatar>
       <h2>{{item.Title}}</h2>
       <p>{{item.HotelName}}</p>
