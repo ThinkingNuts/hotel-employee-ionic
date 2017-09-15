@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { UserViewModel } from '../../view-model/user-model';
+import { AccountProvider } from '../../providers/account/account';
 
 /**
  * Generated class for the LoginPage page.
@@ -18,33 +19,35 @@ import { UserViewModel } from '../../view-model/user-model';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  private user: UserViewModel;
+  private user: UserViewModel = new UserViewModel();
 
   constructor(
-    private navCtrl: NavController, 
+    private navCtrl: NavController,
     private navParams: NavParams,
-    private storage: Storage) {
-    this.user = navParams.data;
-  }
+    private storage: Storage,
+    private account: AccountProvider) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
 
+  ngOnInit(): void {
+    this.account.getUserInfo((userInfo) => {
+      if (userInfo) {
+        this.user = userInfo;
+      }
+    });
+  }
+
   login(userName: string, pwd: string): void {
-    console.log("login userName: " + userName + ", pwd: " + pwd);
-    if (this.infoInvalid(userName, pwd)) return;
+    console.log("LoginPage: login userName: " + userName + ", pwd: " + pwd);
 
     this.user.name = userName;
     this.user.password = pwd;
-    // TODO login, and move lines below to callback when login successfully
-    this.saveUserInfo();
-    this.navCtrl.pop();
-  }
-
-  saveUserInfo(): void {
-    this.storage.ready().then(() => {
-      this.storage.set("user", this.user);
+    let _this = this;
+    this.account.login(this.user, () => {
+      console.log("LoginPage: in login callback");
+      _this.navCtrl.pop();
     });
   }
 
@@ -54,21 +57,6 @@ export class LoginPage {
   }
 
   infoInvalid(userName: string, pwd: string): boolean {
-    return this.isEmpty(userName) || this.isEmpty(pwd);
-  }
-
-  isEmpty(obj: string): boolean {
-    if (obj === null) return true;
-    if (typeof obj === 'undefined') {
-      return true;
-    }
-    if (typeof obj === 'string') {
-      if (obj.trim() === "") {
-        return true;
-      }
-      var reg = new RegExp("^([ ]+)|([　]+)$");
-      return reg.test(obj);
-    }
-    return false;
+    return this.account.infoInvalid(userName, pwd);
   }
 }

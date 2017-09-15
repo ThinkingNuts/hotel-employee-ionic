@@ -30,16 +30,17 @@ export class TabsPage {
   }
 
   checkLogin(): void {
-    this.storage.ready().then(() => {
-      this.storage.get("user").then((value) => {
-        console.log(JSON.stringify(value));
-        let user: UserViewModel = value;
-        this.openPage("LoginPage", user);
-      });
-    });
+    //TODO judge if in login
+    // this.storage.ready().then(() => {
+    //   this.storage.get("user").then((value) => {
+    //     console.log(JSON.stringify(value));
+    //     let user: UserViewModel = value;
+        this.openPage("LoginPage");
+    //   });
+    // });
   }
 
-  openPage(pageName: string, params) {
-    this.navCtrl.push(pageName, params);
+  openPage(pageName: string) {
+    this.navCtrl.push(pageName);
   }
 }

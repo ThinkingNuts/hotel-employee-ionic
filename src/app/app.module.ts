@@ -16,6 +16,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { BaseHttpServiceProvider } from '../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../providers/app-url-config/app-url-config';
+import { AccountProvider } from '../providers/account/account';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { AppUrlConfigProvider } from '../providers/app-url-config/app-url-config
     MyPage
   ],
   providers: [
+    AccountProvider,
     BaseHttpServiceProvider,
     AppUrlConfigProvider,
     StatusBar,
