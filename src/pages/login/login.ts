@@ -42,8 +42,8 @@ export class LoginPage {
   login(userName: string, pwd: string): void {
     console.log("LoginPage: login userName: " + userName + ", pwd: " + pwd);
 
-    this.user.name = userName;
-    this.user.password = pwd;
+    this.user.Name = userName;
+    this.user.Pwd = pwd;
     let _this = this;
     this.account.login(this.user, () => {
       console.log("LoginPage: in login callback");

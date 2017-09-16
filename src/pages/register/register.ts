@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { BaseHttpServiceProvider, JsonResult } from '../../providers/base-http-service/base-http-service';
 
 import { UserViewModel } from '../../view-model/user-model';
+import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
 
 /**
  * Generated class for the RegisterPage page.
@@ -19,8 +21,11 @@ export class RegisterPage {
 
   private user: UserViewModel = new UserViewModel();
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private baseHttp: BaseHttpServiceProvider,
+    private urlConfig: AppUrlConfigProvider) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
@@ -28,8 +33,19 @@ export class RegisterPage {
 
   onRegister() {
     console.log('onRegister RegisterPage  ' + this.user.toString());
-    this.goBack();
+    this.toRegister();
   }
+
+  toRegister(): void {
+    this.baseHttp.post<UserViewModel, JsonResult>(this.user,
+      this.urlConfig.userConfig.userRegisterUrl).then(
+        d=>{
+          let mes:string = d.message;
+          console.log("Register result " + mes);
+          this.goBack();
+        }).catch();
+  }
+
 
   goBack(): void {
     this.navCtrl.pop();

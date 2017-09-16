@@ -28,7 +28,8 @@ class EmployeeConfig {
 }
 
 class UserConfig {
-  public userLoginUrl: string = ""//"http://192.168.200.250/webrtc/home/login";
+  public userLoginUrl: string = "";//"http://192.168.200.250/webrtc/home/login";
+  public userRegisterUrl: string = "http://123.56.15.145:5000/ServicePerson/Create";
 }
 
 class SignalrConfig {

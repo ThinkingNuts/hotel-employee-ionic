@@ -1,23 +1,24 @@
 import { BaseViewModel } from '../providers/base-http-service/base-http-service';
 
 export class UserViewModel extends BaseViewModel {
-  public name: string;
-  public password: string;
-  public sex: String = "男";
-  public alias: String;
-  public idCard: String;
-  public phone: number;
-  public address: String;
+  public RealName: string;
+  public Pwd: string;
+  public Sex: string = "男";
+  public Name: string;
+  public IdentityCard: string;
+  public Phone: number;
+  public Address: string;
 
   toString() {
-    console.log(`name:${this.name}, password:${this.password}, 
-    sex:${this.sex}, alias:${this.alias}, idCard:${this.idCard},
-     phone:${this.phone}, address:${this.address}`);
+    console.log(`RealName:${this.RealName}, Pwd
+:${this.Pwd
+}, 
+    Sex:${this.Sex}, Name:${this.Name}, IdentityCard:${this.IdentityCard},
+     Phone:${this.Phone}, Address:${this.Address}`);
   }
   
   ObjectToSerialize() {
-    return `name=${this.name}&password=${this.password}&sex=${this.sex}&alias=${this.alias}
-    &idCard=${this.idCard}&phone=${this.phone}
-    &address=${this.address}`;
+    return `RealName=${this.RealName}&Pwd=${this.Pwd}&Sex=${this.Sex}&Name=${this.Name}&IdentityCard=${this.IdentityCard}&Phone=${this.Phone}
+    &Address=${this.Address}`;
   }
 }

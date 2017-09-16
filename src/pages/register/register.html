@@ -18,10 +18,10 @@
   <ion-list>
     <ion-item>
       <ion-label fixed>昵称</ion-label>
-      <ion-input type="text" [(ngModel)]="user.alias" placeholder="请输入昵称"></ion-input>
+      <ion-input type="text" [(ngModel)]="user.Name" placeholder="请输入昵称"></ion-input>
     </ion-item>
 
-    <ion-list radio-group [(ngModel)]="user.sex">
+    <ion-list radio-group [(ngModel)]="user.Sex">
       <ion-list-header>
         性别
       </ion-list-header>
@@ -37,28 +37,28 @@
     
     <ion-item>
       <ion-label fixed>密码</ion-label>
-      <ion-input type="password" placeholder="请输入密码" [(ngModel)]="user.password"></ion-input>
+      <ion-input type="password" placeholder="请输入密码" [(ngModel)]="user.Pwd"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label fixed>真实姓名</ion-label>
-      <ion-input type="text" value="" placeholder="请输入真实姓名" [(ngModel)]="user.name"></ion-input>
+      <ion-input type="text" value="" placeholder="请输入真实姓名" [(ngModel)]="user.RealName"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label fixed>身份证</ion-label>
-      <ion-input type="number" value="" placeholder="请输入身份证" [(ngModel)]="user.idCard"></ion-input>
+      <ion-input type="number" value="" placeholder="请输入身份证" [(ngModel)]="user.IdentityCard"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label fixed>手机号</ion-label>
-      <ion-input type="number" value="" placeholder="请输入手机号" [(ngModel)]="user.phone"></ion-input>
+      <ion-input type="number" value="" placeholder="请输入手机号" [(ngModel)]="user.Phone"></ion-input>
     </ion-item>
 
 
     <ion-item>
       <ion-label fixed>通讯地址</ion-label>
-      <ion-input type="text" value="" placeholder="请输入通讯地址" [(ngModel)]="user.address"></ion-input>
+      <ion-input type="text" value="" placeholder="请输入通讯地址" [(ngModel)]="user.Address"></ion-input>
     </ion-item>
 
   </ion-list>

@@ -29,13 +29,13 @@ export class AccountProvider {
   }
 
   login(user: UserViewModel, callback) {
-    if (this.infoInvalid(user.name, user.password)) return;
+    if (this.infoInvalid(user.Name, user.Pwd)) return;
     // TODO release lines below
     // this.baseHttp
     //   .post(user, this.urlConfig.userConfig.userLoginUrl)
     //   .then((response) => {
     //     console.log(response);
-        console.log("AccountProvider: login userName: " + user.name + ", pwd: " + user.password);
+        console.log("AccountProvider: login userName: " + user.Name + ", pwd: " + user.Pwd);
         this.saveUserInfo(user);
         callback();
       // });
