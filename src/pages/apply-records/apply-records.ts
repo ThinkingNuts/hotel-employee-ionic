@@ -47,7 +47,7 @@ export class ApplyRecordsPage {
       .subscribe(
       (res) => {
         console.log(res);
-        if (!res) {
+        if (!res || res.length === 0) {
           this.showResult(true, "当前没有申请记录");
           return;
         }
