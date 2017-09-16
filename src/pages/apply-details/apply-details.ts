@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { EmployeeViewModel } from '../../view-model/employee-model';
+import { ApplyViewModel } from '../../view-model/apply-model';
 
 /**
  * Generated class for the ApplyDetailsPage page.
@@ -16,10 +16,10 @@ import { EmployeeViewModel } from '../../view-model/employee-model';
 })
 export class ApplyDetailsPage implements OnInit{
 
-  private item: EmployeeViewModel = null;
+  private item: ApplyViewModel = null;
   
     constructor(public navCtrl: NavController, public navParams: NavParams) {
-      this.item = navParams.data
+      this.item = navParams.data;
     }
   
     ionViewDidLoad() {
@@ -31,4 +31,5 @@ export class ApplyDetailsPage implements OnInit{
       
     }
 
+    
 }

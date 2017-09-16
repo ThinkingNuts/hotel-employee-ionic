@@ -29,13 +29,13 @@ export class AppUrlConfigProvider {
 
 class EmployeeConfig {
   public employeeListUrl: string = URL_ROOT + "HotelOrder/List";
-  public applyRecordsUrl: string = URL_ROOT + "PersonOrder/List";
+  public applyRecordsUrl: string = URL_ROOT + "ServicePerson/Orders/";
   public applyUrl: string = URL_ROOT + "PersonOrder/Create";
 }
 
 class UserConfig {
   public userLoginUrl: string = "";//"http://192.168.200.250/webrtc/home/login";
-  public userRegisterUrl: string = URL_ROOT +"ServicePerson/Create";
+  public userRegisterUrl: string = URL_ROOT + "ServicePerson/Create";
 }
 
 class SignalrConfig {

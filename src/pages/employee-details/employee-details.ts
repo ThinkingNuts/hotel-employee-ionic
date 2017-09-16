@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { EmployeeViewModel } from '../../view-model/employee-model';
 
 import { BaseHttpServiceProvider, JsonResult } from '../../providers/base-http-service/base-http-service';
@@ -18,13 +18,14 @@ import { BaseViewModel } from '../../providers/base-http-service/base-http-servi
   selector: 'page-employee-details',
   templateUrl: 'employee-details.html',
 })
-export class EmployeeDetailsPage implements OnInit{
+export class EmployeeDetailsPage implements OnInit {
 
   private item: EmployeeViewModel = null;
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
+    private toast: ToastController,
     private baseHttp: BaseHttpServiceProvider,
     private urlConfig: AppUrlConfigProvider) {
     this.item = navParams.data
@@ -36,7 +37,7 @@ export class EmployeeDetailsPage implements OnInit{
 
   ngOnInit(): void {
     console.log('ngOnInit EmployeeDetailsPage');
-    
+
   }
 
   onApply(): void {
@@ -51,19 +52,27 @@ export class EmployeeDetailsPage implements OnInit{
 
   }
 
-  toApply(order:OrderModule): void {
+  toApply(order: OrderModule): void {
     this.baseHttp.post<OrderModule, JsonResult>(order,
       this.urlConfig.employeeConfig.applyUrl).then(
-        d=>{
-          let mes:string = d.message;
-          console.log("Register result " + mes);
-        }).catch();
+      d => {
+        let mes: string = d.message;
+        console.log("Register result " + mes);
+        this.showApplyResult(d);
+      }).catch();
   }
 
+  private showApplyResult(msg: JsonResult): void {
+    this.toast.create({
+      message: msg.message,
+      duration: 2000,
+      position: "bottom"
+    }).present();
+  }
 }
 
 export class OrderModule extends BaseViewModel {
-  public PersonId:number;
+  public PersonId: number;
   public OrderId: number;
   public Status: number;
   public Mark: string;

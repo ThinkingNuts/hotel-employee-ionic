@@ -15,19 +15,19 @@
   
   <ion-content padding>
     <div *ngIf="item != null">
-      <h3>{{item.Title}}</h3>
-      <p>招{{item.Num}}人</p>
-      <p>{{item.HotelName}}</p>
-      <p>创建时间：{{item.TimeStr}}</p>
-      <p>工作排班：{{item.ScheduleName}}</p>
+      <h3>{{item.Order.Title}}</h3>
+      <p>招{{item.Order.Num}}人</p>
+      <p>{{item.Order.HotelName}}</p>
+      <p>创建时间：{{item.Order.CreateTime}}</p>
+      <p>工作排班：{{item.Order.ScheduleName}}</p>
   
-      <p>工作类型：{{item.WorkTypeName}}</p>
+      <p>工作类型：{{item.Order.WorkTypeName}}</p>
   
-      <p>开始时间：{{item.Start}}</p>
-      <p>结束时间：{{item.End}}</p>
+      <p>开始时间：{{item.Order.Start}}</p>
+      <p>结束时间：{{item.Order.End}}</p>
   
-      <p>计费方式：{{item.Billing}}</p>
-      <p>说明：{{item.Mark}}</p>
+      <p>计费方式：{{item.Order.Billing}}</p>
+      <p>说明：{{item.Order.Mark}}</p>
 
     </div>
   
