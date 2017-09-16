@@ -59,7 +59,11 @@ export class EmployeeDetailsPage implements OnInit {
         let mes: string = d.message;
         console.log("Register result " + mes);
         this.showApplyResult(d);
-      }).catch();
+      }).catch(this.handleError);
+  }
+
+  handleError(error: any) {
+    console.log("An error occurred to apply: \n", error);
   }
 
   private showApplyResult(msg: JsonResult): void {
