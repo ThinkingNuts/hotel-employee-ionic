@@ -9,4 +9,19 @@ page-employee-list {
     width: 10%;
     font-size: 60px;
   }
+  .apply-status div {
+    padding: 10px 6px;
+    border-radius: 6px;
+    text-align: center;
+    color: white;
+  }
+  .apply-status-pass{
+    background: #46F146;
+  }
+  .apply-status-waitcheck{
+    background: orchid;
+  }
+  .apply-status-notpass{
+    background: red;
+  }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { EmployeeViewModel } from '../../view-model/employee-model';
 
 import { BaseHttpServiceProvider, JsonResult } from '../../providers/base-http-service/base-http-service';
@@ -26,9 +26,10 @@ export class EmployeeDetailsPage implements OnInit {
     public navCtrl: NavController,
     public navParams: NavParams,
     private toast: ToastController,
+    private alert: AlertController,
     private baseHttp: BaseHttpServiceProvider,
     private urlConfig: AppUrlConfigProvider) {
-    this.item = navParams.data
+    this.item = navParams.data;
   }
 
   ionViewDidLoad() {
@@ -40,6 +41,28 @@ export class EmployeeDetailsPage implements OnInit {
 
   }
 
+  askApply(): void {
+    this.alert.create({
+      title: "提示",
+      message: "确认要申请吗？",
+      buttons: [
+        {
+          text: "取消",
+          handler: () => {
+            console.log("Disagree clicked");
+          }
+        },
+        {
+          text: "确认",
+          handler: () => {
+            console.log("Agree clicked");
+            this.onApply();
+          }
+        }
+      ]
+    }).present();
+  }
+
   onApply(): void {
     console.log('onApply EmployeeDetailsPage');
     let mOrder = new OrderModule();
@@ -49,7 +72,6 @@ export class EmployeeDetailsPage implements OnInit {
     mOrder.GUID = this.item.GUID;
     mOrder.Mark = this.item.Mark;
     this.toApply(mOrder);
-
   }
 
   toApply(order: OrderModule): void {
@@ -58,6 +80,7 @@ export class EmployeeDetailsPage implements OnInit {
       d => {
         let mes: string = d.message;
         console.log("Register result " + mes);
+        this.navCtrl.pop();
         this.showApplyResult(d);
       }).catch(this.handleError);
   }

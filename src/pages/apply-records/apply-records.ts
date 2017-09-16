@@ -22,7 +22,6 @@ export class ApplyRecordsPage {
   private noRecords: boolean = true;
   private whyEmpty: string = "正在获取申请记录";
   private items: ApplyViewModel[] = new Array<ApplyViewModel>();
-  private item0: ApplyViewModel = new ApplyViewModel();
 
   constructor(
     private navCtrl: NavController,
@@ -37,17 +36,6 @@ export class ApplyRecordsPage {
 
   ngOnInit(): void {
     console.log("ApplyRecordsPage ngOnInit");
-
-    // test code
-    // this.noRecords = false;
-    // this.item0.Id = 0;
-    // this.item0.Title = "000000000000000000000";
-    // this.item0.Num = 10;
-    // this.item0.HotelName = "company0";
-    // this.item0.ScheduleName = "白班";
-    // this.item0.Billing = "￥30/h";
-    // this.item0.TimeStr = "xxxxx";
-    // this.items.push(this.item0);
 
     this.getList(null);
   }

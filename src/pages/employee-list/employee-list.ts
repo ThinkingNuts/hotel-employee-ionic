@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { App, NavController, NavParams } from 'ionic-angular';
 import { EmployeeViewModel } from '../../view-model/employee-model';
+import { ApplyViewModel } from '../../view-model/apply-model';
 
 import { BaseHttpServiceProvider } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
@@ -13,8 +14,7 @@ export class EmployeeListPage implements OnInit {
 
   private noEmployee: boolean = true;
   private whyEmpty: string = "正在获取用工信息";
-  private item0: EmployeeViewModel = new EmployeeViewModel();
-  private items: EmployeeViewModel[] = new Array<EmployeeViewModel>();
+  private applyRecords: ApplyViewModel[] = new Array<ApplyViewModel>();
 
   constructor(
     private app: App,
@@ -26,21 +26,10 @@ export class EmployeeListPage implements OnInit {
   ngOnInit(): void {
     console.log('EmployeeListPage ngOnInit');
 
-    // test code
-    // this.noEmployee = false;
-    // this.item0.Id = 0;
-    // this.item0.Title = "000000000000000000000";
-    // this.item0.Num = 10;
-    // this.item0.HotelName = "company0";
-    // this.item0.ScheduleName = "白班";
-    // this.item0.Billing = "￥30/h";
-    // this.item0.TimeStr = "xxxxx";
-    // this.items.push(this.item0);
-
-    this.getList(null);
+    this.getEmployeeList(null);
   }
 
-  getList(refresher): void {
+  getEmployeeList(refresher): void {
     this.baseHttp.postJson<EmployeeViewModel, EmployeeViewModel[]>(new EmployeeViewModel(),
       this.urlConfig.employeeConfig.employeeListUrl)
       .subscribe(
@@ -51,7 +40,12 @@ export class EmployeeListPage implements OnInit {
           return;
         }
         this.showResult(false, "已获取用工信息");
-        this.items = res;
+        res.forEach(e => {
+          let newApply = new ApplyViewModel();
+          newApply.Order = e;
+          this.applyRecords.push(newApply);
+        });
+        this.getApplyList();
         if (refresher) {
           refresher.complete();
         }
@@ -60,19 +54,32 @@ export class EmployeeListPage implements OnInit {
         this.handleError(error);
       }
       );
-    // .then((response) => {
-    //   console.log(response);
-    //   if (!response) {
-    //     this.showGetFailed();
-    //     return;
-    //   }
-    //   this.noEmployee = false;
-    //   this.items = response;
-    //   if (refresher) {
-    //     refresher.complete();
-    //   }
-    // })
-    // .catch(this.handleError);
+  }
+
+  getApplyList(): void {
+    let personId = 2;
+    this.baseHttp.postJson<ApplyViewModel, ApplyViewModel[]>(new ApplyViewModel(),
+      this.urlConfig.employeeConfig.applyRecordsUrl + personId)
+      .subscribe(
+      (res) => {
+        console.log(res);
+        if (!res) {
+          return;
+        }
+        this.applyRecords.forEach(item => {
+          res.forEach(apply => {
+            if (item.Order.GUID == apply.Order.GUID) {
+              item.ApplyTime = apply.ApplyTime;
+              item.Status = apply.Status;
+              item.StatusStr = apply.StatusStr;
+            }
+          });
+        });
+      },
+      (error) => {
+        this.handleError(error);
+      }
+      );
   }
 
   showResult(isEmpty: boolean, msg: string): void {
@@ -88,7 +95,7 @@ export class EmployeeListPage implements OnInit {
 
   doRefresh(refresher): void {
     console.log("doRefresh ");
-    this.getList(refresher);
+    this.getEmployeeList(refresher);
   }
 
   showItemDetails(item: EmployeeViewModel): void {

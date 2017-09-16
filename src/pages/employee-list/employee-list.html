@@ -13,13 +13,18 @@
   </ion-refresher>
   <h3 class="no-employee" *ngIf="noEmployee">{{whyEmpty}}</h3>
   <ion-list *ngIf="!noEmployee">
-    <ion-item *ngFor="let item of items" (click)="showItemDetails(item)">
+    <ion-item *ngFor="let item of applyRecords" (click)="showItemDetails(item.Order)">
       <ion-avatar item-start>
         <ion-icon name="happy" class="item-icon"></ion-icon>
       </ion-avatar>
-      <h2>{{item.Title}}</h2>
-      <p>{{item.HotelName}}</p>
-      <p>{{item.Billing}}</p>
+      <ion-avatar class="apply-status" item-end [ngSwitch]="item.Status">
+        <div *ngSwitchCase="'1'" class="apply-status-waitcheck">{{item.StatusStr}}</div>
+        <div *ngSwitchCase="'2'" class="apply-status-pass">{{item.StatusStr}}</div>
+        <div *ngSwitchCase="'3'" class="apply-status-notpass">{{item.StatusStr}}</div>
+      </ion-avatar>
+      <h2>{{item.Order.Title}}</h2>
+      <p>{{item.Order.HotelName}}</p>
+      <p>{{item.Order.Billing}}</p>
     </ion-item>
   </ion-list>
 </ion-content>

@@ -14,22 +14,22 @@ import { ApplyViewModel } from '../../view-model/apply-model';
   selector: 'page-apply-details',
   templateUrl: 'apply-details.html',
 })
-export class ApplyDetailsPage implements OnInit{
+export class ApplyDetailsPage implements OnInit {
 
   private item: ApplyViewModel = null;
-  
-    constructor(public navCtrl: NavController, public navParams: NavParams) {
-      this.item = navParams.data;
-    }
-  
-    ionViewDidLoad() {
-      console.log('ionViewDidLoad EmployeeDetailsPage');
-    }
-  
-    ngOnInit(): void {
-      console.log('ngOnInit EmployeeDetailsPage');
-      
-    }
 
-    
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.item = navParams.data;
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad EmployeeDetailsPage');
+  }
+
+  ngOnInit(): void {
+    console.log('ngOnInit EmployeeDetailsPage');
+
+  }
+
+
 }
