@@ -66,7 +66,7 @@ export class EmployeeDetailsPage implements OnInit {
   onApply(): void {
     console.log('onApply EmployeeDetailsPage');
     let mOrder = new OrderModule();
-    mOrder.PersonId = 2;
+    mOrder.PersonId = 6;
     mOrder.OrderId = this.item.Id;
     mOrder.Status = 1;
     mOrder.GUID = this.item.GUID;
