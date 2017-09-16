@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+const URL_ROOT: string = "http://123.56.15.145:5000/";
+
 @Injectable()
 export class AppUrlConfigProvider {
 
@@ -15,6 +17,9 @@ export class AppUrlConfigProvider {
    */
   public signalrConfig: SignalrConfig = new SignalrConfig();
 
+  /**
+   * 用工信息及申请配置
+   */
   public employeeConfig: EmployeeConfig = new EmployeeConfig();
 
   constructor(public http: Http) {
@@ -23,13 +28,14 @@ export class AppUrlConfigProvider {
 }
 
 class EmployeeConfig {
-  public employeeListUrl: string = "http://123.56.15.145:5000/HotelOrder/List";
-  public applyRecordsUrl: string = "http://123.56.15.145:5000/PersonOrder/List";
+  public employeeListUrl: string = URL_ROOT + "HotelOrder/List";
+  public applyRecordsUrl: string = URL_ROOT + "PersonOrder/List";
+  public applyUrl: string = URL_ROOT + "PersonOrder/Create";
 }
 
 class UserConfig {
   public userLoginUrl: string = "";//"http://192.168.200.250/webrtc/home/login";
-  public userRegisterUrl: string = "http://123.56.15.145:5000/ServicePerson/Create";
+  public userRegisterUrl: string = URL_ROOT +"ServicePerson/Create";
 }
 
 class SignalrConfig {
