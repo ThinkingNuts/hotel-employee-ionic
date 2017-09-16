@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { EmployeeViewModel } from '../../view-model/employee-model';
 
+import { BaseHttpServiceProvider, JsonResult } from '../../providers/base-http-service/base-http-service';
+import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
+import { BaseViewModel } from '../../providers/base-http-service/base-http-service';
+
 /**
  * Generated class for the EmployeeDetailsPage page.
  *
@@ -18,7 +22,11 @@ export class EmployeeDetailsPage implements OnInit{
 
   private item: EmployeeViewModel = null;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    private baseHttp: BaseHttpServiceProvider,
+    private urlConfig: AppUrlConfigProvider) {
     this.item = navParams.data
   }
 
@@ -33,8 +41,36 @@ export class EmployeeDetailsPage implements OnInit{
 
   onApply(): void {
     console.log('onApply EmployeeDetailsPage');
-    
+    let mOrder = new OrderModule();
+    mOrder.PersonId = 2;
+    mOrder.OrderId = this.item.Id;
+    mOrder.Status = 1;
+    mOrder.GUID = this.item.GUID;
+    mOrder.Mark = this.item.Mark;
+    this.toApply(mOrder);
 
   }
 
+  toApply(order:OrderModule): void {
+    this.baseHttp.post<OrderModule, JsonResult>(order,
+      this.urlConfig.employeeConfig.applyUrl).then(
+        d=>{
+          let mes:string = d.message;
+          console.log("Register result " + mes);
+        }).catch();
+  }
+
+}
+
+export class OrderModule extends BaseViewModel {
+  public PersonId:number;
+  public OrderId: number;
+  public Status: number;
+  public Mark: string;
+  public GUID: string;
+
+  ObjectToSerialize() {
+    return `PersonId=${this.PersonId}&OrderId=${this.OrderId}&Status=${this.Status}&Mark=${this.Mark}
+    &GUID=${this.GUID}`;
+  }
 }
