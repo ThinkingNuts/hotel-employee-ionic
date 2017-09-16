@@ -40,6 +40,7 @@ export class EmployeeListPage implements OnInit {
           return;
         }
         this.showResult(false, "已获取用工信息");
+        this.applyRecords = [];
         res.forEach(e => {
           let newApply = new ApplyViewModel();
           newApply.Order = e;
@@ -57,7 +58,7 @@ export class EmployeeListPage implements OnInit {
   }
 
   getApplyList(): void {
-    let personId = 2;
+    let personId = 6;
     this.baseHttp.postJson<ApplyViewModel, ApplyViewModel[]>(new ApplyViewModel(),
       this.urlConfig.employeeConfig.applyRecordsUrl + personId)
       .subscribe(

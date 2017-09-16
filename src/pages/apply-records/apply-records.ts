@@ -41,7 +41,7 @@ export class ApplyRecordsPage {
   }
 
   getList(refresher): void {
-    let personId = 2;
+    let personId = 6;
     this.baseHttp.postJson<ApplyViewModel, ApplyViewModel[]>(new ApplyViewModel(),
       this.urlConfig.employeeConfig.applyRecordsUrl + personId)
       .subscribe(
