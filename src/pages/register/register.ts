@@ -43,9 +43,12 @@ export class RegisterPage {
           let mes:string = d.message;
           console.log("Register result " + mes);
           this.goBack();
-        }).catch();
+        }).catch(this.handleError);
   }
 
+  handleError(error: any) {
+    console.log("An error occurred to register: \n", error);
+  }
 
   goBack(): void {
     this.navCtrl.pop();

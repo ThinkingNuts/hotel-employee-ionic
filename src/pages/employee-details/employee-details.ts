@@ -57,7 +57,11 @@ export class EmployeeDetailsPage implements OnInit{
         d=>{
           let mes:string = d.message;
           console.log("Register result " + mes);
-        }).catch();
+        }).catch(this.handleError);
+  }
+
+  handleError(error: any) {
+    console.log("An error occurred to apply: \n", error);
   }
 
 }
