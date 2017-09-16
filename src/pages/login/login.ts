@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 
@@ -24,6 +24,7 @@ export class LoginPage {
   constructor(
     private navCtrl: NavController,
     private navParams: NavParams,
+    private toast: ToastController,
     private storage: Storage,
     private account: AccountProvider) { }
 
@@ -45,9 +46,20 @@ export class LoginPage {
     this.user.Name = userName;
     this.user.Pwd = pwd;
     let _this = this;
-    this.account.login(this.user, () => {
+    this.account.login(this.user, (isOk) => {
       console.log("LoginPage: in login callback");
-      _this.navCtrl.pop();
+      if (isOk) {
+        _this.toast.create({
+          message: "登录成功",
+          duration: 2000
+        }).present();
+        _this.navCtrl.pop();
+      } else {
+        _this.toast.create({
+          message: "登录失败，请检查用户名和密码",
+          duration: 2000
+        }).present();
+      }
     });
   }
 

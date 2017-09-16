@@ -30,6 +30,12 @@ export class AccountProvider {
 
   login(user: UserViewModel, callback) {
     if (this.infoInvalid(user.Name, user.Pwd)) return;
+
+    if(user.Name!=="admin" || user.Pwd!=="123456"){
+      callback(false);
+      return;
+    }
+
     // TODO release lines below
     // this.baseHttp
     //   .post(user, this.urlConfig.userConfig.userLoginUrl)
@@ -37,7 +43,7 @@ export class AccountProvider {
     //     console.log(response);
         console.log("AccountProvider: login userName: " + user.Name + ", pwd: " + user.Pwd);
         this.saveUserInfo(user);
-        callback();
+        callback(true);
       // });
   }
 
