@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { EmployeeViewModel } from '../../view-model/employee-model';
+import { ApplyViewModel } from '../../view-model/apply-model';
 
 import { BaseHttpServiceProvider, JsonResult } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
@@ -20,7 +21,7 @@ import { BaseViewModel } from '../../providers/base-http-service/base-http-servi
 })
 export class EmployeeDetailsPage implements OnInit {
 
-  private item: EmployeeViewModel = null;
+  private item: ApplyViewModel = null;
 
   constructor(
     public navCtrl: NavController,
@@ -45,21 +46,18 @@ export class EmployeeDetailsPage implements OnInit {
     this.alert.create({
       title: "提示",
       message: "确认要申请吗？",
-      buttons: [
-        {
-          text: "取消",
-          handler: () => {
-            console.log("Disagree clicked");
-          }
-        },
-        {
-          text: "确认",
-          handler: () => {
-            console.log("Agree clicked");
-            this.onApply();
-          }
+      buttons: [{
+        text: "取消",
+        handler: () => {
+          console.log("Disagree clicked");
         }
-      ]
+      }, {
+        text: "确认",
+        handler: () => {
+          console.log("Agree clicked");
+          this.onApply();
+        }
+      }]
     }).present();
   }
 
@@ -67,10 +65,10 @@ export class EmployeeDetailsPage implements OnInit {
     console.log('onApply EmployeeDetailsPage');
     let mOrder = new OrderModule();
     mOrder.PersonId = 6;
-    mOrder.OrderId = this.item.Id;
-    mOrder.Status = 1;
-    mOrder.GUID = this.item.GUID;
-    mOrder.Mark = this.item.Mark;
+    mOrder.OrderId = this.item.Order.Id;
+    mOrder.Status = parseInt(this.item.Status);
+    mOrder.GUID = this.item.Order.GUID;
+    mOrder.Mark = this.item.Order.Mark;
     this.toApply(mOrder);
   }
 

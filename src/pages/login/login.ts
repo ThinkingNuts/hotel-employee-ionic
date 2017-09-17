@@ -24,7 +24,7 @@ export class LoginPage {
   constructor(
     private navCtrl: NavController,
     private navParams: NavParams,
-    private toast: ToastController,
+    private toastCtrl: ToastController,
     private storage: Storage,
     private account: AccountProvider) { }
 
@@ -48,17 +48,16 @@ export class LoginPage {
     let _this = this;
     this.account.login(this.user, (isOk) => {
       console.log("LoginPage: in login callback");
+      let toast = _this.toastCtrl.create({
+        // message: "登录成功",
+        duration: 2000,
+        position: "top"
+      })
       if (isOk) {
-        _this.toast.create({
-          message: "登录成功",
-          duration: 2000
-        }).present();
+        toast.setMessage("登录成功").present();
         _this.navCtrl.pop();
       } else {
-        _this.toast.create({
-          message: "登录失败，请检查用户名和密码",
-          duration: 2000
-        }).present();
+        toast.setMessage("登录失败，请检查用户名和密码").present();
       }
     });
   }

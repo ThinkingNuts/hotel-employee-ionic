@@ -69,7 +69,7 @@ export class EmployeeListPage implements OnInit {
         }
         this.applyRecords.forEach(item => {
           res.forEach(apply => {
-            if (item.Order.GUID == apply.Order.GUID) {
+            if (item.Order.GUID === apply.Order.GUID) {
               item.ApplyTime = apply.ApplyTime;
               item.Status = apply.Status;
               item.StatusStr = apply.StatusStr;
@@ -99,7 +99,7 @@ export class EmployeeListPage implements OnInit {
     this.getEmployeeList(refresher);
   }
 
-  showItemDetails(item: EmployeeViewModel): void {
+  showItemDetails(item: ApplyViewModel): void {
     console.log(item);
     this.app.getRootNav().push("EmployeeDetailsPage", item);
   }

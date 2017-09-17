@@ -7,29 +7,34 @@ import { App, NavController } from 'ionic-angular';
 })
 export class MyPage {
 
-  content = [{
+  items: MyItem[] = [{
     content: "我的资料",
-    pageName: "MyDetailsPage"
+    pageName: "ToBeDeterminedPage"
   }, {
     content: "申请记录",
     pageName: "ApplyRecordsPage"
   }, {
     content: "我的工单",
-    pageName: "MyEmployeeListPage"
+    pageName: "TaskPage"
   }, {
     content: "修改密码",
-    pageName: "ModifyPasswordPage"
+    pageName: "ToBeDeterminedPage"
   }, {
     content: "关于",
-    pageName: "AboutPage"
+    pageName: "ToBeDeterminedPage"
   }];
 
   constructor(
     private app: App,
     private navCtrl: NavController) { }
 
-  openPage(pageName: string): void {
+  openPage(pageName: string, pageTitle: string): void {
     // this.navCtrl.push(pageName);
-    this.app.getRootNav().push(pageName);
+    this.app.getRootNav().push(pageName, pageTitle);
   }
+}
+
+class MyItem {
+  content: string;
+  pageName: string;
 }

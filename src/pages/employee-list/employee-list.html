@@ -1,30 +1,25 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
+    <!-- <ion-title>
       用工列表
-    </ion-title>
+    </ion-title> -->
+    <ion-searchbar (ionIFnput)="searhItems($event)" placeholder="搜索"></ion-searchbar>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
     </ion-refresher-content>
   </ion-refresher>
   <h3 class="no-employee" *ngIf="noEmployee">{{whyEmpty}}</h3>
   <ion-list *ngIf="!noEmployee">
-    <ion-item *ngFor="let item of applyRecords" (click)="showItemDetails(item.Order)">
-      <ion-avatar item-start>
-        <ion-icon name="happy" class="item-icon"></ion-icon>
-      </ion-avatar>
-      <ion-avatar class="apply-status" item-end [ngSwitch]="item.Status">
-        <div *ngSwitchCase="'1'" class="apply-status-waitcheck">{{item.StatusStr}}</div>
-        <div *ngSwitchCase="'2'" class="apply-status-pass">{{item.StatusStr}}</div>
-        <div *ngSwitchCase="'3'" class="apply-status-notpass">{{item.StatusStr}}</div>
-      </ion-avatar>
-      <h2>{{item.Order.Title}}</h2>
+    <ion-item *ngFor="let item of applyRecords" [ngClass]="{'item-applied': item.Status}" (click)="showItemDetails(item)">
+      <span> (1/{{item.Order.Num}}) </span>
+      <h2 class="item-title">{{item.Order.Title}}</h2>
       <p>{{item.Order.HotelName}}</p>
       <p>{{item.Order.Billing}}</p>
+      <label item-end *ngIf="item.Status">已申请</label>
     </ion-item>
   </ion-list>
 </ion-content>

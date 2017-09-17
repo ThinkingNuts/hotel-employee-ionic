@@ -2,12 +2,22 @@ page-employee-list {
   .no-employee {
     text-align: center;
   }
-  .item-icon{
+  .item-icon {
     font-size: 80px;
   }
-  .arrow-icon{
+  .item-title {
+    display: inline-block;
+  }
+  .arrow-icon {
     width: 10%;
     font-size: 60px;
+  }
+  .item-applied {
+    background: #EFECEC;
+  }
+  .item-applied label {
+    font-size: 80%;
+    color: #C1C1C1;
   }
   .apply-status div {
     padding: 10px 6px;
@@ -15,13 +25,13 @@ page-employee-list {
     text-align: center;
     color: white;
   }
-  .apply-status-pass{
+  .apply-status-pass {
     background: #46F146;
   }
-  .apply-status-waitcheck{
+  .apply-status-waitcheck {
     background: orchid;
   }
-  .apply-status-notpass{
+  .apply-status-notpass {
     background: red;
   }
 }
