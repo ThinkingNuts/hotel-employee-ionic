@@ -21,7 +21,7 @@ export class ApplyRecordsPage {
 
   private noRecords: boolean = true;
   private whyEmpty: string = "正在获取申请记录";
-  private items: ApplyViewModel[] = new Array<ApplyViewModel>();
+  private items: ApplyViewModel[] = [];
 
   constructor(
     private navCtrl: NavController,

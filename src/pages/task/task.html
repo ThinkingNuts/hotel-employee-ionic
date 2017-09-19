@@ -7,12 +7,52 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>足迹</ion-title>
+    <ion-title>我的任务</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <h3 class="no-records" *ngIf="noRecords">{{whyEmpty}}</h3>
 
+  <ul *ngIf="!noRecords" class="timeline">
+    <li class="timeline-node">
+      <a class="btn btn-palegreen">NOW</a>
+    </li>
+    <li *ngFor="let item of items">
+      <!-- <div class="timeline-datetime">
+        <span class="timeline-time">8:19</span>
+        <span class="timeline-date">Today</span>
+      </div> -->
+      <div class="timeline-badge blue">
+        <ion-icon name="leaf"></ion-icon>
+      </div>
+      <div class="timeline-panel bordered-bottom-2 bordered-right-2 bordered-blue">
+        <div class="timeline-header bordered-bottom bordered-blue">
+          <span class="timeline-title">{{item.Order.Start}}</span>
+          <!-- <p class="timeline-datetime"> -->
+            <div class="text-muted timeline-datetime">
+              <!-- <ion-icon name="leaf"></ion-icon> -->
+              -
+              <span class="timeline-date">{{item.Order.End}}</span>
+              <span class="timeline-time">{{item.Order.ScheduleName}}</span>
+              <span class="timeline-time">{{item.Order.WorkTypeName}}</span>
+            </div>
+          <!-- </p> -->
+        </div>
+        <div class="timeline-body">
+          <p>{{item.Order.Billing}}</p>
+          <p>{{item.Order.Title}}</p>
+        </div>
+      </div>
+    </li>
+    <li class="timeline-node">
+      <a class="btn btn-info">END</a>
+    </li>
+  </ul>
 </ion-content>

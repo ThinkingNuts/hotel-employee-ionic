@@ -14,7 +14,7 @@ export class MyPage {
     content: "申请记录",
     pageName: "ApplyRecordsPage"
   }, {
-    content: "我的工单",
+    content: "我的任务",
     pageName: "TaskPage"
   }, {
     content: "修改密码",

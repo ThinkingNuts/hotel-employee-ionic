@@ -49,7 +49,6 @@ export class LoginPage {
     this.account.login(this.user, (isOk) => {
       console.log("LoginPage: in login callback");
       let toast = _this.toastCtrl.create({
-        // message: "登录成功",
         duration: 2000,
         position: "top"
       })

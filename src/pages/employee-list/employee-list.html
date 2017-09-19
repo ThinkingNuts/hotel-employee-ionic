@@ -3,7 +3,10 @@
     <!-- <ion-title>
       用工列表
     </ion-title> -->
-    <ion-searchbar (ionIFnput)="searhItems($event)" placeholder="搜索"></ion-searchbar>
+    <button ion-button clear>上海
+      <!-- <ion-icon name="arrow-down-b"></ion-icon> -->
+    </button>
+    <ion-searchbar (ionInput)="searhItems($event)" placeholder="搜索"></ion-searchbar>
   </ion-navbar>
 </ion-header>
 
@@ -15,7 +18,7 @@
   <h3 class="no-employee" *ngIf="noEmployee">{{whyEmpty}}</h3>
   <ion-list *ngIf="!noEmployee">
     <ion-item *ngFor="let item of applyRecords" [ngClass]="{'item-applied': item.Status}" (click)="showItemDetails(item)">
-      <span> (1/{{item.Order.Num}}) </span>
+      <span class="num-hint"> (<span class="num-used">1</span>/<span class="num-total">{{item.Order.Num}}</span>) </span>
       <h2 class="item-title">{{item.Order.Title}}</h2>
       <p>{{item.Order.HotelName}}</p>
       <p>{{item.Order.Billing}}</p>

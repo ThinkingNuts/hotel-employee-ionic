@@ -14,7 +14,7 @@ export class EmployeeListPage implements OnInit {
 
   private noEmployee: boolean = true;
   private whyEmpty: string = "正在获取用工信息";
-  private applyRecords: ApplyViewModel[] = new Array<ApplyViewModel>();
+  private applyRecords: ApplyViewModel[] = [];
 
   constructor(
     private app: App,

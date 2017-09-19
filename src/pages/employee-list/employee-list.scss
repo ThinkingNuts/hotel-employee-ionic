@@ -1,4 +1,14 @@
 page-employee-list {
+  ion-searchbar{
+    display: inline-block;
+    width: 80%;
+  }
+  .num-hint {
+    color: blue;
+  }
+  .num-used {
+    color: #F78707
+  }
   .no-employee {
     text-align: center;
   }
@@ -13,11 +23,11 @@ page-employee-list {
     font-size: 60px;
   }
   .item-applied {
-    background: #EFECEC;
+    background: #F0F0F0;
   }
   .item-applied label {
     font-size: 80%;
-    color: #C1C1C1;
+    color: #C2C2C2;
   }
   .apply-status div {
     padding: 10px 6px;
@@ -26,12 +36,12 @@ page-employee-list {
     color: white;
   }
   .apply-status-pass {
-    background: #46F146;
+    background: #2BCA2B;
   }
   .apply-status-waitcheck {
     background: orchid;
   }
   .apply-status-notpass {
-    background: red;
+    background: #DA0505;
   }
 }
