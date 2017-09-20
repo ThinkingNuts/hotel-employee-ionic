@@ -32,7 +32,7 @@
       <div class="timeline-badge blue">
         <ion-icon name="leaf"></ion-icon>
       </div>
-      <div class="timeline-panel bordered-bottom-2 bordered-right-2 bordered-blue">
+      <div class="timeline-panel bordered-bottom-2 bordered-right-2 bordered-blue" (click)="showItemDetails(item)">
         <div class="timeline-header bordered-bottom bordered-blue">
           <span class="timeline-title">{{item.Order.Start}}</span>
           <!-- <p class="timeline-datetime"> -->

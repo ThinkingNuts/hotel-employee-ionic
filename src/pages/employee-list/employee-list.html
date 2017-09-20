@@ -3,10 +3,7 @@
     <!-- <ion-title>
       用工列表
     </ion-title> -->
-    <button ion-button clear>上海
-      <!-- <ion-icon name="arrow-down-b"></ion-icon> -->
-    </button>
-    <ion-searchbar (ionInput)="searhItems($event)" placeholder="搜索"></ion-searchbar>
+    <ion-searchbar (ionInput)="getItems($event)" placeholder="搜索"></ion-searchbar>
   </ion-navbar>
 </ion-header>
 
@@ -20,8 +17,8 @@
     <ion-item *ngFor="let item of applyRecords" [ngClass]="{'item-applied': item.Status}" (click)="showItemDetails(item)">
       <span class="num-hint"> (<span class="num-used">1</span>/<span class="num-total">{{item.Order.Num}}</span>) </span>
       <h2 class="item-title">{{item.Order.Title}}</h2>
-      <p>{{item.Order.HotelName}}</p>
-      <p>{{item.Order.Billing}}</p>
+      <p>{{item.Order.Billing}} | {{item.Order.HotelName}}</p>
+      <p>{{item.Order.WorkTypeName}} | {{item.Order.Mark}}</p>
       <label item-end *ngIf="item.Status">已申请</label>
     </ion-item>
   </ion-list>

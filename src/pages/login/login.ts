@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 import { Storage } from '@ionic/storage';
 
@@ -20,13 +21,24 @@ import { AccountProvider } from '../../providers/account/account';
 })
 export class LoginPage {
   private user: UserViewModel = new UserViewModel();
+  private loginForm: FormGroup;
+  private username: any;
+  private password: any;
 
   constructor(
     private navCtrl: NavController,
     private navParams: NavParams,
+    private formBuilder: FormBuilder,
     private toastCtrl: ToastController,
     private storage: Storage,
-    private account: AccountProvider) { }
+    private account: AccountProvider) {
+    this.loginForm = formBuilder.group({
+      username: ["", Validators.compose([Validators.required])],
+      password: ["", Validators.compose([Validators.required, Validators.minLength(6)])]
+    })
+    this.username = this.loginForm.controls['username'];
+    this.password = this.loginForm.controls['password'];
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
@@ -40,11 +52,11 @@ export class LoginPage {
     });
   }
 
-  login(userName: string, pwd: string): void {
-    console.log("LoginPage: login userName: " + userName + ", pwd: " + pwd);
+  login(value) {
+    console.log("LoginPage: login userName: " + value.username + ", pwd: " + value.password);
 
-    this.user.Name = userName;
-    this.user.Pwd = pwd;
+    this.user.Name = value.username;
+    this.user.Pwd = value.password;
     let _this = this;
     this.account.login(this.user, (isOk) => {
       console.log("LoginPage: in login callback");

@@ -81,4 +81,9 @@ export class TaskPage {
     console.log("doRefresh ");
     this.getList(refresher);
   }
+  
+  showItemDetails(item: ApplyViewModel): void {
+    console.log(item);
+    this.navCtrl.push("ApplyDetailsPage", item);
+  }
 }

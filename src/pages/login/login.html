@@ -14,18 +14,26 @@
 
 
 <ion-content padding>
-  <ion-list>
-    <ion-item class="item-input">
-      <!-- <ion-label>帐号：</ion-label> -->
-      <ion-input #userName type="text" placeholder="用户名" [(ngModel)]="user.name"></ion-input>
-    </ion-item>
-    <ion-item>
-      <!-- <ion-label>密码：</ion-label> -->
-      <ion-input #password type="password" placeholder="密码" [(ngModel)]="user.password"></ion-input>
-    </ion-item>
-  </ion-list>
-  <button class="action-btn" ion-button block (click)="login(userName.value, password.value)">登录</button>
-  <span class="error-hint" *ngIf="infoInvalid(userName.value, password.value)">用户名或密码为空</span>
+  <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)" novalidate>
+    <ion-list>
+      <ion-item class="item-input">
+        <!-- <ion-label>帐号：</ion-label> -->
+        <!-- <ion-input #userName type="text" placeholder="用户名" [(ngModel)]="user.name"></ion-input> -->
+        <ion-input type="tel" placeholder="用户名" [(ngModel)]="user.Name" [formControl]="username" clearInput=true></ion-input>
+      </ion-item>
+      <div class="error-hint" *ngIf="username.hasError('required') && username.touched">* 请输入用户名</div>
+      <ion-item>
+        <!-- <ion-label>密码：</ion-label> -->
+        <!-- <ion-input #password type="password" placeholder="密码" [(ngModel)]="user.password"></ion-input> -->
+        <ion-input type="password" placeholder="密码" [(ngModel)]="user.Pwd" [formControl]="password" clearInput=true></ion-input>
+      </ion-item>
+      <div class="error-hint" *ngIf="password.hasError('required') && password.touched">* 请输入密码</div>
+      <div class="error-hint" *ngIf="(password.hasError('minlength')) && password.touched">* 密码长度最少为六位</div>
+    </ion-list>
+    <!-- <button class="action-btn" ion-button block (click)="login(userName.value, password.value)">登录</button> -->
+    <button class="action-btn" ion-button block type="submit" [disabled]="!loginForm.valid">登录</button>
+  </form>
+  <!-- <span class="error-hint" *ngIf="infoInvalid(userName.value, password.value)">用户名或密码为空</span> -->
   <button class="forget-pwd">忘记密码？</button>
-  <button class="action-btn register-btn" clear ion-button (click)="gotoRegister()">还没账号？立即注册</button>
+  <button class="action-btn register-btn" ion-button clear (click)="gotoRegister()">还没账号？立即注册</button>
 </ion-content>

@@ -1,8 +1,4 @@
 page-employee-list {
-  ion-searchbar{
-    display: inline-block;
-    width: 80%;
-  }
   .num-hint {
     color: blue;
   }
@@ -24,6 +20,10 @@ page-employee-list {
   }
   .item-applied {
     background: #F0F0F0;
+    color: #777;
+  }
+  .item-applied *{
+    color: #777;
   }
   .item-applied label {
     font-size: 80%;
