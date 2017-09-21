@@ -1,0 +1,11 @@
+page-person-details {
+  .item-input {
+    padding: 0;
+  }
+  .must-have {
+    color: red;
+  }
+  ion-item-group *{
+    display: inline-block;
+  }
+}

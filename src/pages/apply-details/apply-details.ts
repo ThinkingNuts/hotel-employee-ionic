@@ -30,6 +30,4 @@ export class ApplyDetailsPage implements OnInit {
     console.log('ngOnInit EmployeeDetailsPage');
 
   }
-
-
 }

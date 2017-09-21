@@ -9,7 +9,7 @@ export class MyPage {
 
   items: MyItem[] = [{
     content: "我的资料",
-    pageName: "ToBeDeterminedPage"
+    pageName: "PersonDetailsPage"
   }, {
     content: "申请记录",
     pageName: "ApplyRecordsPage"

@@ -8,6 +8,12 @@ export class UserViewModel extends BaseViewModel {
   public IdentityCard: string;
   public Phone: number;
   public Address: string;
+  public Icon;
+  public Status: string;
+  public Orders;
+  public Id: string;
+  public GUID: string;
+  public TimeStr: string;
 
   toString() {
     console.log(`RealName:${this.RealName}, Pwd

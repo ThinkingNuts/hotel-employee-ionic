@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { EmployeeViewModel } from '../../view-model/employee-model';
 import { ApplyViewModel } from '../../view-model/apply-model';
+import { HotelViewModel } from '../../view-model/hotel-model';
 
-import { BaseHttpServiceProvider, JsonResult } from '../../providers/base-http-service/base-http-service';
+import { BaseHttpServiceProvider, JsonResult, BaseViewModel } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
-import { BaseViewModel } from '../../providers/base-http-service/base-http-service';
 
 /**
  * Generated class for the EmployeeDetailsPage page.
@@ -22,6 +22,7 @@ import { BaseViewModel } from '../../providers/base-http-service/base-http-servi
 export class EmployeeDetailsPage implements OnInit {
 
   private item: ApplyViewModel = null;
+  private hotelDetails: HotelViewModel = null;
 
   constructor(
     public navCtrl: NavController,
@@ -39,7 +40,7 @@ export class EmployeeDetailsPage implements OnInit {
 
   ngOnInit(): void {
     console.log('ngOnInit EmployeeDetailsPage');
-
+    this.getHotelDetails(this.item.Order.HotelId);
   }
 
   askApply(): void {
@@ -93,6 +94,23 @@ export class EmployeeDetailsPage implements OnInit {
       duration: 2000,
       position: "bottom"
     }).present();
+  }
+
+  showHotelDetails(hotel: HotelViewModel): void {
+    if (!hotel) return;
+    this.navCtrl.push("HotelDetailsPage", hotel);
+  }
+
+  getHotelDetails(hotelId: string): void {
+    this.baseHttp.post<BaseViewModel, JsonResult>(new BaseViewModel,
+      this.urlConfig.employeeConfig.hotelDetailsUrl + hotelId)
+      .then(d => {
+        console.log("HotelDetails:: " + JSON.stringify(d));
+        if (d.state == true) {
+          this.hotelDetails = d["data"];
+        }
+      })
+      .catch(this.handleError);
   }
 }
 

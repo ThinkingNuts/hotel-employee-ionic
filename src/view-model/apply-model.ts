@@ -6,6 +6,7 @@ export class ApplyViewModel extends BaseViewModel {
   Status: string;
   StatusStr: string;
   ApplyTime: string;
+  TotalApply: number;
 
   ObjectToSerialize() {
     return `Order=${this.Order.ObjectToSerialize}&Status=${this.Status}&StatusStr=${this.StatusStr}&ApplyTime=${this.ApplyTime}`;

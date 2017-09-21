@@ -28,7 +28,7 @@
       </ion-avatar>
       <h2>{{item.Order.Title}}</h2>
       <p>{{item.Order.Billing}} | {{item.Order.WorkTypeName}} | {{item.Order.ScheduleName}}</p>
-      <p>申请时间：{{item.ApplyTime}}</p>
+      <p>申请时间：{{item.ApplyTime | date:"yyyy-MM-dd HH:mm"}}</p>
     </ion-item>
   </ion-list>
 </ion-content>

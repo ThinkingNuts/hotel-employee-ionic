@@ -15,7 +15,7 @@
   <h3 class="no-employee" *ngIf="noEmployee">{{whyEmpty}}</h3>
   <ion-list *ngIf="!noEmployee">
     <ion-item *ngFor="let item of applyRecords" [ngClass]="{'item-applied': item.Status}" (click)="showItemDetails(item)">
-      <span class="num-hint"> (<span class="num-used">1</span>/<span class="num-total">{{item.Order.Num}}</span>) </span>
+      <span class="num-hint"> (<span class="num-used">{{item.TotalApply || 0}}</span>/<span class="num-total">{{item.Order.Num}}</span>) </span>
       <h2 class="item-title">{{item.Order.Title}}</h2>
       <p>{{item.Order.Billing}} | {{item.Order.HotelName}}</p>
       <p>{{item.Order.WorkTypeName}} | {{item.Order.Mark}}</p>

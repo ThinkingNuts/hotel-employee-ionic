@@ -70,6 +70,7 @@ export class EmployeeListPage implements OnInit {
         this.applyRecords.forEach(item => {
           res.forEach(apply => {
             if (item.Order.GUID === apply.Order.GUID) {
+              item.TotalApply = apply.TotalApply;
               item.ApplyTime = apply.ApplyTime;
               item.Status = apply.Status;
               item.StatusStr = apply.StatusStr;

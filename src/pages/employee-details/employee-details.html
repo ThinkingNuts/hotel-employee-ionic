@@ -16,11 +16,12 @@
 <ion-content>
   <div padding *ngIf="item != null">
     <h3>{{item.Order.Title}}</h3>
-    <small>创建于 {{item.Order.TimeStr}} </small>
+    <small>创建于 {{item.Order.TimeStr | date:"yyyy-MM-dd HH:mm"}} </small>
     <h6 class="billing">{{item.Order.Billing}}</h6>
     <p>
       <ion-icon class="icon-color" name="person"></ion-icon>
       招 {{item.Order.Num}} 人
+      <small>（已招 {{item.TotalApply || 0}} 人）</small>
     </p>
     <p>
       <ion-icon class="icon-color" name="pricetag"></ion-icon>
@@ -28,13 +29,13 @@
     </p>
     <ion-item-group>
       <ion-item-divider color="light"></ion-item-divider>
-      <p>
+      <p (click)="showHotelDetails(hotelDetails)">
         <ion-icon class="icon-color" name="flag"></ion-icon>
          {{item.Order.HotelName}}
       </p>
       <p>
         <!-- <ion-icon class="icon-color" name="locate"></ion-icon> -->
-        工作地址：
+        工作地址：{{hotelDetails && hotelDetails.Address}}
       </p>
     </ion-item-group>
     <ion-item-group>
@@ -43,8 +44,8 @@
         <ion-icon class="icon-color" name="text"></ion-icon>
         工作描述：
       </h6>
-      <p>开始时间：{{item.Order.Start}}</p>
-      <p>结束时间：{{item.Order.End}}</p>
+      <p>开始时间：{{item.Order.Start | date:"yyyy-MM-dd HH:mm"}}</p>
+      <p>结束时间：{{item.Order.End | date:"yyyy-MM-dd HH:mm"}}</p>
       <p>工作排班：{{item.Order.ScheduleName}}</p>
       <p>工作类型：{{item.Order.WorkTypeName}}</p>
     </ion-item-group>

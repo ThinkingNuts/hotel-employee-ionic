@@ -1,0 +1,60 @@
+<!--
+  Generated template for the PersonDetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>个人资料</ion-title>
+    <ion-buttons end>
+      <button ion-button>保存</button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list *ngIf="user">
+    <ion-item class="item-input">
+      <ion-label>用户名</ion-label>
+      <ion-input disabled type="text" [(ngModel)]="user.Name" clearInput></ion-input>
+    </ion-item>
+
+    <ion-item-group radio-group [(ngModel)]="user.Sex">
+      <ion-label>性别</ion-label>
+      <!-- <ion-item> -->
+        <ion-label>男</ion-label>
+        <ion-radio value="男"></ion-radio>
+      <!-- </ion-item> -->
+      <!-- <ion-item> -->
+        <ion-label>女</ion-label>
+        <ion-radio value="女"></ion-radio>
+      <!-- </ion-item> -->
+    </ion-item-group>
+
+    <ion-item class="item-input">
+      <ion-label>真实姓名</ion-label>
+      <ion-input disabled type="text" [(ngModel)]="user.RealName" clearInput></ion-input>
+    </ion-item>
+
+    <ion-item class="item-input">
+      <ion-label>身份证号</ion-label>
+      <ion-input disabled type="number" [(ngModel)]="user.IdentityCard" clearInput></ion-input>
+    </ion-item>
+
+    <ion-item class="item-input">
+      <ion-label>手机号码</ion-label>
+      <ion-input disabled type="tel" [(ngModel)]="user.Phone" clearInput></ion-input>
+    </ion-item>
+
+    <ion-item class="item-input">
+      <ion-label>通讯地址</ion-label>
+      <ion-input disabled type="text" [(ngModel)]="user.Address" clearInput></ion-input>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
