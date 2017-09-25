@@ -9,6 +9,7 @@ import { MyApp } from './app.component';
 import { TabsPage } from '../pages/tabs/tabs';
 import { HomePage } from '../pages/home/home';
 import { EmployeeListPage } from '../pages/employee-list/employee-list';
+import { InfoListPage } from '../pages/info-list/info-list';
 import { MyPage } from '../pages/my/my';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -25,6 +26,7 @@ import { AccountProvider } from '../providers/account/account';
     TabsPage,
     MyPage,
     EmployeeListPage,
+    InfoListPage,
     HomePage
   ],
   imports: [
@@ -40,6 +42,7 @@ import { AccountProvider } from '../providers/account/account';
     TabsPage,
     HomePage,
     EmployeeListPage,
+    InfoListPage,
     MyPage
   ],
   providers: [

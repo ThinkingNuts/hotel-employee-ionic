@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { EmployeeListPage } from '../employee-list/employee-list';
+import { InfoListPage } from '../info-list/info-list';
+// import { EmployeeListPage } from '../employee-list/employee-list';
 import { MyPage } from '../my/my';
 import { HomePage } from '../home/home';
 
@@ -16,7 +17,7 @@ import { UserViewModel } from '../../view-model/user-model';
 export class TabsPage {
 
   tab1Root = HomePage;
-  tab2Root = EmployeeListPage;
+  tab2Root = InfoListPage;
   tab3Root = MyPage;
 
   constructor(
@@ -35,7 +36,7 @@ export class TabsPage {
     //   this.storage.get("user").then((value) => {
     //     console.log(JSON.stringify(value));
     //     let user: UserViewModel = value;
-        this.openPage("LoginPage");
+    this.openPage("LoginPage");
     //   });
     // });
   }

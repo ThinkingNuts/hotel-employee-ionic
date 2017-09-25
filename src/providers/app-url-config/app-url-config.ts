@@ -35,7 +35,7 @@ class EmployeeConfig {
 }
 
 class UserConfig {
-  public userLoginUrl: string = "";//"http://192.168.200.250/webrtc/home/login";
+  public userLoginUrl: string = URL_ROOT+ "ServicePerson/login";
   public userRegisterUrl: string = URL_ROOT + "ServicePerson/Create";
   public personDetailsUrl: string = URL_ROOT + "ServicePerson/Details/";
 }

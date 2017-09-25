@@ -28,23 +28,36 @@ export class AccountProvider {
     });
   }
 
+  getToken(callback): void {
+    this.storage.ready().then(() => {
+      this.storage.get("token").then(
+        (value) => {
+          callback(value as string);
+        });
+    });
+  }
+
+  saveToken(token: string): void {
+    this.storage.ready().then(() => {
+      this.storage.set("token", token);
+    });
+  }
+
   login(user: UserViewModel, callback) {
-    if (this.infoInvalid(user.Name, user.Pwd)) return;
+    console.log("AccountProvider: login phone: " + user.Phone + ", pwd: " + user.Pwd);
+    // if (this.infoInvalid(user.Phone, user.Pwd)) return;
 
-    if(user.Name!=="admin" || user.Pwd!=="123456"){
-      callback(false);
-      return;
-    }
+    this.baseHttp
+      .post(user, this.urlConfig.userConfig.userLoginUrl)
+      .then((response) => {
+        console.log(JSON.stringify(response));
 
-    // TODO release lines below
-    // this.baseHttp
-    //   .post(user, this.urlConfig.userConfig.userLoginUrl)
-    //   .then((response) => {
-    //     console.log(response);
-        console.log("AccountProvider: login userName: " + user.Name + ", pwd: " + user.Pwd);
-        this.saveUserInfo(user);
-        callback(true);
-      // });
+        if (response["state"]) {
+          this.saveUserInfo(user);
+          this.saveToken(response["token"]);
+        }
+        callback(response["state"], response["message"]);
+      });
   }
 
   logout() {

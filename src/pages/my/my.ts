@@ -11,12 +11,12 @@ export class MyPage {
     content: "我的资料",
     pageName: "PersonDetailsPage"
   }, {
-    content: "申请记录",
-    pageName: "ApplyRecordsPage"
-  }, {
-    content: "我的任务",
-    pageName: "TaskPage"
-  }, {
+  //   content: "申请记录",
+  //   pageName: "ApplyRecordsPage"
+  // }, {
+  //   content: "我的任务",
+  //   pageName: "TaskPage"
+  // }, {
     content: "修改密码",
     pageName: "ToBeDeterminedPage"
   }, {

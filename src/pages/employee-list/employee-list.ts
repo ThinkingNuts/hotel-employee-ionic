@@ -53,6 +53,9 @@ export class EmployeeListPage implements OnInit {
       },
       (error) => {
         this.handleError(error);
+        if (refresher) {
+          refresher.complete();
+        }
       }
       );
   }
