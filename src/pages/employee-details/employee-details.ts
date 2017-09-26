@@ -41,7 +41,7 @@ export class EmployeeDetailsPage implements OnInit {
 
   ngOnInit(): void {
     console.log('ngOnInit EmployeeDetailsPage');
-    this.getHotelDetails(this.item.Order.HotelId);
+    this.getHotelDetails("2")//this.item.Order.HotelId);
   }
 
   askApply(): void {

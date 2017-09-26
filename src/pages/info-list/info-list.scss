@@ -7,6 +7,7 @@ page-info-list {
   ion-segment-button {
     font-size: 14px !important;
   }
-  .top ion-search{
+  ion-navbar>ion-buttons ion-icon {
+    margin: auto 4px;
   }
 }

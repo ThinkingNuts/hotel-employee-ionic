@@ -5,11 +5,16 @@
   Ionic pages and navigation.
 -->
 <ion-header color="my">
-  <div class="top">
-    <!-- <button ion-button clear>上海</button> -->
-    <ion-searchbar (ionInput)="getItems($event)" placeholder="搜索"></ion-searchbar>
-  </div>
-  
+  <ion-navbar>
+    <ion-buttons end>
+      <button ion-button clear color="primary" (click)="selectCity()">
+        上海 
+        <ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-searchbar (ionInput)="searchItems($event)" placeholder="搜索"></ion-searchbar>
+  </ion-navbar>
+
   <ion-toolbar>
     <ion-segment [(ngModel)]="page">
       <ion-segment-button value="employee-list">用工列表</ion-segment-button>
@@ -20,6 +25,6 @@
 
 
 <ion-content [ngSwitch]="page">
-  <page-employee-list *ngSwitchCase="'employee-list'"></page-employee-list>
-  <page-apply-records *ngSwitchCase="'apply-records'"></page-apply-records>
+  <page-employee-list [searchText]="searchText" *ngSwitchCase="'employee-list'"></page-employee-list>
+  <page-apply-records [searchText]="searchText"  *ngSwitchCase="'apply-records'"></page-apply-records>
 </ion-content>

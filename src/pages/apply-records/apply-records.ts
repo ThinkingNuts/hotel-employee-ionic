@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { BaseHttpServiceProvider } from '../../providers/base-http-service/base-http-service';
@@ -21,6 +21,21 @@ export class ApplyRecordsPage {
   private noRecords: boolean = true;
   private whyEmpty: string = "正在获取申请记录";
   private items: ApplyViewModel[] = [];
+  private itemsCache: ApplyViewModel[] = [];
+
+  @Input()
+  set searchText(text: string) {
+    this.items = this.itemsCache.filter((item) => {
+      if (!text) {
+        console.log("ApplyRecordsPage: set searchText: text is empty");
+        return true;
+      }
+      let title = item.Order.Title;
+      let res = (title.indexOf(text) > -1);
+      console.log("res::::: " + res);
+      return res;
+    })
+  }
 
   constructor(
     private navCtrl: NavController,
@@ -52,6 +67,7 @@ export class ApplyRecordsPage {
         }
         this.showResult(false, "已获取申请记录");
         this.items = res;
+        this.itemsCache = res;
         if (refresher) {
           refresher.complete();
         }

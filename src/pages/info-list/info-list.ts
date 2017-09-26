@@ -15,6 +15,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class InfoListPage {
 
   page: string = "employee-list";
+  private searchText: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -23,4 +24,13 @@ export class InfoListPage {
     console.log('ionViewDidLoad InfoListPage');
   }
 
+  searchItems(event: any) {
+    this.searchText = event.target.value;
+    console.log("InfoListPage: searchItems:: searchText == " + this.searchText);
+  }
+
+  selectCity(): void {
+    console.log("InfoListPage: selectCity");
+
+  }
 }

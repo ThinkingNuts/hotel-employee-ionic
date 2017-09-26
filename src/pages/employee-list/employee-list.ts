@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { App, NavController, NavParams } from 'ionic-angular';
 import { EmployeeViewModel } from '../../view-model/employee-model';
 import { ApplyViewModel } from '../../view-model/apply-model';
@@ -15,6 +15,21 @@ export class EmployeeListPage implements OnInit {
   private noEmployee: boolean = true;
   private whyEmpty: string = "正在获取用工信息";
   private applyRecords: ApplyViewModel[] = [];
+  private applyRecordsCache: ApplyViewModel[] = [];
+
+  @Input()
+  set searchText(text: string) {
+    this.applyRecords = this.applyRecordsCache.filter((item) => {
+      if (!text) {
+        console.log("EmployeeListPage: set searchText: text is empty");
+        return true;
+      }
+      let s: string = "" + item.Order.DepartName + item.Order.WorkTypeName + item.Order.Num;
+      let res = (s.indexOf(text) > -1);
+      console.log("res::::: " + res);
+      return res;
+    })
+  }
 
   constructor(
     private app: App,
@@ -80,6 +95,7 @@ export class EmployeeListPage implements OnInit {
             }
           });
         });
+        this.applyRecordsCache = this.applyRecords;
       },
       (error) => {
         this.handleError(error);

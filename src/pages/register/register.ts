@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { BaseHttpServiceProvider, JsonResult } from '../../providers/base-http-service/base-http-service';
 
 import { UserViewModel } from '../../view-model/user-model';
@@ -24,6 +24,7 @@ export class RegisterPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    private toastCtrl: ToastController,
     private baseHttp: BaseHttpServiceProvider,
     private urlConfig: AppUrlConfigProvider) { }
 
@@ -39,11 +40,18 @@ export class RegisterPage {
   toRegister(): void {
     this.baseHttp.post<UserViewModel, JsonResult>(this.user,
       this.urlConfig.userConfig.userRegisterUrl).then(
-        d=>{
-          let mes:string = d.message;
-          console.log("Register result " + mes);
+      d => {
+        let msg: string = d.message;
+        console.log("Register result " + msg);
+        this.toastCtrl.create({
+          duration: 1500,
+          position: "top",
+          message: msg,
+        }).present();
+        if (d.state) {
           this.goBack();
-        }).catch(this.handleError);
+        }
+      }).catch(this.handleError);
   }
 
   handleError(error: any) {
@@ -53,5 +61,4 @@ export class RegisterPage {
   goBack(): void {
     this.navCtrl.pop();
   }
-
 }
