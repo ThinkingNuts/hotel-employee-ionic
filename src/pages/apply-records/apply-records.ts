@@ -12,7 +12,6 @@ import { ApplyViewModel } from '../../view-model/apply-model';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-apply-records',
   templateUrl: 'apply-records.html'

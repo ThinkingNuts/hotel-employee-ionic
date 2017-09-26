@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { EmployeeListPage } from '../employee-list/employee-list';
-import { MyPage } from '../my/my';
-
 /**
  * Generated class for the InfoListPage page.
  *
@@ -17,8 +14,7 @@ import { MyPage } from '../my/my';
 })
 export class InfoListPage {
 
-  tab1 = EmployeeListPage;
-  tab2 = MyPage;
+  page: string = "employee-list";
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }

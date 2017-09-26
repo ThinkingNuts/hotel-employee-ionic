@@ -34,7 +34,7 @@ export class EmployeeListPage implements OnInit {
       this.urlConfig.employeeConfig.employeeListUrl)
       .subscribe(
       (res) => {
-        console.log(res);
+        console.log(JSON.stringify(res));
         if (!res || res.length === 0) {
           this.showResult(true, "当前没有用工信息");
           return;

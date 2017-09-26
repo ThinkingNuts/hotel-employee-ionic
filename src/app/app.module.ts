@@ -11,6 +11,7 @@ import { HomePage } from '../pages/home/home';
 import { EmployeeListPage } from '../pages/employee-list/employee-list';
 import { InfoListPage } from '../pages/info-list/info-list';
 import { MyPage } from '../pages/my/my';
+import { ApplyRecordsPage } from '../pages/apply-records/apply-records';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -27,7 +28,8 @@ import { AccountProvider } from '../providers/account/account';
     MyPage,
     EmployeeListPage,
     InfoListPage,
-    HomePage
+    HomePage,
+    ApplyRecordsPage
   ],
   imports: [
     HttpModule,
