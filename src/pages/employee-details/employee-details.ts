@@ -23,6 +23,7 @@ export class EmployeeDetailsPage implements OnInit {
 
   private item: ApplyViewModel = null;
   private hotelDetails: HotelViewModel = null;
+  private tel: string="tel:10086";
 
   constructor(
     public navCtrl: NavController,
