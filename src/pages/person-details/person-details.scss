@@ -1,11 +1,47 @@
 page-person-details {
-  .item-input {
+  .list>ion-item {
     padding: 0;
+  }
+  .item-input {
+    // padding: 0;
+  }
+  .item-key {
+    font-size: 16px !important;
+    color: gray !important;
+  }
+  .sex-box ion-item {
+    // width: 30%;
+    // display: inline-block;
+  }
+  .sex-box ion-radio {
+    margin: 0; 
+  }
+  .sex-box>.sex {
+    margin: 0;
   }
   .must-have {
     color: red;
   }
-  ion-item-group *{
+  ion-item-group * {
     display: inline-block;
+  }
+  .img-box {
+    width: 100%;
+    height: 120px;
+    margin: 10px 0;
+    text-align: center;
+  }
+  .idcard-img-box {}
+  .idcard-img {
+    width: 45%;
+    height: 100%;
+    margin: 0 4px;
+  }
+  .health-img-box {
+    padding: 0 4px;
+  }
+  .health-img {
+    width: 100%;
+    height: 100%;
   }
 }

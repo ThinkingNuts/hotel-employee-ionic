@@ -14,7 +14,8 @@
 
 
 <ion-content>
-  <div padding *ngIf="item != null">
+  <div padding class="content" *ngIf="item != null">
+    <h2>{{item.Order.HotelName}}</h2>
     <h3>{{item.Order.Title}}</h3>
     <small>创建于 {{item.Order.TimeStr | date:"yyyy-MM-dd HH:mm"}} </small>
     <h6 class="billing">{{item.Order.Billing}}</h6>
@@ -29,15 +30,14 @@
     </p>
     <ion-item-group>
       <ion-item-divider color="light"></ion-item-divider>
-      <p (click)="showHotelDetails(hotelDetails)">
-        <ion-icon class="icon-color" name="flag"></ion-icon>
-         {{item.Order.HotelName}}
-      </p>
+      <a class="phone" [href]="'tel:'+phoneNumber">
+        <ion-icon class="icon-color" name="call"></ion-icon>
+        联系电话：{{phoneNumber}}
+      </a> 
       <p>
-        <!-- <ion-icon class="icon-color" name="locate"></ion-icon> -->
+        <ion-icon class="icon-color" name="locate"></ion-icon>
         工作地址：{{hotelDetails && hotelDetails.Address}}
       </p>
-      <a [href]="tel">电话:{{tel}}</a> 
     </ion-item-group>
     <ion-item-group>
       <ion-item-divider color="light"></ion-item-divider>

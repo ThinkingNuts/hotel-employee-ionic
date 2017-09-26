@@ -1,11 +1,21 @@
 page-employee-details {
+  .content{
+    margin-bottom: 50px;
+  }
+  p,
+  a {
+    font-size: 16px;
+  }
+  .phone {
+    text-decoration: none;
+  }
   .icon-color {
     font-size: 18px;
     color: lightskyblue;
   }
   ion-item-divider {
-    min-height: 1px!important;
-    height: 8px;
+    min-height: 1px !important;
+    height: 6px;
   }
   .billing {
     color: orange;
@@ -18,5 +28,10 @@ page-employee-details {
     height: 50px;
     z-index: 100;
     font-size: 16px;
+  }
+  .apply-btn:disabled {
+    opacity: 1;
+    filter:alpha(opacity=100);
+    background: lightgray;
   }
 }

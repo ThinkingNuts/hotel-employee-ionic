@@ -5,7 +5,11 @@
   Ionic pages and navigation.
 -->
 <ion-header color="my">
-  <ion-searchbar (ionInput)="getItems($event)" placeholder="搜索"></ion-searchbar>
+  <div class="top">
+    <!-- <button ion-button clear>上海</button> -->
+    <ion-searchbar (ionInput)="getItems($event)" placeholder="搜索"></ion-searchbar>
+  </div>
+  
   <ion-toolbar>
     <ion-segment [(ngModel)]="page">
       <ion-segment-button value="employee-list">用工列表</ion-segment-button>
