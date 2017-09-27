@@ -18,13 +18,13 @@
     <ion-list>
       <ion-item class="item-input">
         <!-- <ion-label>帐号：</ion-label> -->
-        <ion-input #userName type="tel" placeholder="手机号码" [(ngModel)]="user.Phone"></ion-input>
+        <ion-input #userName type="tel" placeholder="手机号码" [(ngModel)]="user.Phone" clearInput></ion-input>
         <!-- <ion-input type="tel" placeholder="用户名" [(ngModel)]="user.Name" [formControl]="username" clearInput></ion-input> -->
       </ion-item>
       <!-- <div class="error-hint" *ngIf="username.hasError('required') && username.touched">* 请输入用户名</div> -->
       <ion-item>
         <!-- <ion-label>密码：</ion-label> -->
-        <ion-input #password type="password" placeholder="密码" [(ngModel)]="user.Pwd"></ion-input>
+        <ion-input #password type="password" placeholder="密码" [(ngModel)]="user.Pwd" clearInput></ion-input>
         <!-- <ion-input type="password" placeholder="密码" [(ngModel)]="user.Pwd" [formControl]="password" clearInput></ion-input> -->
       </ion-item>
       <!-- <div class="error-hint" *ngIf="password.hasError('required') && password.touched">* 请输入密码</div>

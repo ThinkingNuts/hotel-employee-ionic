@@ -53,7 +53,7 @@ export class AccountProvider {
         console.log(JSON.stringify(response));
 
         if (response["state"]) {
-          this.saveUserInfo(user);
+          this.saveUserInfo(response["data"]);
           this.saveToken(response["token"]);
         }
         callback(response["state"], response["message"]);

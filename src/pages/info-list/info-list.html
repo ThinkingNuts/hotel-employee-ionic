@@ -6,13 +6,13 @@
 -->
 <ion-header color="my">
   <ion-navbar>
+    <ion-searchbar (ionInput)="searchItems($event)" placeholder="搜索酒店"></ion-searchbar>
     <ion-buttons end>
-      <button ion-button clear color="primary" (click)="selectCity()">
-        上海 
+      <button ion-button clear color="primary" (click)="switchArea()">
+        {{area}}
         <ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-searchbar (ionInput)="searchItems($event)" placeholder="搜索"></ion-searchbar>
   </ion-navbar>
 
   <ion-toolbar>
@@ -26,5 +26,5 @@
 
 <ion-content [ngSwitch]="page">
   <page-employee-list [searchText]="searchText" *ngSwitchCase="'employee-list'"></page-employee-list>
-  <page-apply-records [searchText]="searchText"  *ngSwitchCase="'apply-records'"></page-apply-records>
+  <page-apply-records [searchText]="searchText" *ngSwitchCase="'apply-records'"></page-apply-records>
 </ion-content>

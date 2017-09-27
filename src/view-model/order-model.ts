@@ -4,7 +4,7 @@ import { EmployeeViewModel } from './employee-model';
 export class OrderViewModel extends BaseViewModel {
   HotelId: number;
   HotelName: string;
-  AreaId: string;
+  AreaId: number;
   AreaName: string;
   Works: EmployeeViewModel[];
 

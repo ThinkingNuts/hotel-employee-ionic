@@ -18,7 +18,10 @@ export class BaseHttpServiceProvider {
   }
 
   public post<T extends BaseViewModel, U>(obj: T, url: string): Promise<U> {
-    let form = obj.ObjectToSerialize();
+    let form;
+    if (obj && obj.ObjectToSerialize) {
+      form = obj.ObjectToSerialize();
+    }
     let header = new Headers();
     header.append('Content-Type', "application/x-www-form-urlencoded");
     return this.http.post(url, form, { headers: header }).toPromise().then(d => d.json());

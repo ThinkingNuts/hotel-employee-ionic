@@ -8,6 +8,9 @@ page-info-list {
     font-size: 14px !important;
   }
   ion-navbar>ion-buttons ion-icon {
-    margin: auto 4px;
+    margin-left: 4px;
+  }
+  ion-navbar>ion-buttons button {
+    width: 72px;
   }
 }

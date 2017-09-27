@@ -3,9 +3,9 @@ import { BaseViewModel } from '../providers/base-http-service/base-http-service'
 export class UserViewModel extends BaseViewModel {
 
   public Name: string;
-  public Sex: string = "男";
-  public Pwd: string;
   public RealName: string;
+  public Sex: string = "男";
+  public Pwd: string = "123";
   public IdentityCard: string;
   public Phone: string;
   public Address: string;

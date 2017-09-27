@@ -21,9 +21,8 @@ import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-con
 })
 export class EmployeeDetailsPage implements OnInit {
 
-  private item: ApplyViewModel = null;
+  private item: EmployeeViewModel = null;
   private hotelDetails: HotelViewModel = null;
-  private phoneNumber: string="10086";
 
   constructor(
     public navCtrl: NavController,
@@ -41,7 +40,7 @@ export class EmployeeDetailsPage implements OnInit {
 
   ngOnInit(): void {
     console.log('ngOnInit EmployeeDetailsPage');
-    this.getHotelDetails("2")//this.item.Order.HotelId);
+    this.getHotelDetails("4e99792d82ee49a8bbe2ec1dc8f2db40");//this.item.HotelId)//this.item.Order.HotelId);
   }
 
   askApply(): void {
@@ -67,10 +66,10 @@ export class EmployeeDetailsPage implements OnInit {
     console.log('onApply EmployeeDetailsPage');
     let mOrder = new OrderModule();
     mOrder.PersonId = 6;
-    mOrder.OrderId = this.item.Order.Id;
-    mOrder.Status = parseInt(this.item.Status);
-    mOrder.GUID = this.item.Order.GUID;
-    mOrder.Mark = this.item.Order.Mark;
+    mOrder.OrderId = this.item.Id;
+    // mOrder.Status = parseInt(this.item.Status);
+    mOrder.GUID = this.item.GUID;
+    mOrder.Mark = this.item.Mark;
     this.toApply(mOrder);
   }
 
@@ -102,7 +101,7 @@ export class EmployeeDetailsPage implements OnInit {
     this.navCtrl.push("HotelDetailsPage", hotel);
   }
 
-  getHotelDetails(hotelId: string): void {
+  getHotelDetails(hotelId: string | number): void {
     this.baseHttp.post<BaseViewModel, JsonResult>(new BaseViewModel,
       this.urlConfig.employeeConfig.hotelDetailsUrl + hotelId)
       .then(d => {

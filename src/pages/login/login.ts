@@ -35,9 +35,11 @@ export class LoginPage {
 
   ngOnInit(): void {
     this.account.getUserInfo((userInfo) => {
+      console.log("LoginPage: userInfo:: " + JSON.stringify(userInfo));
+
       if (userInfo) {
         this.user.Phone = userInfo.Phone;
-        this.user.Pwd = userInfo.Pwd;
+        this.user.Pwd = userInfo.Pwd || "123";
       }
     });
   }

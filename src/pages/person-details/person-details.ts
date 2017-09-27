@@ -5,6 +5,7 @@ import { Camera } from '@ionic-native/camera';
 import { BaseHttpServiceProvider, JsonResult, BaseViewModel } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
 import { AppNativeCameraProvider, ICameraCallBack } from '../../providers/app-native-service/app-native-camera';
+import { AccountProvider } from '../../providers/account/account';
 
 import { UserViewModel } from '../../view-model/user-model';
 
@@ -42,6 +43,7 @@ export class PersonDetailsPage implements ICameraCallBack {
     private actionSheetCtrl: ActionSheetController,
     private baseHttp: BaseHttpServiceProvider,
     private urlConfig: AppUrlConfigProvider,
+    private account: AccountProvider,
     private camera: AppNativeCameraProvider) { }
 
   ionViewDidLoad() {
@@ -53,16 +55,21 @@ export class PersonDetailsPage implements ICameraCallBack {
   }
 
   getPersonDetails(): void {
-    let personId = 6;
-    this.baseHttp.post<BaseViewModel, JsonResult>(new BaseViewModel,
-      this.urlConfig.userConfig.personDetailsUrl + personId)
-      .then(d => {
-        console.log("PersonDetails:: " + JSON.stringify(d));
-        if (d.state == true) {
-          this.user = d["data"];
-        }
-      })
-      .catch(this.handleError);
+    this.account.getUserInfo((value) => {
+      this.user = value;
+      console.log("PersonDetails: userInfo:: " + JSON.stringify(this.user));
+    });
+
+    // let personId = 6;
+    // this.baseHttp.post<BaseViewModel, JsonResult>(new BaseViewModel(),
+    //   this.urlConfig.userConfig.personDetailsUrl + personId)
+    //   .then(d => {
+    //     console.log("PersonDetails:: " + JSON.stringify(d));
+    //     if (d.state == true) {
+    //       this.user = d["data"];
+    //     }
+    //   })
+    //   .catch(this.handleError);
   }
 
   handleError(error: any) {

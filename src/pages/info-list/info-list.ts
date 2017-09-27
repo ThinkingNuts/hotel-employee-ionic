@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, PopoverController, AlertController } from 'ionic-angular';
+
+import { BaseHttpServiceProvider } from '../../providers/base-http-service/base-http-service';
+import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
+
+import { AreaViewModel } from '../../view-model/area-model';
+
+import { AreaSelectorComponent } from '../../components/area-selector/area-selector';
 
 /**
  * Generated class for the InfoListPage page.
@@ -16,8 +23,16 @@ export class InfoListPage {
 
   page: string = "employee-list";
   private searchText: string;
+  private area: string = "全部";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    private baseHttp: BaseHttpServiceProvider,
+    private urlConfig: AppUrlConfigProvider,
+    private toastCtrl: ToastController,
+    private popoverCtrl: PopoverController,
+    private alertCtrl: AlertController,
+    public navCtrl: NavController,
+    public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
@@ -29,8 +44,27 @@ export class InfoListPage {
     console.log("InfoListPage: searchItems:: searchText == " + this.searchText);
   }
 
-  selectCity(): void {
-    console.log("InfoListPage: selectCity");
+  switchArea(): void {
+    console.log("InfoListPage: selectArea");
+    this.showAreas();
+  }
 
+  showAreas(): void {
+    let areasPopover = this.popoverCtrl.create(AreaSelectorComponent, {}, {
+      enableBackdropDismiss: true,
+      cssClass: "position: absolute; top:0;"
+    });
+    areasPopover.present();
+
+    areasPopover.onDidDismiss((popoverData: AreaViewModel) => {
+      console.log("InfoListPage: showAreas onDidDismiss:: " + JSON.stringify(popoverData));
+      if (popoverData && popoverData.text !== "全部") {
+        this.area = popoverData.text;
+        this.searchText = this.area;
+      } else {
+        this.area = "全部";
+        this.searchText = null;
+      }
+    })
   }
 }

@@ -15,28 +15,28 @@
 
 <ion-content>
   <div padding class="content" *ngIf="item != null">
-    <h2>{{item.Order.HotelName}}</h2>
-    <h3>{{item.Order.Title}}</h3>
-    <small>创建于 {{item.Order.TimeStr | date:"yyyy-MM-dd HH:mm"}} </small>
-    <h6 class="billing">{{item.Order.Billing}}</h6>
+    <h2>{{item.HotelName}}</h2>
+    <h3>{{item.DepartName}}-{{item.WorkTypeName}}-招{{item.AppliedNum}}/{{item.Num}}人</h3>
+    <small>创建于 {{item.TimeStr | date:"yyyy-MM-dd HH:mm"}} </small>
+    <h6 class="billing">{{item.Billing}}</h6>
     <p>
       <ion-icon class="icon-color" name="person"></ion-icon>
-      招 {{item.Order.Num}} 人
-      <small>（已招 {{item.TotalApply || 0}} 人）</small>
+      招 {{item.Num}} 人
+      <small>（已招 {{item.AppliedNum || 0}} 人）</small>
     </p>
     <p>
       <ion-icon class="icon-color" name="pricetag"></ion-icon>
-      说明：{{item.Order.Mark}}
+      说明：{{item.Mark}}
     </p>
-    <ion-item-group>
+    <ion-item-group *ngIf="hotelDetails">
       <ion-item-divider color="light"></ion-item-divider>
-      <a class="phone" [href]="'tel:'+phoneNumber">
+      <a class="phone" [href]="'tel:'+hotelDetails.Phone">
         <ion-icon class="icon-color" name="call"></ion-icon>
-        联系电话：{{phoneNumber}}
+        联系电话：{{hotelDetails.Phone}}
       </a> 
       <p>
         <ion-icon class="icon-color" name="locate"></ion-icon>
-        工作地址：{{hotelDetails && hotelDetails.Address}}
+        工作地址：{{hotelDetails.Address}}
       </p>
     </ion-item-group>
     <ion-item-group>
@@ -45,10 +45,10 @@
         <ion-icon class="icon-color" name="text"></ion-icon>
         工作描述：
       </h6>
-      <p>开始时间：{{item.Order.Start | date:"yyyy-MM-dd HH:mm"}}</p>
-      <p>结束时间：{{item.Order.End | date:"yyyy-MM-dd HH:mm"}}</p>
-      <p>工作排班：{{item.Order.ScheduleName}}</p>
-      <p>工作类型：{{item.Order.WorkTypeName}}</p>
+      <p>开始时间：{{item.Start | date:"yyyy-MM-dd HH:mm"}}</p>
+      <p>结束时间：{{item.End | date:"yyyy-MM-dd HH:mm"}}</p>
+      <p>工作排班：{{item.ScheduleName}}</p>
+      <p>工作类型：{{item.WorkTypeName}}</p>
     </ion-item-group>
   </div>
 

@@ -18,7 +18,7 @@ export class MyPage {
   //   pageName: "TaskPage"
   // }, {
     content: "修改密码",
-    pageName: "ToBeDeterminedPage"
+    pageName: "UpdatePwdPage"
   }, {
     content: "关于",
     pageName: "ToBeDeterminedPage"

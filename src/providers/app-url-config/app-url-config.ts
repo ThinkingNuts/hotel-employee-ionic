@@ -32,15 +32,16 @@ class EmployeeConfig {
   public employeeListUrl: string = URL_ROOT + "HotelOrder/AreaOrders/";
   public applyRecordsUrl: string = URL_ROOT + "ServicePerson/Orders/";
   public applyUrl: string = URL_ROOT + "PersonOrder/Create";
-  public hotelDetailsUrl: string = URL_ROOT + "Hotel/Details/";
-  public AreasInfoUrl: string = URL_ROOT + "Area/Areas";
+  // public hotelDetailsUrl: string = URL_ROOT + "Hotel/Details/";
+  public hotelDetailsUrl: string = URL_ROOT + "Hotel/HotelDetail/";//+酒店GUID
+  public areasInfoUrl: string = URL_ROOT + "Area/Areas";
 }
 
 class UserConfig {
-  public userLoginUrl: string = URL_ROOT + "ServicePerson/login";
+  public userLoginUrl: string = URL_ROOT + "ServicePerson/Login";
   public userRegisterUrl: string = URL_ROOT + "ServicePerson/Create";
   public personDetailsUrl: string = URL_ROOT + "ServicePerson/Details/";
-  public updatePwdUrl: string = URL_ROOT + "/ServicePerson/UpdatePwd";
+  public updatePwdUrl: string = URL_ROOT + "ServicePerson/UpdatePwd";
 }
 
 class SignalrConfig {
