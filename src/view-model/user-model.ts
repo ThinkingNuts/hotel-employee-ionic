@@ -13,7 +13,7 @@ export class UserViewModel extends BaseViewModel {
   public Status: string;
   public Id: number;
   public GUID: string;
-  public TimeStr: string;
+  public CreateTime: string;
 
   toString() {
     console.log(`RealName:${this.RealName}, Pwd:${this.Pwd}, Sex:${this.Sex}, Name:${this.Name}, IdentityCard:${this.IdentityCard},

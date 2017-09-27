@@ -3,6 +3,7 @@ import { App, NavController, NavParams } from 'ionic-angular';
 import { EmployeeViewModel } from '../../view-model/employee-model';
 import { ApplyViewModel } from '../../view-model/apply-model';
 import { OrderViewModel } from '../../view-model/order-model';
+import { UserViewModel } from '../../view-model/user-model';
 
 import { BaseHttpServiceProvider } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
@@ -20,6 +21,7 @@ export class EmployeeListPage implements OnInit {
   private orders: OrderViewModel[] = [];
   private ordersCache: OrderViewModel[] = [];
 
+  @Input() private user: UserViewModel;
   @Input()
   set searchText(text: string) {
     this.orders = this.ordersCache.filter((item) => {
@@ -32,17 +34,6 @@ export class EmployeeListPage implements OnInit {
       console.log("res::::: " + res);
       return res;
     });
-
-    // this.applyRecords = this.applyRecordsCache.filter((item) => {
-    //   if (!text) {
-    //     console.log("EmployeeListPage: set searchText: text is empty");
-    //     return true;
-    //   }
-    //   let s: string = "" + item.Order.DepartName + item.Order.WorkTypeName + item.Order.Num;
-    //   let res = (s.indexOf(text) > -1);
-    //   console.log("res::::: " + res);
-    //   return res;
-    // });
   }
 
   constructor(
@@ -71,16 +62,19 @@ export class EmployeeListPage implements OnInit {
         this.showResult(false, "已获取用工信息");
         this.orders = res;
         this.orders.push({
+          HotelGUID: "111111111111111111111",
           HotelId: 4,
           HotelName: "上海希尔顿",
           AreaId: 5,
           AreaName: "浦东新区",
           Works: [
             {
+              IsApplied: false,
+              HotelGUID: "111111111111111111111",
               HotelId: 2,
               AreaName: "浦东新区",
               AreaId: 5,
-              DepartName: "餐饮部",
+              DepartMentName: "餐饮部",
               HotelName: "上海希尔顿",
               ScheduleName: "白班",
               WorkTypeName: "擦玻璃",
@@ -91,10 +85,9 @@ export class EmployeeListPage implements OnInit {
               Mark: "健康证",
               Id: 14,
               GUID: "9108639cadd6408f9bc0716d557b3f7c",
-              TimeStr: "2017-09-25 22:59:22",
+              CreateTime: "2017-09-25 22:59:22",
               AppliedNum: 1,
               NewApply: 0,
-              Title: "",
               ObjectToSerialize: () => {
                 return "";
               }
@@ -105,16 +98,19 @@ export class EmployeeListPage implements OnInit {
           }
         });
         this.orders.push({
+          HotelGUID: "222222222222222222222",
           HotelId: 6,
           HotelName: "上海格林豪泰",
           AreaId: 2,
           AreaName: "杨浦区",
           Works: [
             {
+              IsApplied: false,
+              HotelGUID: "222222222222222222222",
               HotelId: 2,
               AreaName: "杨浦区",
               AreaId: 2,
-              DepartName: "客房部",
+              DepartMentName: "客房部",
               HotelName: "上海格林豪泰",
               ScheduleName: "白班",
               WorkTypeName: "清洁工",
@@ -125,10 +121,9 @@ export class EmployeeListPage implements OnInit {
               Mark: "健康证",
               Id: 12,
               GUID: "9108639cadd6408f9bc0716d557b3f7c",
-              TimeStr: "2017-09-27 22:59:22",
+              CreateTime: "2017-09-27 22:59:22",
               AppliedNum: 4,
               NewApply: 0,
-              Title: "",
               ObjectToSerialize: () => {
                 return "";
               }
@@ -139,12 +134,6 @@ export class EmployeeListPage implements OnInit {
           }
         });
         this.ordersCache = this.orders;
-        // this.applyRecords = [];
-        // res.forEach(e => {
-        //   let newApply = new ApplyViewModel();
-        //   newApply.Order = e;
-        //   this.applyRecords.push(newApply);
-        // });
         this.getApplyList();
         if (refresher) {
           refresher.complete();
@@ -160,26 +149,24 @@ export class EmployeeListPage implements OnInit {
   }
 
   getApplyList(): void {
-    let personId = 6;
+    let personGUID = this.user.GUID;
     this.baseHttp.postJson<ApplyViewModel, ApplyViewModel[]>(new ApplyViewModel(),
-      this.urlConfig.employeeConfig.applyRecordsUrl + personId)
+      this.urlConfig.employeeConfig.applyRecordsUrl + personGUID)
       .subscribe(
       (res) => {
         console.log(res);
         if (!res) {
           return;
         }
-        this.applyRecords.forEach(item => {
-          res.forEach(apply => {
-            if (item.Order.GUID === apply.Order.GUID) {
-              item.TotalApply = apply.TotalApply;
-              item.ApplyTime = apply.ApplyTime;
-              item.Status = apply.Status;
-              item.StatusStr = apply.StatusStr;
-            }
+        this.orders.forEach(item => {
+          item.Works.forEach(work => {
+            res.forEach(apply => {
+              if (work.GUID === apply.Order.GUID) {
+                work.IsApplied = true;
+              }
+            });
           });
         });
-        this.applyRecordsCache = this.applyRecords;
       },
       (error) => {
         this.handleError(error);

@@ -3,8 +3,10 @@ import { IonicPage, NavController, NavParams, ToastController, PopoverController
 
 import { BaseHttpServiceProvider } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
+import { AccountProvider } from '../../providers/account/account';
 
 import { AreaViewModel } from '../../view-model/area-model';
+import { UserViewModel } from '../../view-model/user-model';
 
 import { AreaSelectorComponent } from '../../components/area-selector/area-selector';
 
@@ -21,18 +23,26 @@ import { AreaSelectorComponent } from '../../components/area-selector/area-selec
 })
 export class InfoListPage {
 
-  page: string = "employee-list";
+  private page: string = "employee-list";
   private searchText: string;
   private area: string = "全部";
+  private user: UserViewModel;
 
   constructor(
     private baseHttp: BaseHttpServiceProvider,
     private urlConfig: AppUrlConfigProvider,
+    private account: AccountProvider,
     private toastCtrl: ToastController,
     private popoverCtrl: PopoverController,
     private alertCtrl: AlertController,
     public navCtrl: NavController,
     public navParams: NavParams) {
+  }
+
+  ngOnInit() {
+    this.account.getUserInfo((value) => {
+      this.user = value;
+    })
   }
 
   ionViewDidLoad() {

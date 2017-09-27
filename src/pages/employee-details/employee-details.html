@@ -16,8 +16,8 @@
 <ion-content>
   <div padding class="content" *ngIf="item != null">
     <h2>{{item.HotelName}}</h2>
-    <h3>{{item.DepartName}}-{{item.WorkTypeName}}-招{{item.AppliedNum}}/{{item.Num}}人</h3>
-    <small>创建于 {{item.TimeStr | date:"yyyy-MM-dd HH:mm"}} </small>
+    <h3>{{item.DepartMentName}} - {{item.WorkTypeName}} - 招{{item.AppliedNum}}/{{item.Num}}人</h3>
+    <small>创建于 {{item.CreateTime | date:"yyyy-MM-dd HH:mm"}} </small>
     <h6 class="billing">{{item.Billing}}</h6>
     <p>
       <ion-icon class="icon-color" name="person"></ion-icon>
@@ -52,5 +52,5 @@
     </ion-item-group>
   </div>
 
-  <button class="apply-btn" ion-button block [disabled]="item.Status" (click)="askApply()">申请</button>
+  <button class="apply-btn" ion-button block [disabled]="item.IsApplied" (click)="askApply()">申请</button>
 </ion-content>

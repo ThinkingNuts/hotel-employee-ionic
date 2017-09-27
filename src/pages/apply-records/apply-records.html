@@ -26,9 +26,10 @@
         <div *ngSwitchCase="'2'" class="apply-status-pass">{{item.StatusStr}}</div>
         <div *ngSwitchCase="'3'" class="apply-status-notpass">{{item.StatusStr}}</div>
       </ion-avatar>
-      <h2>{{item.Order.Title}}</h2>
+      <h2>{{item.Order.DepartMentName}} - {{item.Order.WorkTypeName}} - 招{{item.TotalApply}}/{{item.Order.Num}}人</h2>
       <p>{{item.Order.Billing}} | {{item.Order.WorkTypeName}} | {{item.Order.ScheduleName}}</p>
-      <p>申请时间：{{item.ApplyTime | date:"yyyy-MM-dd HH:mm"}}</p>
+      <p>时间：{{item.Order.Start | date:"yyyy-MM-dd HH:mm"}} -- {{item.Order.End | date:"yyyy-MM-dd HH:mm"}}</p>
+      <!-- <p>申请时间：{{item.ApplyTime | date:"yyyy-MM-dd HH:mm"}}</p> -->
     </ion-item>
   </ion-list>
 </ion-content>

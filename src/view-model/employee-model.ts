@@ -1,10 +1,12 @@
 import { BaseViewModel } from '../providers/base-http-service/base-http-service';
 
 export class EmployeeViewModel extends BaseViewModel {
+  IsApplied: boolean = false;//just a flag, not from server
+  HotelGUID: string;
   HotelId: number;
   AreaName: string;
   AreaId: number;
-  DepartName: string;
+  DepartMentName: string;
   HotelName: string;//酒店
   ScheduleName: string;//工作排班
   WorkTypeName: string;//用工类型
@@ -15,10 +17,9 @@ export class EmployeeViewModel extends BaseViewModel {
   Mark: string;//特殊说明
   Id: number;
   GUID: string;
-  TimeStr: string;//创建时间
+  CreateTime: string;//创建时间
   AppliedNum: number;
   NewApply: number;
-  Title: string = this.DepartName + "-" + this.WorkTypeName + "-招" + this.Num + "人";//TODO modify
 
   ObjectToSerialize() {
     return `Id=${this.Id}&GUID=${this.GUID}`;

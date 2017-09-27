@@ -40,7 +40,7 @@ export class EmployeeDetailsPage implements OnInit {
 
   ngOnInit(): void {
     console.log('ngOnInit EmployeeDetailsPage');
-    this.getHotelDetails("4e99792d82ee49a8bbe2ec1dc8f2db40");//this.item.HotelId)//this.item.Order.HotelId);
+    this.getHotelDetails(this.item.HotelGUID);
   }
 
   askApply(): void {
@@ -101,9 +101,9 @@ export class EmployeeDetailsPage implements OnInit {
     this.navCtrl.push("HotelDetailsPage", hotel);
   }
 
-  getHotelDetails(hotelId: string | number): void {
+  getHotelDetails(hotelGUID: string): void {
     this.baseHttp.post<BaseViewModel, JsonResult>(new BaseViewModel,
-      this.urlConfig.employeeConfig.hotelDetailsUrl + hotelId)
+      this.urlConfig.employeeConfig.hotelDetailsUrl + hotelGUID)
       .then(d => {
         console.log("HotelDetails:: " + JSON.stringify(d));
         if (d.state == true) {

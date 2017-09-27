@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ApplyViewModel } from '../../view-model/apply-model';
+import { HotelViewModel } from '../../view-model/hotel-model';
+
+import { BaseHttpServiceProvider, JsonResult, BaseViewModel } from '../../providers/base-http-service/base-http-service';
+import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
 
 /**
  * Generated class for the ApplyDetailsPage page.
@@ -17,8 +21,13 @@ import { ApplyViewModel } from '../../view-model/apply-model';
 export class ApplyDetailsPage implements OnInit {
 
   private item: ApplyViewModel = null;
+  private hotelDetails: HotelViewModel = null;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    private baseHttp: BaseHttpServiceProvider,
+    private urlConfig: AppUrlConfigProvider,
+    public navCtrl: NavController,
+    public navParams: NavParams) {
     this.item = navParams.data;
   }
 
@@ -29,5 +38,22 @@ export class ApplyDetailsPage implements OnInit {
   ngOnInit(): void {
     console.log('ngOnInit EmployeeDetailsPage');
 
+    this.getHotelDetails(this.item.Order.HotelGUID);
+  }
+
+  getHotelDetails(hotelId: string | number): void {
+    this.baseHttp.post<BaseViewModel, JsonResult>(new BaseViewModel,
+      this.urlConfig.employeeConfig.hotelDetailsUrl + hotelId)
+      .then(d => {
+        console.log("HotelDetails:: " + JSON.stringify(d));
+        if (d.state == true) {
+          this.hotelDetails = d["data"];
+        }
+      })
+      .catch(this.handleError);
+  }
+
+  handleError(error: any) {
+    console.log("An error occurred to apply: \n", error);
   }
 }

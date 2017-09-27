@@ -3,7 +3,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { BaseHttpServiceProvider } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
+import { AccountProvider } from '../../providers/account/account';
+
 import { ApplyViewModel } from '../../view-model/apply-model';
+import { UserViewModel } from '../../view-model/user-model';
 
 /**
  * Generated class for the ApplyRecordsPage page.
@@ -22,6 +25,7 @@ export class ApplyRecordsPage {
   private whyEmpty: string = "正在获取申请记录";
   private items: ApplyViewModel[] = [];
   private itemsCache: ApplyViewModel[] = [];
+  private user: UserViewModel;
 
   @Input()
   set searchText(text: string) {
@@ -30,8 +34,8 @@ export class ApplyRecordsPage {
         console.log("ApplyRecordsPage: set searchText: text is empty");
         return true;
       }
-      let title = item.Order.Title;
-      let res = (title.indexOf(text) > -1);
+      let s = item.Order.HotelName;
+      let res = (s.indexOf(text) > -1);
       console.log("res::::: " + res);
       return res;
     })
@@ -40,6 +44,7 @@ export class ApplyRecordsPage {
   constructor(
     private navCtrl: NavController,
     private navParams: NavParams,
+    private account: AccountProvider,
     private baseHttp: BaseHttpServiceProvider,
     private urlConfig: AppUrlConfigProvider) {
   }
@@ -51,13 +56,16 @@ export class ApplyRecordsPage {
   ngOnInit(): void {
     console.log("ApplyRecordsPage ngOnInit");
 
-    this.getList(null);
+    this.account.getUserInfo((value) => {
+      this.user = value;
+      this.getList(null);
+    });
   }
 
   getList(refresher): void {
-    let personId = 6;
+    let personGUID = this.user.GUID;
     this.baseHttp.postJson<ApplyViewModel, ApplyViewModel[]>(new ApplyViewModel(),
-      this.urlConfig.employeeConfig.applyRecordsUrl + personId)
+      this.urlConfig.employeeConfig.applyRecordsUrl + personGUID)
       .subscribe(
       (res) => {
         console.log(res);

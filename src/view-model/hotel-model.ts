@@ -18,7 +18,7 @@ export class HotelViewModel extends BaseViewModel {
   Mark: string;
   Accouts;
   HotelOrders;
-  TimeStr: string;
+  CreateTime: string;
 
   ObjectToSerialize() {
     return `Id=${this.Id}&GUID=${this.GUID}`;

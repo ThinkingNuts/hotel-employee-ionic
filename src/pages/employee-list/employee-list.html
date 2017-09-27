@@ -14,22 +14,14 @@
   <h3 class="no-employee" *ngIf="noEmployee">{{whyEmpty}}</h3>
   <ion-list *ngIf="!noEmployee">
     <ion-item-group *ngFor="let order of orders">
-      <ion-item-divider color="light">{{order.HotelName}}</ion-item-divider>
-      <ion-item *ngFor="let work of order.Works" (click)="showItemDetails(work)">
+      <ion-item-divider color="divider">{{order.HotelName}}</ion-item-divider>
+      <ion-item *ngFor="let work of order.Works" [ngClass]="{'item-applied': work.IsApplied}" (click)="showItemDetails(work)">
         <!-- <span class="num-hint"> (<span class="num-used">{{work.AppliedNum || 0}}</span>/<span class="num-total">{{work.Num}}</span>)</span> -->
-        <h2 class="item-title">{{work.DepartName}} - {{work.WorkTypeName}} - 招{{work.AppliedNum}}/{{work.Num}}人</h2>
+        <h2 class="item-title">{{work.DepartMentName}} - {{work.WorkTypeName}} - 招{{work.AppliedNum}}/{{work.Num}}人</h2>
         <p>{{work.Billing}} | {{work.WorkTypeName}}</p>
         <p>时间：{{work.Start | date:"yyyy-MM-dd HH:mm"}} -- {{work.End | date:"yyyy-MM-dd HH:mm"}}</p>
-        <!-- <label item-end *ngIf="item.Status">已申请</label> -->
+        <label item-end *ngIf="work.IsApplied">已申请</label>
       </ion-item>
-      <!-- <ion-item *ngFor="let item of applyRecords" [ngClass]="{'item-applied': item.Status}" (click)="showItemDetails(item)">
-        <span class="num-hint"> (<span class="num-used">{{item.TotalApply || 0}}</span>/<span class="num-total">{{item.Order.Num}}</span>)</span>
-        <h2 class="item-title">{{item.Order.Title}}</h2>
-        <p>{{item.Order.Billing}} | {{item.Order.HotelName}}</p>
-        <p>{{item.Order.WorkTypeName}} | {{item.Order.Mark}}</p>
-        <p>{{item.Order.Start | date:"yyyy-MM-dd HH:mm"}} -- {{item.Order.End | date:"yyyy-MM-dd HH:mm"}}</p>
-        <label item-end *ngIf="item.Status">已申请</label>
-      </ion-item> -->
     </ion-item-group>
   </ion-list>
 </ion-content>

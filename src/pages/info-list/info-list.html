@@ -25,6 +25,6 @@
 
 
 <ion-content [ngSwitch]="page">
-  <page-employee-list [searchText]="searchText" *ngSwitchCase="'employee-list'"></page-employee-list>
+  <page-employee-list [searchText]="searchText" [user]="user" *ngSwitchCase="'employee-list'"></page-employee-list>
   <page-apply-records [searchText]="searchText" *ngSwitchCase="'apply-records'"></page-apply-records>
 </ion-content>

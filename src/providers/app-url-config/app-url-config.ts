@@ -29,8 +29,8 @@ export class AppUrlConfigProvider {
 
 class EmployeeConfig {
   // public employeeListUrl: string = URL_ROOT + "HotelOrder/List";
-  public employeeListUrl: string = URL_ROOT + "HotelOrder/AreaOrders/";
-  public applyRecordsUrl: string = URL_ROOT + "ServicePerson/Orders/";
+  public employeeListUrl: string = URL_ROOT + "HotelOrder/AreaOrders/";//+区域id
+  public applyRecordsUrl: string = URL_ROOT + "ServicePerson/Orders/";//+用户GUID
   public applyUrl: string = URL_ROOT + "PersonOrder/Create";
   // public hotelDetailsUrl: string = URL_ROOT + "Hotel/Details/";
   public hotelDetailsUrl: string = URL_ROOT + "Hotel/HotelDetail/";//+酒店GUID
@@ -40,7 +40,6 @@ class EmployeeConfig {
 class UserConfig {
   public userLoginUrl: string = URL_ROOT + "ServicePerson/Login";
   public userRegisterUrl: string = URL_ROOT + "ServicePerson/Create";
-  public personDetailsUrl: string = URL_ROOT + "ServicePerson/Details/";
   public updatePwdUrl: string = URL_ROOT + "ServicePerson/UpdatePwd";
 }
 
