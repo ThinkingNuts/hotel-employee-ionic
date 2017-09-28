@@ -25,8 +25,15 @@ export class InfoListPage {
 
   private page: string = "employee-list";
   private searchText: string;
-  private area: string = "全部";
+  private areaAll: AreaViewModel = {
+    id: 0,
+    text: "全部",
+    ObjectToSerialize: () => ""
+  };
+  private area: AreaViewModel;
   private user: UserViewModel;
+  private areas: AreaViewModel[] = [];
+  private hintMsg: string;
 
   constructor(
     private baseHttp: BaseHttpServiceProvider,
@@ -37,12 +44,14 @@ export class InfoListPage {
     private alertCtrl: AlertController,
     public navCtrl: NavController,
     public navParams: NavParams) {
+    this.area = this.areaAll;
   }
 
   ngOnInit() {
     this.account.getUserInfo((value) => {
       this.user = value;
     })
+    // this.getAreas();
   }
 
   ionViewDidLoad() {
@@ -68,13 +77,30 @@ export class InfoListPage {
 
     areasPopover.onDidDismiss((popoverData: AreaViewModel) => {
       console.log("InfoListPage: showAreas onDidDismiss:: " + JSON.stringify(popoverData));
-      if (popoverData && popoverData.text !== "全部") {
-        this.area = popoverData.text;
-        this.searchText = this.area;
+      if (popoverData && popoverData.text !== this.areaAll.text) {
+        this.area = popoverData;
       } else {
-        this.area = "全部";
-        this.searchText = null;
+        this.area = this.areaAll;
       }
     })
+  }
+
+  getAreas(): void {
+    this.baseHttp.post<any, AreaViewModel[]>(null, this.urlConfig.employeeConfig.areasInfoUrl)
+      .then((response) => {
+        console.log("AreaSelector: getAreas:: " + JSON.stringify(response));
+        this.areas = response || [];
+        this.areas.push({
+          id: 0,
+          text: "全部",
+          ObjectToSerialize: () => ""
+        })
+      })
+      .catch(this.handleError);
+  }
+
+  handleError(error: any) {//: Promise<any> {
+    this.hintMsg = "获取城市区域失败";
+    console.log("An error occurred: \n", error);
   }
 }

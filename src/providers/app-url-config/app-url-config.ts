@@ -28,12 +28,10 @@ export class AppUrlConfigProvider {
 }
 
 class EmployeeConfig {
-  // public employeeListUrl: string = URL_ROOT + "HotelOrder/List";
-  public employeeListUrl: string = URL_ROOT + "HotelOrder/AreaOrders/";//+区域id
-  public applyRecordsUrl: string = URL_ROOT + "ServicePerson/Orders/";//+用户GUID
+  public employeeListUrl: string = URL_ROOT + "HotelOrder/AreaOrders/";//+区域id(可选)
+  public applyRecordsUrl: string = URL_ROOT + "ServicePerson/Orders/";//+用户GUID(必须)
   public applyUrl: string = URL_ROOT + "PersonOrder/Create";
-  // public hotelDetailsUrl: string = URL_ROOT + "Hotel/Details/";
-  public hotelDetailsUrl: string = URL_ROOT + "Hotel/HotelDetail/";//+酒店GUID
+  public hotelDetailsUrl: string = URL_ROOT + "Hotel/HotelDetail/";//+酒店GUID(必须)
   public areasInfoUrl: string = URL_ROOT + "Area/Areas";
 }
 

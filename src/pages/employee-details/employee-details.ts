@@ -22,6 +22,7 @@ import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-con
 export class EmployeeDetailsPage implements OnInit {
 
   private item: EmployeeViewModel = null;
+  private callback;
   private hotelDetails: HotelViewModel = null;
 
   constructor(
@@ -31,7 +32,8 @@ export class EmployeeDetailsPage implements OnInit {
     private alert: AlertController,
     private baseHttp: BaseHttpServiceProvider,
     private urlConfig: AppUrlConfigProvider) {
-    this.item = navParams.data;
+    this.item = navParams.get("item");
+    this.callback = navParams.get("callback");
   }
 
   ionViewDidLoad() {
@@ -67,7 +69,7 @@ export class EmployeeDetailsPage implements OnInit {
     let mOrder = new OrderModule();
     mOrder.PersonId = 6;
     mOrder.OrderId = this.item.Id;
-    // mOrder.Status = parseInt(this.item.Status);
+    mOrder.Status = 1;
     mOrder.GUID = this.item.GUID;
     mOrder.Mark = this.item.Mark;
     this.toApply(mOrder);
@@ -77,10 +79,13 @@ export class EmployeeDetailsPage implements OnInit {
     this.baseHttp.post<OrderModule, JsonResult>(order,
       this.urlConfig.employeeConfig.applyUrl).then(
       d => {
+        console.log("Apply result " + JSON.stringify(d));
         let mes: string = d.message;
-        console.log("Register result " + mes);
-        this.navCtrl.pop();
         this.showApplyResult(d);
+        if (d.state) {
+          this.callback(d.state);//.then(() => { this.navCtrl.pop() })
+          this.navCtrl.pop();
+        }
       }).catch(this.handleError);
   }
 

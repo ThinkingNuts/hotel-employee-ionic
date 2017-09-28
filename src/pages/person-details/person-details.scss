@@ -25,23 +25,38 @@ page-person-details {
   ion-item-group * {
     display: inline-block;
   }
+  img{
+    border: lightgray solid 0.8px;
+  }
   .img-box {
     width: 100%;
-    height: 120px;
     margin: 10px 0;
     text-align: center;
   }
-  .idcard-img-box {}
-  .idcard-img {
+  .idcard{
     width: 45%;
     height: 100%;
     margin: 0 4px;
+    display: inline-block;
+    text-align: center;
+    line-height: 100%;
+    position: relative;
+  }
+  .idcard img{
+    width: 100%;
+    height: 120px;
+  }
+  .idcard button{
+    height: 100%;
+    text-align: center;
+    line-height: 100%;
+    position: absolute;
   }
   .health-img-box {
     padding: 0 4px;
   }
   .health-img {
     width: 100%;
-    height: 100%;
+    height: 120px;
   }
 }

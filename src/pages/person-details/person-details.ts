@@ -59,17 +59,6 @@ export class PersonDetailsPage implements ICameraCallBack {
       this.user = value;
       console.log("PersonDetails: userInfo:: " + JSON.stringify(this.user));
     });
-
-    // let personId = 6;
-    // this.baseHttp.post<BaseViewModel, JsonResult>(new BaseViewModel(),
-    //   this.urlConfig.userConfig.personDetailsUrl + personId)
-    //   .then(d => {
-    //     console.log("PersonDetails:: " + JSON.stringify(d));
-    //     if (d.state == true) {
-    //       this.user = d["data"];
-    //     }
-    //   })
-    //   .catch(this.handleError);
   }
 
   handleError(error: any) {

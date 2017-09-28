@@ -59,18 +59,21 @@
 
     <ion-item>
       <p class="item-key">身份证</p>
-      <button ion-button (click)="addPhoto(1)">上传正面</button>
-      <button ion-button (click)="addPhoto(2)">上传反面</button>
-      <div class="img-box idcard-img-box">
-        <img class="idcard-img" [src]="idCardFront" alt="身份证正面">
-        <img class="idcard-img" [src]="idCardBack" alt="身份证反面">
+      <div class="img-box">
+        <div class="idcard">
+          <p>正面</p>
+          <img [src]="idCardFront" alt="身份证正面" (click)="addPhoto(1)">
+        </div>
+        <div class="idcard">
+          <p>反面</p>
+          <img [src]="idCardBack" alt="身份证反面" (click)="addPhoto(2)">
+        </div>
       </div>
     </ion-item>
 
     <ion-item>
       <p class="item-key">健康证</p>
-      <button ion-button (click)="addPhoto(3)">上传</button>
-      <div class="img-box health-img-box">
+      <div class="img-box health-img-box" (click)="addPhoto(3)">
         <img class="health-img" [src]="healthCertificate" alt="健康证">
       </div>
     </ion-item>

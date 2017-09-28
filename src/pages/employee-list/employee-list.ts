@@ -4,9 +4,11 @@ import { EmployeeViewModel } from '../../view-model/employee-model';
 import { ApplyViewModel } from '../../view-model/apply-model';
 import { OrderViewModel } from '../../view-model/order-model';
 import { UserViewModel } from '../../view-model/user-model';
+import { AreaViewModel } from '../../view-model/area-model';
 
 import { BaseHttpServiceProvider } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
+import { AccountProvider } from '../../providers/account/account';
 
 @Component({
   selector: 'page-employee-list',
@@ -16,12 +18,17 @@ export class EmployeeListPage implements OnInit {
 
   private noEmployee: boolean = true;
   private whyEmpty: string = "正在获取用工信息";
-  private applyRecords: ApplyViewModel[] = [];
-  private applyRecordsCache: ApplyViewModel[] = [];
   private orders: OrderViewModel[] = [];
   private ordersCache: OrderViewModel[] = [];
+  private user: UserViewModel;
+  private areaNow: AreaViewModel;
 
-  @Input() private user: UserViewModel;
+  @Input()
+  set area(areaInfo: AreaViewModel) {
+    this.areaNow = areaInfo;
+    console.log("EmployeeListPage: set area: " + JSON.stringify(this.areaNow));
+    this.getEmployeeList(areaInfo, null);
+  }
   @Input()
   set searchText(text: string) {
     this.orders = this.ordersCache.filter((item) => {
@@ -40,18 +47,25 @@ export class EmployeeListPage implements OnInit {
     private app: App,
     private navCtrl: NavController,
     private navParams: NavParams,
+    private account: AccountProvider,
     private baseHttp: BaseHttpServiceProvider,
     private urlConfig: AppUrlConfigProvider) { }
 
   ngOnInit(): void {
     console.log('EmployeeListPage ngOnInit');
 
-    this.getEmployeeList(null);
+    this.account.getUserInfo((value) => {
+      this.user = value;
+      this.getEmployeeList(this.areaNow, null);
+    })
   }
 
-  getEmployeeList(refresher): void {
-    this.baseHttp.postJson<EmployeeViewModel, OrderViewModel[]>(new EmployeeViewModel(),
-      this.urlConfig.employeeConfig.employeeListUrl)
+  getEmployeeList(area: AreaViewModel, refresher): void {
+    let url: string = this.urlConfig.employeeConfig.employeeListUrl;
+    if (area && area.id) {
+      url += area.id;
+    }
+    this.baseHttp.postJson<EmployeeViewModel, OrderViewModel[]>(new EmployeeViewModel(), url)
       .subscribe(
       (res) => {
         console.log(JSON.stringify(res));
@@ -61,80 +75,10 @@ export class EmployeeListPage implements OnInit {
         }
         this.showResult(false, "已获取用工信息");
         this.orders = res;
-        this.orders.push({
-          HotelGUID: "111111111111111111111",
-          HotelId: 4,
-          HotelName: "上海希尔顿",
-          AreaId: 5,
-          AreaName: "浦东新区",
-          Works: [
-            {
-              IsApplied: false,
-              HotelGUID: "111111111111111111111",
-              HotelId: 2,
-              AreaName: "浦东新区",
-              AreaId: 5,
-              DepartMentName: "餐饮部",
-              HotelName: "上海希尔顿",
-              ScheduleName: "白班",
-              WorkTypeName: "擦玻璃",
-              Num: 12,
-              Start: "2017-01-01 12:00:00",
-              End: "2017-02-01 12:00:00",
-              Billing: "20元/小时",
-              Mark: "健康证",
-              Id: 14,
-              GUID: "9108639cadd6408f9bc0716d557b3f7c",
-              CreateTime: "2017-09-25 22:59:22",
-              AppliedNum: 1,
-              NewApply: 0,
-              ObjectToSerialize: () => {
-                return "";
-              }
-            }
-          ],
-          ObjectToSerialize: () => {
-            return "";
-          }
-        });
-        this.orders.push({
-          HotelGUID: "222222222222222222222",
-          HotelId: 6,
-          HotelName: "上海格林豪泰",
-          AreaId: 2,
-          AreaName: "杨浦区",
-          Works: [
-            {
-              IsApplied: false,
-              HotelGUID: "222222222222222222222",
-              HotelId: 2,
-              AreaName: "杨浦区",
-              AreaId: 2,
-              DepartMentName: "客房部",
-              HotelName: "上海格林豪泰",
-              ScheduleName: "白班",
-              WorkTypeName: "清洁工",
-              Num: 22,
-              Start: "2017-10-01 12:00:00",
-              End: "2017-10-08 12:00:00",
-              Billing: "80元/间",
-              Mark: "健康证",
-              Id: 12,
-              GUID: "9108639cadd6408f9bc0716d557b3f7c",
-              CreateTime: "2017-09-27 22:59:22",
-              AppliedNum: 4,
-              NewApply: 0,
-              ObjectToSerialize: () => {
-                return "";
-              }
-            }
-          ],
-          ObjectToSerialize: () => {
-            return "";
-          }
-        });
         this.ordersCache = this.orders;
-        this.getApplyList();
+        if (this.user) {
+          this.getApplyList();
+        }
         if (refresher) {
           refresher.complete();
         }
@@ -187,11 +131,19 @@ export class EmployeeListPage implements OnInit {
 
   doRefresh(refresher): void {
     console.log("doRefresh ");
-    this.getEmployeeList(refresher);
+    this.getEmployeeList(this.areaNow, refresher);
   }
 
   showItemDetails(item: EmployeeViewModel): void {
     console.log(item);
-    this.app.getRootNav().push("EmployeeDetailsPage", item);
+    this.app.getRootNav().push("EmployeeDetailsPage", {
+      "item": item,
+      "callback": (state) => {
+        return new Promise((resolve, reject) => {
+          console.log("EmployeeListPage: callback:: " + state);
+          this.getEmployeeList(this.areaNow, null);
+        })
+      }
+    });
   }
 }

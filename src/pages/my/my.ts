@@ -20,8 +20,8 @@ export class MyPage {
     content: "修改密码",
     pageName: "UpdatePwdPage"
   }, {
-    content: "关于",
-    pageName: "ToBeDeterminedPage"
+    content: "关于我们",
+    pageName: "AboutPage"
   }];
 
   constructor(

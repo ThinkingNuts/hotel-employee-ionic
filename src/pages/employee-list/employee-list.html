@@ -14,7 +14,7 @@
   <h3 class="no-employee" *ngIf="noEmployee">{{whyEmpty}}</h3>
   <ion-list *ngIf="!noEmployee">
     <ion-item-group *ngFor="let order of orders">
-      <ion-item-divider color="divider">{{order.HotelName}}</ion-item-divider>
+      <ion-item-divider class="group" color="divider">{{order.HotelName}}</ion-item-divider>
       <ion-item *ngFor="let work of order.Works" [ngClass]="{'item-applied': work.IsApplied}" (click)="showItemDetails(work)">
         <!-- <span class="num-hint"> (<span class="num-used">{{work.AppliedNum || 0}}</span>/<span class="num-total">{{work.Num}}</span>)</span> -->
         <h2 class="item-title">{{work.DepartMentName}} - {{work.WorkTypeName}} - 招{{work.AppliedNum}}/{{work.Num}}人</h2>

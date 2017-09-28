@@ -34,7 +34,7 @@ export class ApplyRecordsPage {
         console.log("ApplyRecordsPage: set searchText: text is empty");
         return true;
       }
-      let s = item.Order.HotelName;
+      let s = item.Order.HotelName + item.Order.AreaName;
       let res = (s.indexOf(text) > -1);
       console.log("res::::: " + res);
       return res;
@@ -68,7 +68,7 @@ export class ApplyRecordsPage {
       this.urlConfig.employeeConfig.applyRecordsUrl + personGUID)
       .subscribe(
       (res) => {
-        console.log(res);
+        console.log("ApplyRecords: " + JSON.stringify(res));
         if (!res || res.length === 0) {
           this.showResult(true, "当前没有申请记录");
           return;
