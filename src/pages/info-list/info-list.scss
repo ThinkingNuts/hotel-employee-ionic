@@ -18,4 +18,18 @@ page-info-list {
     width: 100%;
     height: 100%;
   }
+  ion-select{
+    width: 72px;
+    line-height: 100%;
+    padding: 0 !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+    color: #488aff;
+    display: inline-block !important;
+    // text-align: center !important;
+    text-align: left !important;
+  }
+  ion-searchbar{
+    display: inline-block;
+  }
 }

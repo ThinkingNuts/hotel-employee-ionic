@@ -51,7 +51,7 @@ export class InfoListPage {
     this.account.getUserInfo((value) => {
       this.user = value;
     })
-    // this.getAreas();
+    this.getAreas();
   }
 
   ionViewDidLoad() {
@@ -90,11 +90,11 @@ export class InfoListPage {
       .then((response) => {
         console.log("AreaSelector: getAreas:: " + JSON.stringify(response));
         this.areas = response || [];
-        this.areas.push({
-          id: 0,
-          text: "全部",
-          ObjectToSerialize: () => ""
-        })
+        // this.areas.push({
+        //   id: 0,
+        //   text: "全部",
+        //   ObjectToSerialize: () => ""
+        // });
       })
       .catch(this.handleError);
   }

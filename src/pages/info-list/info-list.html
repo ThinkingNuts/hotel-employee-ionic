@@ -7,6 +7,12 @@
 <ion-header color="my">
   <ion-navbar>
     <ion-searchbar (ionInput)="searchItems($event)" placeholder="搜索酒店"></ion-searchbar>
+    <!-- <ion-buttons end>
+      <ion-select [(ngModel)]="area" okText="确定" cancelText="取消" placeholder="{{areaAll.text}}" interface="popover">
+        <ion-option [value]="areaAll" selected="true">{{areaAll.text}}</ion-option>
+        <ion-option *ngFor="let item of areas" [value]="item">{{item.text}}</ion-option>
+      </ion-select>
+    </ion-buttons> -->
     <ion-buttons end>
       <button ion-button clear color="primary" (click)="switchArea()">
         {{area.text}}
