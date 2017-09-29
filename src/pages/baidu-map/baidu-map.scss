@@ -1,0 +1,18 @@
+page-baidu-map {
+	.map_container{
+        width: 100%;
+        height: 100%;
+    }
+	#btn-location{
+		position: relative;		
+		top: 10px;
+		left: 0;
+		z-index: 999;		
+	}
+	.btn_loaction{
+		padding-right:10px;
+	}
+}
+
+
+//高宽必须有哦，不然你是看不到地图的，因为没有高宽它的大小只是一个点~

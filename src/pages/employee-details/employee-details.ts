@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, AlertController, App } from 'ionic-angular';
 import { EmployeeViewModel } from '../../view-model/employee-model';
 import { ApplyViewModel } from '../../view-model/apply-model';
 import { HotelViewModel } from '../../view-model/hotel-model';
@@ -26,6 +26,7 @@ export class EmployeeDetailsPage implements OnInit {
   private hotelDetails: HotelViewModel = null;
 
   constructor(
+    private app: App,
     public navCtrl: NavController,
     public navParams: NavParams,
     private toast: ToastController,
@@ -116,6 +117,14 @@ export class EmployeeDetailsPage implements OnInit {
         }
       })
       .catch(this.handleError);
+  }
+
+  showMap(lng: Number, lat: Number): void {
+    console.log("showMap:: lng:"+lng + "  lat:" + lat );
+    this.app.getRootNav().push("BaiduMapPage", {
+      "lng": lng,
+      "lat": lat
+    });
   }
 }
 

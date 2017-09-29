@@ -102,7 +102,7 @@ export class PersonDetailsPage implements ICameraCallBack {
   }
 
   getSuccessPicture(base64Str: string) {
-    console.log("getSuccessPicture");
+    console.log("getSuccessPicture:::length:" + base64Str.length);
     switch (this.whichPhoto) {
       case PHOTO_IDCARD_FRONT:
         this.idCardFront = base64Str;
