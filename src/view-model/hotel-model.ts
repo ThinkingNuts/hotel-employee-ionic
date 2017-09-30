@@ -15,6 +15,8 @@ export class HotelViewModel extends BaseViewModel {
   Bank: string;
   BankAddress: string;
   BankAccount: string;
+  Longitude: string;
+  Latitude: string;
   Mark: string;
   Accouts;
   HotelOrders;

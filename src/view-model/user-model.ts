@@ -14,10 +14,13 @@ export class UserViewModel extends BaseViewModel {
   public Id: number;
   public GUID: string;
   public CreateTime: string;
+  public ICardPositive:string;
+  public ICardBack:string;
+  public Health:string;
 
   toString() {
     console.log(`RealName:${this.RealName}, Pwd:${this.Pwd}, Sex:${this.Sex}, Name:${this.Name}, IdentityCard:${this.IdentityCard},
-     Phone:${this.Phone}, Address:${this.Address}`);
+     Phone:${this.Phone}, Address:${this.Address},  ICardPositive:${this.ICardPositive},  ICardBack:${this.ICardBack},  Health:${this.Health}`);
   }
 
   // ObjectToSerialize() {

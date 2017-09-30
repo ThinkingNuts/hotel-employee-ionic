@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, ToastController } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
 
 import { BaseHttpServiceProvider, JsonResult, BaseViewModel } from '../../providers/base-http-service/base-http-service';
@@ -15,6 +15,8 @@ import { UserViewModel } from '../../view-model/user-model';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
+
+const URL_ROOT: string = "http://123.56.15.145:5000/";
 
 const PHOTO_IDCARD_FRONT: number = 1;
 const PHOTO_IDCARD_BACK: number = 2;
@@ -40,6 +42,7 @@ export class PersonDetailsPage implements ICameraCallBack {
   constructor(
     private navCtrl: NavController,
     private navParams: NavParams,
+    private toastCtrl: ToastController,
     private actionSheetCtrl: ActionSheetController,
     private baseHttp: BaseHttpServiceProvider,
     private urlConfig: AppUrlConfigProvider,
@@ -52,12 +55,16 @@ export class PersonDetailsPage implements ICameraCallBack {
 
   ngOnInit() {
     this.getPersonDetails();
+
   }
 
   getPersonDetails(): void {
     this.account.getUserInfo((value) => {
       this.user = value;
       console.log("PersonDetails: userInfo:: " + JSON.stringify(this.user));
+      this.idCardFront = URL_ROOT + this.user.ICardPositive;
+      this.idCardBack = URL_ROOT + this.user.ICardBack;
+      this.healthCertificate = URL_ROOT + this.user.Health;
     });
   }
 
@@ -106,20 +113,58 @@ export class PersonDetailsPage implements ICameraCallBack {
     switch (this.whichPhoto) {
       case PHOTO_IDCARD_FRONT:
         this.idCardFront = base64Str;
+        this.sendPicture("ICardPositive",this.idCardFront);
         break;
       case PHOTO_IDCARD_BACK:
         this.idCardBack = base64Str;
+        this.sendPicture("ICardBack",this.idCardBack);
         break;
       case PHOTO_HEALTH_CERTIFICATE:
         this.healthCertificate = base64Str;
+        this.sendPicture("Health",this.healthCertificate);
         break;
       default:
         break;
     }
   }
+
+  sendPicture(type:string, base64:string) {
+    console.log(new PersonPictureModule(this.user.GUID, type ,base64).toString());
+    this.baseHttp.post<PersonPictureModule, JsonResult>(new PersonPictureModule(this.user.GUID, type ,base64),
+    this.urlConfig.userConfig.userUploadUrl).then(
+    d => {
+      let msg: string = d.message;
+      console.log("Register result " + msg);
+      this.toastCtrl.create({
+        duration: 1500,
+        position: "top",
+        message: msg,
+      }).present();
+    }).catch(this.handleError);
+  }
+
   getErrorPicture(error: any) {
     console.log("getErrorPicture error:: " + error);
   }
 }
 
 
+
+export class PersonPictureModule extends BaseViewModel {
+
+  constructor(
+    private guid: string,
+    private type: string,
+    private data: string
+  ) {
+    super();
+  }
+
+  toString() {
+    console.log(`GUID=${this.guid}&type=${this.type}&data=${this.data.substr(0,100)}`);
+  }
+
+  ObjectToSerialize() {
+    return `GUID=${this.guid}&type=${this.type}&data=${this.data}`;
+  }
+}

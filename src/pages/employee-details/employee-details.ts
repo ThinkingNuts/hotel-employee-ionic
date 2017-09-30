@@ -119,8 +119,11 @@ export class EmployeeDetailsPage implements OnInit {
       .catch(this.handleError);
   }
 
-  showMap(lng: Number, lat: Number): void {
+  showMap(lng: string, lat: string): void {
+    let lngNum:number = parseFloat(lng);
+    let latNum:number = parseFloat(lat);
     console.log("showMap:: lng:"+lng + "  lat:" + lat );
+    console.log("showMap:: lng:"+lngNum + "  lat:" + latNum );
     this.app.getRootNav().push("BaiduMapPage", {
       "lng": lng,
       "lat": lat
