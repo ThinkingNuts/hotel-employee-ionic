@@ -129,7 +129,7 @@ export class PersonDetailsPage implements ICameraCallBack {
   }
 
   sendPicture(type:string, base64:string) {
-    console.log(new PersonPictureModule(this.user.GUID, type ,base64).toString());
+    // console.log(new PersonPictureModule(this.user.GUID, type ,base64).toString());
     this.baseHttp.post<PersonPictureModule, JsonResult>(new PersonPictureModule(this.user.GUID, type ,base64),
     this.urlConfig.userConfig.userUploadUrl).then(
     d => {
