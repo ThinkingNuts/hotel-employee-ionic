@@ -24,7 +24,9 @@ export class AppNativeCameraProvider {
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       correctOrientation: true,//设置摄像机拍摄的图像是否为正确的方向
-      saveToPhotoAlbum: true
+      saveToPhotoAlbum: true,
+      targetWidth: 800,//缩放图像的宽度（像素）
+      targetHeight: 480,//缩放图像的高度（像素）
     }
 
     this.camera.getPicture(options).then((imageData) => {

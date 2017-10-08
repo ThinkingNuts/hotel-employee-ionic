@@ -62,9 +62,19 @@ export class PersonDetailsPage implements ICameraCallBack {
     this.account.getUserInfo((value) => {
       this.user = value;
       console.log("PersonDetails: userInfo:: " + JSON.stringify(this.user));
-      this.idCardFront = URL_ROOT + this.user.ICardPositive;
-      this.idCardBack = URL_ROOT + this.user.ICardBack;
-      this.healthCertificate = URL_ROOT + this.user.Health;
+      if (this.user.ICardBack != null) {
+        this.idCardFront = URL_ROOT + this.user.ICardPositive;
+      }
+
+      console.log("idCardFront: url:: " + this.idCardFront);
+      if (this.user.ICardBack != null) {
+        this.idCardBack = URL_ROOT + this.user.ICardBack;
+      }
+      if (this.user.Health != null) {
+        this.healthCertificate = URL_ROOT + this.user.Health;
+      }
+      console.log(   this.healthCertificate );
+
     });
   }
 
@@ -113,34 +123,34 @@ export class PersonDetailsPage implements ICameraCallBack {
     switch (this.whichPhoto) {
       case PHOTO_IDCARD_FRONT:
         this.idCardFront = base64Str;
-        this.sendPicture("ICardPositive",this.idCardFront);
+        this.sendPicture("ICardPositive", this.idCardFront);
         break;
       case PHOTO_IDCARD_BACK:
         this.idCardBack = base64Str;
-        this.sendPicture("ICardBack",this.idCardBack);
+        this.sendPicture("ICardBack", this.idCardBack);
         break;
       case PHOTO_HEALTH_CERTIFICATE:
         this.healthCertificate = base64Str;
-        this.sendPicture("Health",this.healthCertificate);
+        this.sendPicture("Health", this.healthCertificate);
         break;
       default:
         break;
     }
   }
 
-  sendPicture(type:string, base64:string) {
+  sendPicture(type: string, base64: string) {
     // console.log(new PersonPictureModule(this.user.GUID, type ,base64).toString());
-    this.baseHttp.post<PersonPictureModule, JsonResult>(new PersonPictureModule(this.user.GUID, type ,base64),
-    this.urlConfig.userConfig.userUploadUrl).then(
-    d => {
-      let msg: string = d.message;
-      console.log("Register result " + msg);
-      this.toastCtrl.create({
-        duration: 1500,
-        position: "top",
-        message: msg,
-      }).present();
-    }).catch(this.handleError);
+    this.baseHttp.post<PersonPictureModule, JsonResult>(new PersonPictureModule(this.user.GUID, type, base64),
+      this.urlConfig.userConfig.userUploadUrl).then(
+      d => {
+        let msg: string = d.message;
+        console.log("Register result " + msg);
+        this.toastCtrl.create({
+          duration: 1500,
+          position: "top",
+          message: msg,
+        }).present();
+      }).catch(this.handleError);
   }
 
   getErrorPicture(error: any) {
@@ -161,10 +171,10 @@ export class PersonPictureModule extends BaseViewModel {
   }
 
   toString() {
-    console.log(`GUID=${this.guid}&type=${this.type}&data=${this.data.substr(0,100)}`);
+    console.log(`GUID=${this.guid}&type=${this.type}&data=${this.data.substr(0, 100)}`);
   }
 
   ObjectToSerialize() {
-    return `GUID=${this.guid}&type=${this.type}&data=${this.data}`;
+    return `GUID=${this.guid}&type=${this.type}&data=${encodeURIComponent(this.data)}`;
   }
 }
