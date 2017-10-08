@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ToastController, AlertController, 
 import { EmployeeViewModel } from '../../view-model/employee-model';
 import { ApplyViewModel } from '../../view-model/apply-model';
 import { HotelViewModel } from '../../view-model/hotel-model';
+import { Storage } from '@ionic/storage';
 
 import { BaseHttpServiceProvider, JsonResult, BaseViewModel } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
@@ -24,6 +25,7 @@ export class EmployeeDetailsPage implements OnInit {
   private item: EmployeeViewModel = null;
   private callback;
   private hotelDetails: HotelViewModel = null;
+  private mOrder: OrderModule = new OrderModule();
 
   constructor(
     private app: App,
@@ -32,13 +34,19 @@ export class EmployeeDetailsPage implements OnInit {
     private toast: ToastController,
     private alert: AlertController,
     private baseHttp: BaseHttpServiceProvider,
-    private urlConfig: AppUrlConfigProvider) {
+    private urlConfig: AppUrlConfigProvider,
+    private storage: Storage
+  ) {
     this.item = navParams.get("item");
     this.callback = navParams.get("callback");
   }
-
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad EmployeeDetailsPage');
+    this.storage.get('user').then(res => {
+      console.log("getUser" + JSON.parse(JSON.stringify(res)).Id);
+      this.mOrder.PersonId = JSON.parse(JSON.stringify(res)).Id;
+    });
   }
 
   ngOnInit(): void {
@@ -67,13 +75,11 @@ export class EmployeeDetailsPage implements OnInit {
 
   onApply(): void {
     console.log('onApply EmployeeDetailsPage');
-    let mOrder = new OrderModule();
-    mOrder.PersonId = 6;
-    mOrder.OrderId = this.item.Id;
-    mOrder.Status = 1;
-    mOrder.GUID = this.item.GUID;
-    mOrder.Mark = this.item.Mark;
-    this.toApply(mOrder);
+    this.mOrder.OrderId = this.item.Id;
+    this.mOrder.Status = 1;
+    this.mOrder.GUID = this.item.GUID;
+    this.mOrder.Mark = this.item.Mark;
+    this.toApply(this.mOrder);
   }
 
   toApply(order: OrderModule): void {
@@ -120,9 +126,9 @@ export class EmployeeDetailsPage implements OnInit {
   }
 
   showMap(lng: string, lat: string): void {
-    let lngNum:number = parseFloat(lng);
-    let latNum:number = parseFloat(lat);
-    console.log("showMap:: lng:"+lng + "  lat:" + lat );
+    let lngNum: number = parseFloat(lng);
+    let latNum: number = parseFloat(lat);
+    console.log("showMap:: lng:" + lng + "  lat:" + lat);
     this.app.getRootNav().push("BaiduMapPage", {
       "lng": lng,
       "lat": lat

@@ -22,9 +22,10 @@ export class AccountProvider {
     });
   }
 
-  saveUserInfo(user: UserViewModel): void {
+  saveUserInfo(user:any): void {
     this.storage.ready().then(() => {
       this.storage.set("user", user);
+      console.log("user::" + JSON.stringify(user));
     });
   }
 
@@ -53,6 +54,7 @@ export class AccountProvider {
         console.log(JSON.stringify(response));
 
         if (response["state"]) {
+       
           this.saveUserInfo(response["data"]);
           this.saveToken(response["token"]);
         }

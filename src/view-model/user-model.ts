@@ -19,8 +19,8 @@ export class UserViewModel extends BaseViewModel {
   public Health:string;
 
   toString() {
-    console.log(`RealName:${this.RealName}, Pwd:${this.Pwd}, Sex:${this.Sex}, Name:${this.Name}, IdentityCard:${this.IdentityCard},
-     Phone:${this.Phone}, Address:${this.Address},  ICardPositive:${this.ICardPositive},  ICardBack:${this.ICardBack},  Health:${this.Health}`);
+    return `Id:${this.Id},RealName:${this.RealName}, Pwd:${this.Pwd}, Sex:${this.Sex}, Name:${this.Name}, IdentityCard:${this.IdentityCard},
+     Phone:${this.Phone}, Address:${this.Address},  ICardPositive:${this.ICardPositive},  ICardBack:${this.ICardBack},  Health:${this.Health}`;
   }
 
   // ObjectToSerialize() {

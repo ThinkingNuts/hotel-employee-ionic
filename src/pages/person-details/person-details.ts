@@ -51,29 +51,22 @@ export class PersonDetailsPage implements ICameraCallBack {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PersonDetailsPage');
-  }
-
-  ngOnInit() {
     this.getPersonDetails();
-
   }
+
+
 
   getPersonDetails(): void {
     this.account.getUserInfo((value) => {
       this.user = value;
       console.log("PersonDetails: userInfo:: " + JSON.stringify(this.user));
-      if (this.user.ICardBack != null) {
-        this.idCardFront = URL_ROOT + this.user.ICardPositive;
-      }
+      
+      this.idCardFront = URL_ROOT + "upload/" + this.user.GUID + "/ICardPositive.jpg";
 
-      console.log("idCardFront: url:: " + this.idCardFront);
-      if (this.user.ICardBack != null) {
-        this.idCardBack = URL_ROOT + this.user.ICardBack;
-      }
-      if (this.user.Health != null) {
-        this.healthCertificate = URL_ROOT + this.user.Health;
-      }
-      console.log(   this.healthCertificate );
+      this.idCardBack = URL_ROOT + "upload/" + this.user.GUID + "/ICardBack.jpg";
+
+      this.healthCertificate = URL_ROOT + "upload/" + this.user.GUID + "/Health.jpg";
+
 
     });
   }
