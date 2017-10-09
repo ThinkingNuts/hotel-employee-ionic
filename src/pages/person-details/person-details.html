@@ -44,17 +44,17 @@
 
     <ion-item class="item-input">
       <ion-label class="item-key">身份证号</ion-label>
-      <ion-input disabled type="number" [(ngModel)]="user.IdentityCard" clearInput></ion-input>
+      <ion-input type="number" [(ngModel)]="user.IdentityCard" clearInput></ion-input>
     </ion-item>
 
     <ion-item class="item-input">
       <ion-label class="item-key">手机号码</ion-label>
-      <ion-input disabled type="tel" [(ngModel)]="user.Phone" clearInput></ion-input>
+      <ion-input type="tel" [(ngModel)]="user.Phone" clearInput></ion-input>
     </ion-item>
 
     <ion-item class="item-input">
       <ion-label class="item-key">通讯地址</ion-label>
-      <ion-input disabled type="text" [(ngModel)]="user.Address" clearInput></ion-input>
+      <ion-input type="text" [(ngModel)]="user.Address" clearInput></ion-input>
     </ion-item>
 
     <ion-item>
@@ -75,7 +75,6 @@
       <p class="item-key">健康证</p>
       <div class="img-box health-img-box" (click)="addPhoto(3)">
         <img class="health-img" [src]="healthCertificate" alt="健康证">
-     
       </div>
     </ion-item>
   </ion-list>

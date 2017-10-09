@@ -39,7 +39,7 @@ export class AreaSelectorComponent {
         this.areas = response || [];
         this.areas.push({
           id: 0,
-          text: "全部",
+          text: "上海",
           ObjectToSerialize: () => ""
         })
       })

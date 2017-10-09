@@ -54,20 +54,20 @@ export class PersonDetailsPage implements ICameraCallBack {
     this.getPersonDetails();
   }
 
-
-
   getPersonDetails(): void {
     this.account.getUserInfo((value) => {
       this.user = value;
       console.log("PersonDetails: userInfo:: " + JSON.stringify(this.user));
-      
+
+      this.baseHttp.post<any, JsonResult>(null, this.urlConfig.userConfig.personDetailsUrl + this.user.Id)
+        .then(d => {
+          console.log("PersonDetails: getPersonDetails:: " + d);
+        })
+        .catch(this.handleError);
+
       this.idCardFront = URL_ROOT + "upload/" + this.user.GUID + "/ICardPositive.jpg";
-
       this.idCardBack = URL_ROOT + "upload/" + this.user.GUID + "/ICardBack.jpg";
-
       this.healthCertificate = URL_ROOT + "upload/" + this.user.GUID + "/Health.jpg";
-
-
     });
   }
 
@@ -150,8 +150,6 @@ export class PersonDetailsPage implements ICameraCallBack {
     console.log("getErrorPicture error:: " + error);
   }
 }
-
-
 
 export class PersonPictureModule extends BaseViewModel {
 

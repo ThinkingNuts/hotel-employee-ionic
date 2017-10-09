@@ -7,6 +7,7 @@ import { Storage } from '@ionic/storage';
 
 import { BaseHttpServiceProvider, JsonResult, BaseViewModel } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
+import { AccountProvider } from '../../providers/account/account';
 
 /**
  * Generated class for the EmployeeDetailsPage page.
@@ -35,18 +36,20 @@ export class EmployeeDetailsPage implements OnInit {
     private alert: AlertController,
     private baseHttp: BaseHttpServiceProvider,
     private urlConfig: AppUrlConfigProvider,
+    private account: AccountProvider,
     private storage: Storage
   ) {
     this.item = navParams.get("item");
     this.callback = navParams.get("callback");
   }
-  
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad EmployeeDetailsPage');
-    this.storage.get('user').then(res => {
-      console.log("getUser" + JSON.parse(JSON.stringify(res)).Id);
-      this.mOrder.PersonId = JSON.parse(JSON.stringify(res)).Id;
-    });
+    this.account.getUserInfo((value) => {
+      console.log("EmployeeDetails: user:: " + JSON.stringify(value));
+      this.mOrder.PersonId = value.Id;
+      console.log("EmployeeDetails: personId:: " + this.mOrder.PersonId);
+    })
   }
 
   ngOnInit(): void {

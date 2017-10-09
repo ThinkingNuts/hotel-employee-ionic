@@ -27,7 +27,7 @@ export class InfoListPage {
   private searchText: string;
   private areaAll: AreaViewModel = {
     id: 0,
-    text: "全部",
+    text: "上海",
     ObjectToSerialize: () => ""
   };
   private area: AreaViewModel;
@@ -90,11 +90,6 @@ export class InfoListPage {
       .then((response) => {
         console.log("AreaSelector: getAreas:: " + JSON.stringify(response));
         this.areas = response || [];
-        // this.areas.push({
-        //   id: 0,
-        //   text: "全部",
-        //   ObjectToSerialize: () => ""
-        // });
       })
       .catch(this.handleError);
   }
