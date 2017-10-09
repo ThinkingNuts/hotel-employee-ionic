@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Tabs } from 'ionic-angular';
 
 import { InfoListPage } from '../info-list/info-list';
 // import { EmployeeListPage } from '../employee-list/employee-list';
@@ -16,6 +16,7 @@ import { UserViewModel } from '../../view-model/user-model';
 })
 export class TabsPage {
 
+  @ViewChild('mainTabs') tabs: Tabs;
   tab1Root = HomePage;
   tab2Root = InfoListPage;
   tab3Root = MyPage;
