@@ -22,7 +22,7 @@ export class AccountProvider {
     });
   }
 
-  saveUserInfo(user:any): void {
+  saveUserInfo(user: any): void {
     this.storage.ready().then(() => {
       this.storage.set("user", user);
       console.log("user::" + JSON.stringify(user));
@@ -49,12 +49,16 @@ export class AccountProvider {
     // if (this.infoInvalid(user.Phone, user.Pwd)) return;
 
     this.baseHttp
-      .post(user, this.urlConfig.userConfig.userLoginUrl)
+      .post({
+        ObjectToSerialize: () => {
+          return `phone=${user.Phone}&password=${user.Pwd}`;
+        }
+      }, this.urlConfig.userConfig.userLoginUrl)
       .then((response) => {
         console.log(JSON.stringify(response));
 
         if (response["state"]) {
-       
+
           this.saveUserInfo(response["data"]);
           this.saveToken(response["token"]);
         }

@@ -29,6 +29,6 @@ export class UserViewModel extends BaseViewModel {
   // }
 
   ObjectToSerialize() {
-    return `RealName=${this.RealName}&Sex=${this.Sex}&Phone=${this.Phone}&password=${this.Pwd}`;
+    return `RealName=${this.RealName}&Sex=${this.Sex}&Phone=${this.Phone}&Pwd=${this.Pwd}&IdentityCard=${this.IdentityCard}&Phone=${this.Phone}&Address=${this.Address}&Icon=${this.Icon}&Status=${this.Status}&Id=${this.Id}&GUID=${this.GUID}&CreateTime=${this.CreateTime}&ICardPositive=${this.ICardPositive}&ICardBack=${this.ICardBack}&Health=${this.Health}`;
   }
 }

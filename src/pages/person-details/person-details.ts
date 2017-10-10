@@ -61,13 +61,16 @@ export class PersonDetailsPage implements ICameraCallBack {
 
       this.baseHttp.post<any, JsonResult>(null, this.urlConfig.userConfig.personDetailsUrl + this.user.Id)
         .then(d => {
-          console.log("PersonDetails: getPersonDetails:: " + d);
+          console.log("PersonDetails: getPersonDetails:: " + JSON.stringify(d));
+          if (d.state) {
+            this.user = d["data"];
+
+            this.idCardFront = URL_ROOT + "upload/" + this.user.GUID + "/ICardPositive.jpg";
+            this.idCardBack = URL_ROOT + "upload/" + this.user.GUID + "/ICardBack.jpg";
+            this.healthCertificate = URL_ROOT + "upload/" + this.user.GUID + "/Health.jpg";
+          }
         })
         .catch(this.handleError);
-
-      this.idCardFront = URL_ROOT + "upload/" + this.user.GUID + "/ICardPositive.jpg";
-      this.idCardBack = URL_ROOT + "upload/" + this.user.GUID + "/ICardBack.jpg";
-      this.healthCertificate = URL_ROOT + "upload/" + this.user.GUID + "/Health.jpg";
     });
   }
 
@@ -134,20 +137,38 @@ export class PersonDetailsPage implements ICameraCallBack {
   sendPicture(type: string, base64: string) {
     // console.log(new PersonPictureModule(this.user.GUID, type ,base64).toString());
     this.baseHttp.post<PersonPictureModule, JsonResult>(new PersonPictureModule(this.user.GUID, type, base64),
-      this.urlConfig.userConfig.userUploadUrl).then(
-      d => {
-        let msg: string = d.message;
-        console.log("Register result " + msg);
-        this.toastCtrl.create({
-          duration: 1500,
-          position: "top",
-          message: msg,
-        }).present();
-      }).catch(this.handleError);
+      this.urlConfig.userConfig.userUploadUrl)
+      .then(d => {
+        console.log("PersonDetailsPage: sendPicture:: result " + JSON.stringify(d));
+        this.showToast(d.message);
+      })
+      .catch(this.handleError);
   }
 
   getErrorPicture(error: any) {
     console.log("getErrorPicture error:: " + error);
+  }
+
+  savePerson() {
+    console.log("PersonDetailsPage: savePerson:: " + JSON.stringify(this.user));
+
+    this.baseHttp.postJson<UserViewModel, JsonResult>(this.user, this.urlConfig.userConfig.personDetailsUpdateUrl)
+      .subscribe(
+      (res) => {
+        console.log("PersonDetailsPage: savePerson result:: " + JSON.stringify(res));
+        this.showToast(res.message);
+      },
+      (error) => {
+        this.handleError(error);
+      });
+  }
+
+  showToast(msg: string) {
+    this.toastCtrl.create({
+      duration: 2000,
+      position: "top",
+      message: msg,
+    }).present();
   }
 }
 

@@ -9,7 +9,7 @@
   <ion-navbar color="my">
     <ion-title>个人资料</ion-title>
     <ion-buttons end>
-      <button ion-button>保存</button>
+      <button ion-button (click)="savePerson()">保存</button>
     </ion-buttons>
   </ion-navbar>
 
@@ -19,10 +19,10 @@
 <ion-content padding>
 
   <ion-list class="list" *ngIf="user">
-    <ion-item class="item-input">
+    <!-- <ion-item class="item-input">
       <ion-label class="item-key">用户名</ion-label>
-      <ion-input disabled type="text" [(ngModel)]="user.Name" clearInput></ion-input>
-    </ion-item>
+      <ion-input type="text" [(ngModel)]="user.Name" clearInput></ion-input>
+    </ion-item> -->
 
     <ion-item-group class="sex-box" radio-group [(ngModel)]="user.Sex">
       <ion-label class="item-key">性别</ion-label>

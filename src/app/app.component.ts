@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { TabsPage } from '../pages/tabs/tabs';
+import { LoginPage } from '../pages/login/login';
 
 @Component({
   templateUrl: 'app.html'
@@ -47,7 +48,14 @@ export class MyApp {
         return;
       }
       let activeVC = this.nav.getActive();
-      let tabs = activeVC.instance.tabs;
+      let page = activeVC.instance;
+
+      if (page instanceof LoginPage) {
+        this.platform.exitApp();
+        return;
+      }
+
+      let tabs = page.tabs;
       let activeNav = tabs.getSelected();
       return activeNav.canGoBack() ? activeNav.pop() : this.showExit()
     }, 1);

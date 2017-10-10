@@ -40,7 +40,8 @@ class UserConfig {
   public userRegisterUrl: string = URL_ROOT + "ServicePerson/Create";
   public updatePwdUrl: string = URL_ROOT + "ServicePerson/UpdatePwd";
   public userUploadUrl: string = URL_ROOT + "ServicePerson/Upload";
-  public personDetailsUrl: string = URL_ROOT + "servicePerson/Detail/";//+用户Id
+  public personDetailsUrl: string = URL_ROOT + "ServicePerson/Details/";//+用户Id
+  public personDetailsUpdateUrl: string = URL_ROOT + "ServicePerson/Update";
 }
 
 class SignalrConfig {
