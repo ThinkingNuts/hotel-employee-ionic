@@ -107,7 +107,7 @@ export class EmployeeDetailsPage implements OnInit {
     this.toast.create({
       message: msg.message,
       duration: 2000,
-      position: "bottom"
+      position: "top"
     }).present();
   }
 
@@ -117,7 +117,7 @@ export class EmployeeDetailsPage implements OnInit {
   }
 
   getHotelDetails(hotelGUID: string): void {
-    this.baseHttp.post<BaseViewModel, JsonResult>(new BaseViewModel,
+    this.baseHttp.post<any, JsonResult>(null,
       this.urlConfig.employeeConfig.hotelDetailsUrl + hotelGUID)
       .then(d => {
         console.log("HotelDetails:: " + JSON.stringify(d));

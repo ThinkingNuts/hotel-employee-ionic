@@ -46,13 +46,11 @@ export class AccountProvider {
 
   login(user: UserViewModel, callback) {
     console.log("AccountProvider: login phone: " + user.Phone + ", pwd: " + user.Pwd);
-    // if (this.infoInvalid(user.Phone, user.Pwd)) return;
 
     this.baseHttp
       .post({
-        ObjectToSerialize: () => {
-          return `phone=${user.Phone}&password=${user.Pwd}`;
-        }
+        phone: user.Phone,
+        password: user.Pwd
       }, this.urlConfig.userConfig.userLoginUrl)
       .then((response) => {
         console.log(JSON.stringify(response));
@@ -66,8 +64,15 @@ export class AccountProvider {
       });
   }
 
-  logout() {
+  logout(callback) {
+    console.log("AccountProvider: logout");
 
+    this.storage.ready().then(() => {
+      this.storage.remove("user").then(
+        () => {
+          callback("已退出登录");
+        });
+    });
   }
 
   infoInvalid(userName: string, pwd: string): boolean {

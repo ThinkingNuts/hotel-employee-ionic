@@ -42,7 +42,7 @@ export class ApplyDetailsPage implements OnInit {
   }
 
   getHotelDetails(hotelId: string | number): void {
-    this.baseHttp.post<BaseViewModel, JsonResult>(new BaseViewModel,
+    this.baseHttp.post<any, JsonResult>(null,
       this.urlConfig.employeeConfig.hotelDetailsUrl + hotelId)
       .then(d => {
         console.log("HotelDetails:: " + JSON.stringify(d));

@@ -19,8 +19,8 @@ export class BaseHttpServiceProvider {
 
   public post<T extends BaseViewModel, U>(obj: T, url: string): Promise<U> {
     let form;
-    if (obj && obj.ObjectToSerialize) {
-      form = obj.ObjectToSerialize();
+    if (obj) {
+      form = objectToSerialize(obj);
     }
     let header = new Headers();
     header.append('Content-Type', "application/x-www-form-urlencoded");
@@ -53,10 +53,18 @@ export class BaseHttpServiceProvider {
 
 }
 
+export const objectToSerialize = data => {
+  let formData;
+  for (let index in data) {
+    if (data[index]) {
+      formData += `&${index}=${data[index]}`;
+    }
+  }
+  return formData.substring(10);
+}
+
 export class BaseViewModel {
-
-  public ObjectToSerialize() { }
-
+  // public ObjectToSerialize() { }
 }
 
 export class QueryParmModel {
@@ -67,8 +75,8 @@ export class QueryParmModel {
   public filter: any;
 
 }
-export class JsonResult {
 
+export class JsonResult {
   public state: boolean;
   public message: string;
 }

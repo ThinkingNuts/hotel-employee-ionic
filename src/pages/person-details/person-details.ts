@@ -136,7 +136,7 @@ export class PersonDetailsPage implements ICameraCallBack {
 
   sendPicture(type: string, base64: string) {
     // console.log(new PersonPictureModule(this.user.GUID, type ,base64).toString());
-    this.baseHttp.post<PersonPictureModule, JsonResult>(new PersonPictureModule(this.user.GUID, type, base64),
+    this.baseHttp.post<PersonPictureModule, JsonResult>(new PersonPictureModule(this.user.GUID, type, encodeURIComponent(base64)),
       this.urlConfig.userConfig.userUploadUrl)
       .then(d => {
         console.log("PersonDetailsPage: sendPicture:: result " + JSON.stringify(d));
@@ -149,18 +149,19 @@ export class PersonDetailsPage implements ICameraCallBack {
     console.log("getErrorPicture error:: " + error);
   }
 
-  savePerson() {
+  savePerson(value) {
     console.log("PersonDetailsPage: savePerson:: " + JSON.stringify(this.user));
 
-    this.baseHttp.postJson<UserViewModel, JsonResult>(this.user, this.urlConfig.userConfig.personDetailsUpdateUrl)
-      .subscribe(
-      (res) => {
+    this.baseHttp.post<UserViewModel , JsonResult>(this.user, this.urlConfig.userConfig.personDetailsUpdateUrl)
+      .then(
+        (res) => {
         console.log("PersonDetailsPage: savePerson result:: " + JSON.stringify(res));
         this.showToast(res.message);
-      },
-      (error) => {
-        this.handleError(error);
-      });
+      })
+      .catch(this.handleError);
+  }
+
+  doSubmit(){
   }
 
   showToast(msg: string) {
@@ -180,13 +181,5 @@ export class PersonPictureModule extends BaseViewModel {
     private data: string
   ) {
     super();
-  }
-
-  toString() {
-    console.log(`GUID=${this.guid}&type=${this.type}&data=${this.data.substr(0, 100)}`);
-  }
-
-  ObjectToSerialize() {
-    return `GUID=${this.guid}&type=${this.type}&data=${encodeURIComponent(this.data)}`;
   }
 }

@@ -42,7 +42,9 @@ export class AppNativeCameraProvider {
   public getPictureFromPhotoLibrary(callBack: ICameraCallBack) {
     const options: CameraOptions = {
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,//图片来源,CAMERA:拍照,PHOTOLIBRARY:相册
-      destinationType: this.camera.DestinationType.DATA_URL
+      destinationType: this.camera.DestinationType.DATA_URL,
+      targetWidth: 800,//缩放图像的宽度（像素）
+      targetHeight: 480,//缩放图像的高度（像素）
     }
 
     this.camera.getPicture(options).then((imageData) => {
