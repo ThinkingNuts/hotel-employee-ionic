@@ -6,32 +6,13 @@
 -->
 <ion-header>
   <ion-navbar color="my">
-    <ion-grid>
-      <ion-row>
-        <ion-col col-9>
-          <ion-searchbar (ionInput)="searchItems($event)" placeholder="搜索酒店"></ion-searchbar>
-        </ion-col>
-        <ion-col col-3>
-          <ion-select [(ngModel)]="area" okText="确定" cancelText="取消" placeholder="{{areaAll.text}}" interface="popover">
-            <ion-option [value]="areaAll" selected="true">{{areaAll.text}}</ion-option>
-            <ion-option *ngFor="let item of areas" [value]="item">{{item.text}}</ion-option>
-          </ion-select>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <!-- <ion-searchbar (ionInput)="searchItems($event)" placeholder="搜索酒店"></ion-searchbar> -->
-    <!-- <ion-buttons end>
-      <ion-select [(ngModel)]="area" okText="确定" cancelText="取消" placeholder="{{areaAll.text}}" interface="popover">
-        <ion-option [value]="areaAll" selected="true">{{areaAll.text}}</ion-option>
-        <ion-option *ngFor="let item of areas" [value]="item">{{item.text}}</ion-option>
-      </ion-select>
-    </ion-buttons> -->
-    <!-- <ion-buttons end>
+    <ion-searchbar (ionInput)="searchItems($event)" placeholder="搜索酒店"></ion-searchbar>
+    <ion-buttons end>
       <button ion-button clear (click)="switchArea()">
         {{area.text}}
         <ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown"></ion-icon>
       </button>
-    </ion-buttons> -->
+    </ion-buttons>
   </ion-navbar>
 
   <ion-toolbar>

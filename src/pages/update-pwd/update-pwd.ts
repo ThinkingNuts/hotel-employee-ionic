@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 
 import { BaseHttpServiceProvider, JsonResult, BaseViewModel } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
@@ -30,6 +30,7 @@ export class UpdatePwdPage {
     private urlConfig: AppUrlConfigProvider,
     private account: AccountProvider,
     private toastCtrl: ToastController,
+    private alertCtrl: AlertController,
     public navCtrl: NavController,
     public navParams: NavParams) {
   }
@@ -50,6 +51,29 @@ export class UpdatePwdPage {
   }
 
   updatePwd(): void {
+    this.askUpdatePwd();
+  }
+
+  askUpdatePwd(): void {
+    this.alertCtrl.create({
+      title: "提示",
+      message: "确认要修改吗？",
+      buttons: [{
+        text: "取消",
+        handler: () => {
+          console.log("Disagree clicked");
+        }
+      }, {
+        text: "确认",
+        handler: () => {
+          console.log("Agree clicked");
+          this.doUpdatePwd();
+        }
+      }]
+    }).present();
+  }
+
+  doUpdatePwd(): void {
     let form: UpdatePwdModel = new UpdatePwdModel();
     form.newPassword = this.newPwd;
     form.oldPassword = this.oldPwd;

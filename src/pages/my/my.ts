@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { App, NavController, ToastController } from 'ionic-angular';
-import { AccountProvider } from '../../providers/account/account';
+import { App, NavController, ToastController, AlertController } from 'ionic-angular';
+import { AccountProvider, LoginState, LOGIN_STATE_DEFAULT } from '../../providers/account/account';
 import { UserViewModel } from '../../view-model/user-model';
 
 @Component({
@@ -10,31 +10,18 @@ import { UserViewModel } from '../../view-model/user-model';
 export class MyPage {
 
   private user: UserViewModel;
-  items: MyItem[] = [{
-    content: "个人资料",
-    pageName: "PersonDetailsPage"
-  }, {
-    //   content: "申请记录",
-    //   pageName: "ApplyRecordsPage"
-    // }, {
-    //   content: "我的任务",
-    //   pageName: "TaskPage"
-    // }, {
-    content: "修改密码",
-    pageName: "UpdatePwdPage"
-  }, {
-    content: "关于我们",
-    pageName: "AboutPage"
-  }];
+  private loginState: LoginState = LOGIN_STATE_DEFAULT;
 
   constructor(
     private account: AccountProvider,
     private toastCtrl: ToastController,
+    private alertCtrl: AlertController,
     private app: App,
     private navCtrl: NavController) { }
 
   ngOnInit() {
     this.getPersonDetails();
+    this.checkLogin();
   }
 
   openPage(pageName: string, pageTitle: string): void {
@@ -45,14 +32,44 @@ export class MyPage {
   getPersonDetails(): void {
     this.account.getUserInfo((value) => {
       this.user = value;
-      console.log("PersonDetails: userInfo:: " + JSON.stringify(this.user));
+      console.log("MyDetails: userInfo:: " + JSON.stringify(this.user));
+    });
+  }
+
+  checkLogin(): void {
+    this.account.checkLogin((res) => {
+      console.log("MyPage: checkLogin res:: " + res.desc);
+      this.loginState = res;
     });
   }
 
   logout(): void {
+    this.askLogout();
+  }
+
+  askLogout(): void {
+    this.alertCtrl.create({
+      title: "提示",
+      message: "确认要退出登录吗？",
+      buttons: [{
+        text: "取消",
+        handler: () => {
+          console.log("Disagree clicked");
+        }
+      }, {
+        text: "确认",
+        handler: () => {
+          console.log("Agree clicked");
+          this.doLogout();
+        }
+      }]
+    }).present();
+  }
+
+  doLogout() {
     this.account.logout((msg) => {
+      this.loginState = LOGIN_STATE_DEFAULT;
       this.showToast(msg);
-      this.user = null;
     });
   }
 
@@ -63,9 +80,4 @@ export class MyPage {
       message: msg,
     }).present();
   }
-}
-
-class MyItem {
-  content: string;
-  pageName: string;
 }

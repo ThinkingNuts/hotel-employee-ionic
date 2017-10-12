@@ -1,9 +1,9 @@
 page-person-details {
+  .error-hint {
+    color: red;
+  }
   .list>ion-item {
     padding: 0;
-  }
-  .item-input {
-    // padding: 0;
   }
   .item-key {
     font-size: 16px !important;

@@ -15,34 +15,35 @@
 
 <ion-content padding>
 
-  <ion-list>
-    <ion-item>
-      <ion-label fixed>真实姓名</ion-label>
-      <ion-input type="text" value="" placeholder="请输入真实姓名" [(ngModel)]="user.RealName"></ion-input>
-    </ion-item>
+  <form [formGroup]="registerForm" (ngSubmit)="register()" novalidate>
+    <ion-list class="list">
+      <ion-item>
+        <ion-label fixed>真实姓名</ion-label>
+        <ion-input type="text" placeholder="请输入真实姓名" [(ngModel)]="user.RealName" [formControl]="realName" clearInput></ion-input>
+      </ion-item>
+      <div class="error-hint" *ngIf="realName.hasError('required') && realName.touched">* 请输入真实姓名</div>
 
-    <ion-list radio-group [(ngModel)]="user.Sex">
-      <ion-list-header>
-        性别
-      </ion-list-header>
-      <ion-item>
-        <ion-label fixed>男</ion-label>
-        <ion-radio checked="true" value="男"></ion-radio>
-        
-      </ion-item>
-      <ion-item>
-          <ion-label>女</ion-label>
+      <ion-item-group class="sex-box" radio-group [(ngModel)]="user.Sex" [formControl]="sex">
+        <ion-label class="item-key">性别</ion-label>
+        <ion-item>
+          <ion-label class="sex">男</ion-label>
+          <ion-radio value="男"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label class="sex">女</ion-label>
           <ion-radio value="女"></ion-radio>
+        </ion-item>
+      </ion-item-group>
+
+      <ion-item>
+        <ion-label fixed>手机号码</ion-label>
+        <ion-input type="tel" placeholder="请输入手机号码" [(ngModel)]="user.Phone" [formControl]="phone" clearInput></ion-input>
       </ion-item>
+      <div class="error-hint" *ngIf="phone.hasError('required') && phone.touched">* 请输入手机号码</div>
+      <div class="error-hint" *ngIf="phone.hasError('minLength') || phone.hasError('maxLength') || phone.hasError('pattern')">* 手机号码格式不正确</div>
     </ion-list>
 
-    <ion-item>
-      <ion-label fixed>手机号</ion-label>
-      <ion-input type="tel" value="" placeholder="请输入手机号" [(ngModel)]="user.Phone"></ion-input>
-    </ion-item>
+    <button ion-button block type="submit" [disabled]="!registerForm.valid">登录</button>
+  </form>
 
-  </ion-list>
-
-
-  <button ion-button block (click)="onRegister()">注册</button>
 </ion-content>

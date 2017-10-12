@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController, ToastController } from 'ionic-angular';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Camera } from '@ionic-native/camera';
 
 import { BaseHttpServiceProvider, JsonResult, BaseViewModel } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
 import { AppNativeCameraProvider, ICameraCallBack } from '../../providers/app-native-service/app-native-camera';
-import { AccountProvider } from '../../providers/account/account';
+import { AccountProvider, REG_EXP_IDCARD, REG_EXP_PHONE } from '../../providers/account/account';
 
 import { UserViewModel } from '../../view-model/user-model';
 
@@ -33,6 +34,13 @@ const PHOTO_HEALTH_CERTIFICATE: number = 3;
 })
 export class PersonDetailsPage implements ICameraCallBack {
 
+  private personForm: FormGroup;
+  private sex: any;
+  private realName: any;
+  private identityCard: any;
+  private phone: any;
+  private address: any;
+
   private user: UserViewModel;
   private whichPhoto: number;
   private idCardFront: string;
@@ -40,17 +48,30 @@ export class PersonDetailsPage implements ICameraCallBack {
   private healthCertificate: string;
 
   constructor(
-    private navCtrl: NavController,
-    private navParams: NavParams,
+    private formBuilder: FormBuilder,
     private toastCtrl: ToastController,
     private actionSheetCtrl: ActionSheetController,
     private baseHttp: BaseHttpServiceProvider,
     private urlConfig: AppUrlConfigProvider,
     private account: AccountProvider,
-    private camera: AppNativeCameraProvider) { }
+    private camera: AppNativeCameraProvider,
+    private navCtrl: NavController,
+    private navParams: NavParams) {
+    this.personForm = formBuilder.group({
+      sex: ["", Validators.compose([Validators.required])],
+      realName: ["", Validators.compose([Validators.required])],
+      identityCard: ["", Validators.compose([Validators.required, Validators.minLength(15), Validators.maxLength(18)/*, Validators.pattern(REG_EXP_IDCARD)*/])],
+      phone: ["", Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern(REG_EXP_PHONE)])],
+      address: [""]
+    });
+    this.sex = this.personForm.controls['sex'];
+    this.realName = this.personForm.controls['realName'];
+    this.identityCard = this.personForm.controls['identityCard'];
+    this.phone = this.personForm.controls['phone'];
+    this.address = this.personForm.controls['address'];
+  }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PersonDetailsPage');
+  ngOnInit() {
     this.getPersonDetails();
   }
 
@@ -152,16 +173,13 @@ export class PersonDetailsPage implements ICameraCallBack {
   savePerson(value) {
     console.log("PersonDetailsPage: savePerson:: " + JSON.stringify(this.user));
 
-    this.baseHttp.post<UserViewModel , JsonResult>(this.user, this.urlConfig.userConfig.personDetailsUpdateUrl)
+    this.baseHttp.post<UserViewModel, JsonResult>(this.user, this.urlConfig.userConfig.personDetailsUpdateUrl)
       .then(
-        (res) => {
+      (res) => {
         console.log("PersonDetailsPage: savePerson result:: " + JSON.stringify(res));
         this.showToast(res.message);
       })
       .catch(this.handleError);
-  }
-
-  doSubmit(){
   }
 
   showToast(msg: string) {

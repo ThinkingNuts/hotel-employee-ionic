@@ -1,6 +1,4 @@
 // http://ionicframework.com/docs/theming/
-
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,3 +12,24 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+@font-face {
+  font-family: "iconfont";
+  src: url('iconfont.eot?t=1507801528243');
+  /* IE9*/
+  src: url('iconfont.eot?t=1507801528243#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff;charset=utf-8;base64,d09GRgABAAAAAAUYAAsAAAAAB3QAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADMAAABCsP6z7U9TLzIAAAE8AAAARAAAAFZW7kg6Y21hcAAAAYAAAABeAAABhpp4Br5nbHlmAAAB4AAAAUQAAAFYZb8rXGhlYWQAAAMkAAAALwAAADYPKfltaGhlYQAAA1QAAAAcAAAAJAfeA4RobXR4AAADcAAAAAwAAAAMC+kAAGxvY2EAAAN8AAAACAAAAAgAdgCsbWF4cAAAA4QAAAAfAAAAIAESAF1uYW1lAAADpAAAAUUAAAJtPlT+fXBvc3QAAATsAAAAKQAAADpIVblNeJxjYGRgYOBikGPQYWB0cfMJYeBgYGGAAJAMY05meiJQDMoDyrGAaQ4gZoOIAgCKIwNPAHicY2Bk/sE4gYGVgYOpk+kMAwNDP4RmfM1gxMjBwMDEwMrMgBUEpLmmMDgwVDwLYG7438AQw9zA0AAUZgTJAQApTAy8eJzFkMENgDAMAy9t6QMxCA+G6ZMXc3TirlFMKA8mqCXHimMpUYAFiOIhJrAL48Ep19yPrO4nz2SpEait9K7+U0U0y65BJTMNNm/1H5vXfXT6CnVQJ7byknADHE4MzwAAeJw1j71OwlAcxf//e/sJ5RZuvwsFSoVq0CZihcEIDCwaBxMnmfQBcGXRhMXEgcGFycTBmPgSDG68g5vR56g2Jp6c/JKTs5wDIsDPJ11TFwzYhn2YwDkASl1sMRJgGKcJ6aIVipZjMhpHcShHrYQeo9OSTLvXTzuOJEs6MqzjQdjrxwmJ8TAdkiPs2QGiV/UveLvG6SMW3Lh+n52SF7QaUU0f7mUnuyOz1zSUuca5x/lSkURRIUTQGc4cWxXVgpS9irpvrRs7pIGaF/tnl6VmlV8/pDdB21ERFws0qk32Nqr4ldy3vm1wTy6XFNcvRVsmzr+LrqEFnS/IRfKv7/SKjqEMtfwlQ9kGx86njpAPEqQJxkMc1NFhSGC1EQx06ypDps4+UNisJlNCppM/0nGen7Jnr1C8Q2252mTCf5UT4Bd1PTiGeJxjYGRgYADi71sS1sTz23xl4GZhAIFrrFE7EPT/AywMzA5ALgcDE0gUADncClIAeJxjYGRgYG7438AQw8IAAkCSkQEVMAMARwkCbAQAAAAD6QAABAAAAAAAAAAAdgCseJxjYGRgYGBmCGRgZQABJiDmAkIGhv9gPgMAEPcBcAB4nGWPTU7DMBCFX/oHpBKqqGCH5AViASj9EatuWFRq911036ZOmyqJI8et1ANwHo7ACTgC3IA78EgnmzaWx9+8eWNPANzgBx6O3y33kT1cMjtyDRe4F65TfxBukF+Em2jjVbhF/U3YxzOmwm10YXmD17hi9oR3YQ8dfAjXcI1P4Tr1L+EG+Vu4iTv8CrfQ8erCPuZeV7iNRy/2x1YvnF6p5UHFockikzm/gple75KFrdLqnGtbxCZTg6BfSVOdaVvdU+zXQ+ciFVmTqgmrOkmMyq3Z6tAFG+fyUa8XiR6EJuVYY/62xgKOcQWFJQ6MMUIYZIjK6Og7VWb0r7FDwl57Vj3N53RbFNT/c4UBAvTPXFO6stJ5Ok+BPV8bUnV0K27LnpQ0kV7NSRKyQl7WtlRC6gE2ZVeOEXpc0Yk/KGdI/wAJWm7IAAAAeJxjYGKAAC4G7ICZkYmRmZGFgbGCJyc/ObEkMz8vLTMnh4EBADaTBaEAAAA=') format('woff'), url('iconfont.ttf?t=1507801528243') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1507801528243#iconfont') format('svg');
+  /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-locationfill:before {
+  content: "\e650";
+}

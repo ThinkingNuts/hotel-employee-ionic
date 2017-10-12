@@ -4,53 +4,48 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <!-- <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="openPage(item.pageName, item.content)">
-      {{item.content}}
-    </button>
-  </ion-list> -->
-
-  <ion-item-divider color="light"></ion-item-divider>
-  <ion-list class="mine-header">
+<ion-content style="background:#F4F4F4">
+  <br>
+  <ion-list>
     <button ion-item (click)="openPage('PersonDetailsPage', '个人资料')">
       <ion-thumbnail item-left>
         <!-- <img src="{{avatarPath}}"> -->
         <img src="../../assets/icon/favicon.ico">
       </ion-thumbnail>
-      <div>{{user?.RealName}}</div>
-      <div class="phone">{{user?.Phone}}</div>
+      <div>{{user?.RealName}} <span [ngClass]="{'state-login':loginState.state, 'state-logout':!loginState || !loginState.state}">[{{loginState.desc}}]</span></div>
+      <div>{{user?.Phone}}</div>
       <div *ngIf="!user">暂无账号</div>
     </button>
   </ion-list>
-  <ion-item-divider color="light"></ion-item-divider>
 
   <ion-list>
-    <button ion-item (click)="setting()">
+    <button ion-item>
       <ion-icon name="settings" item-left color="primary"></ion-icon>
       设置
     </button>
-    <button ion-item (click)="map()">
+    <!-- <button ion-item>
       <ion-icon name="map" item-left color="bright"></ion-icon>
       工作地图
-    </button>
+    </button> -->
   </ion-list>
-  <ion-item-divider color="light"></ion-item-divider>
 
   <ion-list>
-    <button ion-item (click)="changeUser()">
+    <button ion-item (click)="openPage('UpdatePwdPage', '修改密码')">
+      <ion-icon name="document" item-left color="danger"></ion-icon>
+      修改密码
+    </button>
+    <!-- <button ion-item (click)="openPage('LoginPage', '登录')">
       <ion-icon name="log-in" item-left color="danger"></ion-icon>
       更换账号
-    </button>
+    </button> -->
     <button ion-item (click)="logout()">
       <ion-icon name="log-out" item-left color="danger"></ion-icon>
       退出登录
     </button>
   </ion-list>
-  <ion-item-divider color="light"></ion-item-divider>
 
   <ion-list>
-    <button ion-item (click)="about()">
+    <button ion-item (click)="openPage('AboutPage', '关于我们')">
       <ion-icon name="information-circle" item-left color="secondary"></ion-icon>
       关于我们
     </button>

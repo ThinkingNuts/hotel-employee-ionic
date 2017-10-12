@@ -28,16 +28,16 @@
       <ion-icon class="icon-color" name="pricetag"></ion-icon>
       说明：{{item.Mark}}
     </p>
-    <ion-item-group *ngIf="hotelDetails">
+    <ion-item-group *ngIf="hotelDetails" class="company-info">
       <ion-item-divider color="light"></ion-item-divider>
       <a class="phone" [href]="'tel:'+hotelDetails.Phone">
         <ion-icon class="icon-color" name="call"></ion-icon>
         联系电话：{{hotelDetails.Phone}}
       </a> 
-      <p (click)="showMap(hotelDetails.Longitude, hotelDetails.Latitude)">
-        <ion-icon class="icon-color" name="locate"></ion-icon>
+      <a (click)="showMap(hotelDetails.Longitude, hotelDetails.Latitude)">
+        <ion-icon class="icon-color iconfont icon-locationfill" ></ion-icon>
         工作地址：{{hotelDetails.Address}}
-      </p>
+      </a>
     </ion-item-group>
     <ion-item-group>
       <ion-item-divider color="light"></ion-item-divider>

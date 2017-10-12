@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, PopoverController, AlertController } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams, ToastController, PopoverController, AlertController } from 'ionic-angular';
 
 import { BaseHttpServiceProvider } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
@@ -42,6 +42,7 @@ export class InfoListPage {
     private toastCtrl: ToastController,
     private popoverCtrl: PopoverController,
     private alertCtrl: AlertController,
+    private app: App,
     public navCtrl: NavController,
     public navParams: NavParams) {
     this.area = this.areaAll;
@@ -51,11 +52,6 @@ export class InfoListPage {
     this.account.getUserInfo((value) => {
       this.user = value;
     })
-    this.getAreas();
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad InfoListPage');
   }
 
   searchItems(event: any) {
@@ -65,37 +61,21 @@ export class InfoListPage {
 
   switchArea(): void {
     console.log("InfoListPage: selectArea");
-    this.showAreas();
-  }
-
-  showAreas(): void {
-    let areasPopover = this.popoverCtrl.create(AreaSelectorComponent, {}, {
-      enableBackdropDismiss: true,
-      cssClass: "position: absolute; top:0;"
-    });
-    areasPopover.present();
-
-    areasPopover.onDidDismiss((popoverData: AreaViewModel) => {
-      console.log("InfoListPage: showAreas onDidDismiss:: " + JSON.stringify(popoverData));
-      if (popoverData && popoverData.text !== this.areaAll.text) {
-        this.area = popoverData;
-      } else {
-        this.area = this.areaAll;
+    this.openPage("CitySelectPage", {
+      "callback": (areaSelected: AreaViewModel) => {
+        return new Promise((resolve, reject) => {
+          console.log("EmployeeListPage: callback:: " + areaSelected.text);
+          this.area = areaSelected;
+        })
       }
-    })
+    });
   }
 
-  getAreas(): void {
-    this.baseHttp.post<any, AreaViewModel[]>(null, this.urlConfig.employeeConfig.areasInfoUrl)
-      .then((response) => {
-        console.log("AreaSelector: getAreas:: " + JSON.stringify(response));
-        this.areas = response || [];
-      })
-      .catch(this.handleError);
+  openPage(pageName: string, param?): void {
+    this.app.getRootNav().push(pageName, param);
   }
 
-  handleError(error: any) {//: Promise<any> {
-    this.hintMsg = "获取城市区域失败";
+  handleError(error: any) {
     console.log("An error occurred: \n", error);
   }
 }

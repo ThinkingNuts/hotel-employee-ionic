@@ -22,26 +22,4 @@ page-info-list {
   ion-searchbar {
     display: inline-block;
   }
-  ion-select {
-    // width: 72px;
-    width: 100%;
-    height: 100%;
-    line-height: 100%;
-    padding: 0 !important;
-    margin: 0 !important;
-    // white-space: nowrap !important;
-    // color: #488aff;
-    color: white;
-    // display: inline-block !important; 
-    // text-align: center !important;
-    // text-align: left !important;
-  }
-  ion-grid, ion-row,ion-col{
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  ion-row,ion-col{
-    text-align: center !important;
-    line-height: 100%;
-  }
 }

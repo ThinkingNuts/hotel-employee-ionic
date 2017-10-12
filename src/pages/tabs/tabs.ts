@@ -2,12 +2,12 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Tabs } from 'ionic-angular';
 
 import { InfoListPage } from '../info-list/info-list';
-// import { EmployeeListPage } from '../employee-list/employee-list';
 import { MyPage } from '../my/my';
 import { HomePage } from '../home/home';
 
 import { Storage } from '@ionic/storage';
 
+import { AccountProvider, LoginState } from '../../providers/account/account';
 import { UserViewModel } from '../../view-model/user-model';
 
 @IonicPage()
@@ -22,6 +22,7 @@ export class TabsPage {
   tab3Root = MyPage;
 
   constructor(
+    private account: AccountProvider,
     private navCtrl: NavController,
     private navParams: NavParams,
     private storage: Storage) { }
@@ -32,14 +33,13 @@ export class TabsPage {
   }
 
   checkLogin(): void {
-    //TODO judge if in login
-    // this.storage.ready().then(() => {
-    //   this.storage.get("user").then((value) => {
-    //     console.log(JSON.stringify(value));
-    //     let user: UserViewModel = value;
-    this.openPage("LoginPage");
-    //   });
-    // });
+    this.account.checkLogin((res: LoginState) => {
+      console.log("TabsPage: checkLogin res:: " + res.desc);
+
+      if (!res.state) {
+        this.openPage("LoginPage");
+      }
+    });
   }
 
   openPage(pageName: string) {

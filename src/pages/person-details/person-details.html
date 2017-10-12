@@ -9,7 +9,7 @@
   <ion-navbar color="my">
     <ion-title>个人资料</ion-title>
     <ion-buttons end>
-      <button ion-button type="submit" (click)="savePerson(personForm.value)">保存</button>
+      <button ion-button type="submit" (click)="savePerson(personForm.value)" [disabled]="!personForm.valid">保存</button>
     </ion-buttons>
   </ion-navbar>
 
@@ -18,14 +18,14 @@
 
 <ion-content padding>
 
-  <form #personForm="ngForm" (ngSubmit)="doSubmit()" novalidate>
+  <form [formGroup]="personForm" (ngSubmit)="register()" novalidate>
     <ion-list class="list" *ngIf="user">
-      <!-- <ion-item class="item-input">
+      <!-- <ion-item class="item-input" [formControl]="name">
       <ion-label class="item-key">用户名</ion-label>
       <ion-input type="text" [(ngModel)]="user.Name" clearInput></ion-input>
     </ion-item> -->
 
-      <ion-item-group class="sex-box" radio-group [(ngModel)]="user.Sex" name="Sex">
+      <ion-item-group class="sex-box" radio-group [(ngModel)]="user.Sex" [formControl]="sex">
         <ion-label class="item-key">性别</ion-label>
         <ion-item>
           <ion-label class="sex">男</ion-label>
@@ -39,23 +39,28 @@
 
       <ion-item class="item-input">
         <ion-label class="item-key">真实姓名</ion-label>
-        <ion-input type="text" [(ngModel)]="user.RealName" name="RealName" clearInput></ion-input>
+        <ion-input type="text" [(ngModel)]="user.RealName" [formControl]="realName" clearInput></ion-input>
         <!-- <button ion-button clear>修改</button> -->
       </ion-item>
+      <div class="error-hint" *ngIf="realName.hasError('required') && realName.touched">* 请输入真实姓名</div>
 
       <ion-item class="item-input">
         <ion-label class="item-key">身份证号</ion-label>
-        <ion-input type="number" [(ngModel)]="user.IdentityCard" name="IdentityCard" clearInput></ion-input>
+        <ion-input type="text" [(ngModel)]="user.IdentityCard" [formControl]="identityCard" clearInput></ion-input>
       </ion-item>
+      <div class="error-hint" *ngIf="identityCard.hasError('required') && identityCard.touched">* 请输入身份证号</div>
+      <div class="error-hint" *ngIf="identityCard.hasError('minLength') || identityCard.hasError('maxLength') || identityCard.hasError('pattern')">* 身份证号格式不正确</div>
 
       <ion-item class="item-input">
         <ion-label class="item-key">手机号码</ion-label>
-        <ion-input type="tel" [(ngModel)]="user.Phone" name="Phone" clearInput></ion-input>
+        <ion-input type="tel" [(ngModel)]="user.Phone" [formControl]="phone" clearInput></ion-input>
       </ion-item>
+      <div class="error-hint" *ngIf="phone.hasError('required') && phone.touched">* 请输入手机号码</div>
+      <div class="error-hint" *ngIf="phone.hasError('minLength') || phone.hasError('maxLength') || phone.hasError('pattern')">* 手机号码格式不正确</div>
 
       <ion-item class="item-input">
         <ion-label class="item-key">通讯地址</ion-label>
-        <ion-input type="text" [(ngModel)]="user.Address" name="Address" clearInput></ion-input>
+        <ion-input type="text" [(ngModel)]="user.Address" [formControl]="address" clearInput></ion-input>
       </ion-item>
 
       <ion-item>

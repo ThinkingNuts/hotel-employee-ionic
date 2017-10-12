@@ -4,6 +4,10 @@ import { BaseHttpServiceProvider, BaseViewModel } from '../base-http-service/bas
 import { AppUrlConfigProvider } from '../app-url-config/app-url-config';
 import { UserViewModel } from '../../view-model/user-model';
 
+// export const REG_EXP_IDCARD: string = "^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$|^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$";
+export const REG_EXP_IDCARD: string = "^(\d{15})$|^(\d{18})$|^(\d{17}(\d|X|x))$";
+export const REG_EXP_PHONE: string = "^(13[0-9]|15[012356789]|17[03678]|18[0-9]|14[57])[0-9]{8}$";
+
 @Injectable()
 export class AccountProvider {
 
@@ -44,6 +48,16 @@ export class AccountProvider {
     });
   }
 
+  checkLogin(callback): void {
+    this.getToken(value => {
+      if (value && value.length > 0) {
+        callback({ state: true, desc: "已登录" } as LoginState);
+      } else {
+        callback(LOGIN_STATE_DEFAULT);
+      }
+    });
+  }
+
   login(user: UserViewModel, callback) {
     console.log("AccountProvider: login phone: " + user.Phone + ", pwd: " + user.Pwd);
 
@@ -68,29 +82,19 @@ export class AccountProvider {
     console.log("AccountProvider: logout");
 
     this.storage.ready().then(() => {
-      this.storage.remove("user").then(
+      this.storage.remove("token").then(
         () => {
           callback("已退出登录");
         });
     });
   }
+}
 
-  infoInvalid(userName: string, pwd: string): boolean {
-    return this.isEmpty(userName) || this.isEmpty(pwd);
-  }
-
-  private isEmpty(obj: string): boolean {
-    if (obj === null) return true;
-    if (typeof obj === 'undefined') {
-      return true;
-    }
-    if (typeof obj === 'string') {
-      if (obj.trim() === "") {
-        return true;
-      }
-      var reg = new RegExp("^([ ]+)|([　]+)$");
-      return reg.test(obj);
-    }
-    return false;
-  }
+export const LOGIN_STATE_DEFAULT: LoginState = {
+  state: false,
+  desc: "未登录"
+};
+export class LoginState {
+  state: boolean;
+  desc: string;
 }
