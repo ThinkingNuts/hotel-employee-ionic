@@ -136,7 +136,7 @@ export class EmployeeListPage implements OnInit {
 
   showItemDetails(item: EmployeeViewModel): void {
     console.log(item);
-    this.app.getRootNav().push("EmployeeDetailsPage", {
+    this.navCtrl.push("EmployeeDetailsPage", {
       "item": item,
       "callback": (state) => {
         return new Promise((resolve, reject) => {

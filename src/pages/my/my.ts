@@ -24,9 +24,8 @@ export class MyPage {
     this.checkLogin();
   }
 
-  openPage(pageName: string, pageTitle: string): void {
-    // this.navCtrl.push(pageName);
-    this.app.getRootNav().push(pageName, pageTitle);
+  openPage(pageName: string, pageTitle?: string): void {
+    this.navCtrl.push(pageName, pageTitle);
   }
 
   getPersonDetails(): void {

@@ -25,10 +25,9 @@ export class InfoListPage {
 
   private page: string = "employee-list";
   private searchText: string;
-  private areaAll: AreaViewModel = {
+  private areaDefault: AreaViewModel = {
     id: 0,
-    text: "上海",
-    ObjectToSerialize: () => ""
+    text: "上海"
   };
   private area: AreaViewModel;
   private user: UserViewModel;
@@ -45,7 +44,7 @@ export class InfoListPage {
     private app: App,
     public navCtrl: NavController,
     public navParams: NavParams) {
-    this.area = this.areaAll;
+    this.area = this.areaDefault;
   }
 
   ngOnInit() {
@@ -72,7 +71,7 @@ export class InfoListPage {
   }
 
   openPage(pageName: string, param?): void {
-    this.app.getRootNav().push(pageName, param);
+    this.navCtrl.push(pageName, param);
   }
 
   handleError(error: any) {

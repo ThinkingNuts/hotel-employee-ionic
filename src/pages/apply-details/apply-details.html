@@ -34,7 +34,7 @@
         <ion-icon class="icon-color" name="call"></ion-icon>
         联系电话：{{hotelDetails.Phone}}
       </a> 
-      <a>
+      <a (click)="showMap(hotelDetails.Longitude, hotelDetails.Latitude)">
         <ion-icon class="icon-color iconfont icon-locationfill"></ion-icon>
         工作地址：{{hotelDetails.Address}}
       </a>

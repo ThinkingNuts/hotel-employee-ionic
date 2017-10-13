@@ -22,7 +22,4 @@ export class HotelViewModel extends BaseViewModel {
   HotelOrders;
   CreateTime: string;
 
-  ObjectToSerialize() {
-    return `Id=${this.Id}&GUID=${this.GUID}`;
-  }
 }

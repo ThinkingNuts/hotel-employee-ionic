@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-const URL_ROOT: string = "http://123.56.15.145:5000/";
+export const URL_ROOT: string = "http://123.56.15.145:5000/";
 
 @Injectable()
 export class AppUrlConfigProvider {

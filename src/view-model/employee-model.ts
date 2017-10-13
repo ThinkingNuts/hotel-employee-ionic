@@ -21,7 +21,4 @@ export class EmployeeViewModel extends BaseViewModel {
   AppliedNum: number;
   NewApply: number;
 
-  ObjectToSerialize() {
-    return `Id=${this.Id}&GUID=${this.GUID}`;
-  }
 }

@@ -15,15 +15,15 @@
 
 <ion-content padding>
 
-  <form [formGroup]="registerForm" (ngSubmit)="register()" novalidate>
+  <form [formGroup]="registerForm" (ngSubmit)="register(registerForm.value)" novalidate>
     <ion-list class="list">
       <ion-item>
         <ion-label fixed>真实姓名</ion-label>
-        <ion-input type="text" placeholder="请输入真实姓名" [(ngModel)]="user.RealName" [formControl]="realName" clearInput></ion-input>
+        <ion-input type="text" placeholder="请输入真实姓名" formControlName="realName" clearInput></ion-input>
       </ion-item>
       <div class="error-hint" *ngIf="realName.hasError('required') && realName.touched">* 请输入真实姓名</div>
 
-      <ion-item-group class="sex-box" radio-group [(ngModel)]="user.Sex" [formControl]="sex">
+      <ion-item-group class="sex-box" radio-group formControlName="sex">
         <ion-label class="item-key">性别</ion-label>
         <ion-item>
           <ion-label class="sex">男</ion-label>
@@ -37,13 +37,13 @@
 
       <ion-item>
         <ion-label fixed>手机号码</ion-label>
-        <ion-input type="tel" placeholder="请输入手机号码" [(ngModel)]="user.Phone" [formControl]="phone" clearInput></ion-input>
+        <ion-input type="tel" placeholder="请输入手机号码" formControlName="phone" clearInput></ion-input>
       </ion-item>
       <div class="error-hint" *ngIf="phone.hasError('required') && phone.touched">* 请输入手机号码</div>
       <div class="error-hint" *ngIf="phone.hasError('minLength') || phone.hasError('maxLength') || phone.hasError('pattern')">* 手机号码格式不正确</div>
     </ion-list>
 
-    <button ion-button block type="submit" [disabled]="!registerForm.valid">登录</button>
+    <button ion-button block type="submit" [disabled]="!registerForm.valid">注册</button>
   </form>
 
 </ion-content>

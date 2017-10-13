@@ -5,7 +5,4 @@ export class AreaViewModel extends BaseViewModel {
   public id: number;
   public text: string;
 
-  ObjectToSerialize() {
-    return `id=${this.id}&text=${this.text}`;
-  }
 }

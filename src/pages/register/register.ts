@@ -23,9 +23,6 @@ import { UserViewModel } from '../../view-model/user-model';
 export class RegisterPage {
 
   private registerForm: FormGroup;
-  private realName: any;
-  private sex: any;
-  private phone: any;
   private user: UserViewModel = new UserViewModel();
 
   constructor(
@@ -37,16 +34,20 @@ export class RegisterPage {
     public navParams: NavParams) {
     this.registerForm = formBuilder.group({
       realName: ["", Validators.compose([Validators.required])],
-      sex: ["", Validators.compose([Validators.required])],
+      sex: ["男", Validators.compose([Validators.required])],
       phone: ["", Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern(REG_EXP_PHONE)])]
     });
-    this.realName = this.registerForm.controls['realName'];
-    this.sex = this.registerForm.controls['sex'];
-    this.phone = this.registerForm.controls['phone'];
   }
 
-  register() {
-    console.log('register RegisterPage  ' + this.user.toString());
+  get realName() { return this.registerForm.get("realName"); }
+  get sex() { return this.registerForm.get("sex"); }
+  get phone() { return this.registerForm.get("phone"); }
+
+  register(value) {
+    console.log('register RegisterPage  ' + JSON.stringify(value));
+    this.user.RealName = value.realName;
+    this.user.Sex = value.sex;
+    this.user.Phone = value.phone;
     this.toRegister();
   }
 

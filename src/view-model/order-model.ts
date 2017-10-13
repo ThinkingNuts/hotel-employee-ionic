@@ -9,7 +9,4 @@ export class OrderViewModel extends BaseViewModel {
   AreaName: string;
   Works: EmployeeViewModel[];
 
-  ObjectToSerialize() {
-    return ``;
-  }
 }

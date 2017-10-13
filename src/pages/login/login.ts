@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { Storage } from '@ionic/storage';
 
@@ -22,8 +22,6 @@ import { AccountProvider, REG_EXP_PHONE } from '../../providers/account/account'
 export class LoginPage {
 
   private loginForm: FormGroup;
-  private phone: any;
-  private password: any;
   private user: UserViewModel = new UserViewModel();
 
   constructor(
@@ -34,12 +32,13 @@ export class LoginPage {
     private storage: Storage,
     private account: AccountProvider) {
     this.loginForm = formBuilder.group({
-      phone: ["", Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern(REG_EXP_PHONE)])],
-      password: ["", Validators.compose([Validators.required])]
+      phone: [this.user.Phone, Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern(REG_EXP_PHONE)])],
+      password: [this.user.Pwd, Validators.compose([Validators.required])]
     });
-    this.phone = this.loginForm.controls['phone'];
-    this.password = this.loginForm.controls['password'];
   }
+
+  get phone() { return this.loginForm.get("phone"); }
+  get password() { return this.loginForm.get("password"); }
 
   ngOnInit(): void {
     this.account.getUserInfo((userInfo) => {
@@ -48,7 +47,15 @@ export class LoginPage {
       if (userInfo) {
         this.user.Phone = userInfo.Phone;
         this.user.Pwd = userInfo.Pwd || "123";
+        this.ngOnChanges();
       }
+    });
+  }
+
+  ngOnChanges() {
+    this.loginForm.reset({
+      phone: this.user.Phone,
+      password: this.user.Pwd
     });
   }
 

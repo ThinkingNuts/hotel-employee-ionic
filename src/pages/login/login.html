@@ -18,13 +18,13 @@
   <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)" novalidate>
     <ion-list>
       <ion-item class="item-input">
-        <ion-input type="tel" placeholder="手机号码" [(ngModel)]="user.Phone" [formControl]="phone" clearInput></ion-input>
+        <ion-input type="tel" placeholder="手机号码" formControlName="phone" clearInput></ion-input>
       </ion-item>
       <div class="error-hint" *ngIf="phone.hasError('required') && phone.touched">* 请输入手机号码</div>
       <div class="error-hint" *ngIf="phone.hasError('minLength') || phone.hasError('maxLength') || phone.hasError('pattern')">* 手机号码格式不正确</div>
 
       <ion-item>
-        <ion-input type="password" placeholder="密码" [(ngModel)]="user.Pwd" [formControl]="password" clearInput></ion-input>
+        <ion-input type="password" placeholder="密码" formControlName="password" clearInput></ion-input>
       </ion-item>
       <div class="error-hint" *ngIf="password.hasError('required') && password.touched">* 请输入密码</div>
       <!-- <div class="error-hint" *ngIf="(password.hasError('minlength')) && password.touched">* 密码长度最少为六位</div> -->

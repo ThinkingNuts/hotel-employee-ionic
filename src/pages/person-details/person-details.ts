@@ -4,7 +4,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Camera } from '@ionic-native/camera';
 
 import { BaseHttpServiceProvider, JsonResult, BaseViewModel } from '../../providers/base-http-service/base-http-service';
-import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
+import { AppUrlConfigProvider, URL_ROOT } from '../../providers/app-url-config/app-url-config';
 import { AppNativeCameraProvider, ICameraCallBack } from '../../providers/app-native-service/app-native-camera';
 import { AccountProvider, REG_EXP_IDCARD, REG_EXP_PHONE } from '../../providers/account/account';
 
@@ -16,8 +16,6 @@ import { UserViewModel } from '../../view-model/user-model';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
-const URL_ROOT: string = "http://123.56.15.145:5000/";
 
 const PHOTO_IDCARD_FRONT: number = 1;
 const PHOTO_IDCARD_BACK: number = 2;
@@ -35,17 +33,13 @@ const PHOTO_HEALTH_CERTIFICATE: number = 3;
 export class PersonDetailsPage implements ICameraCallBack {
 
   private personForm: FormGroup;
-  private sex: any;
-  private realName: any;
-  private identityCard: any;
-  private phone: any;
-  private address: any;
 
   private user: UserViewModel;
   private whichPhoto: number;
-  private idCardFront: string;
-  private idCardBack: string;
-  private healthCertificate: string;
+  private photoPlaceholder = "../../assets/img/photo_placeholder.png";
+  private idCardFront: string = this.photoPlaceholder;
+  private idCardBack: string = this.photoPlaceholder;
+  private healthCertificate: string = this.photoPlaceholder;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -58,21 +52,32 @@ export class PersonDetailsPage implements ICameraCallBack {
     private navCtrl: NavController,
     private navParams: NavParams) {
     this.personForm = formBuilder.group({
-      sex: ["", Validators.compose([Validators.required])],
+      sex: ["男", Validators.compose([Validators.required])],
       realName: ["", Validators.compose([Validators.required])],
       identityCard: ["", Validators.compose([Validators.required, Validators.minLength(15), Validators.maxLength(18)/*, Validators.pattern(REG_EXP_IDCARD)*/])],
       phone: ["", Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern(REG_EXP_PHONE)])],
       address: [""]
     });
-    this.sex = this.personForm.controls['sex'];
-    this.realName = this.personForm.controls['realName'];
-    this.identityCard = this.personForm.controls['identityCard'];
-    this.phone = this.personForm.controls['phone'];
-    this.address = this.personForm.controls['address'];
   }
+
+  get sex() { return this.personForm.get("sex"); }
+  get realName() { return this.personForm.get("realName"); }
+  get identityCard() { return this.personForm.get("identityCard"); }
+  get phone() { return this.personForm.get("phone"); }
+  get address() { return this.personForm.get("address"); }
 
   ngOnInit() {
     this.getPersonDetails();
+  }
+
+  ngOnChanges() {
+    this.personForm.reset({
+      sex: this.user.Sex,
+      realName: this.user.RealName,
+      identityCard: this.user.IdentityCard,
+      phone: this.user.Phone,
+      address: this.user.Address
+    });
   }
 
   getPersonDetails(): void {
@@ -85,10 +90,17 @@ export class PersonDetailsPage implements ICameraCallBack {
           console.log("PersonDetails: getPersonDetails:: " + JSON.stringify(d));
           if (d.state) {
             this.user = d["data"];
+            this.ngOnChanges();
 
-            this.idCardFront = URL_ROOT + "upload/" + this.user.GUID + "/ICardPositive.jpg";
-            this.idCardBack = URL_ROOT + "upload/" + this.user.GUID + "/ICardBack.jpg";
-            this.healthCertificate = URL_ROOT + "upload/" + this.user.GUID + "/Health.jpg";
+            if (this.user.ICardPositive) {
+              this.idCardFront = URL_ROOT + "upload/" + this.user.GUID + "/ICardPositive.jpg";
+            }
+            if (this.user.ICardBack) {
+              this.idCardBack = URL_ROOT + "upload/" + this.user.GUID + "/ICardBack.jpg";
+            }
+            if (this.user.Health) {
+              this.healthCertificate = URL_ROOT + "upload/" + this.user.GUID + "/Health.jpg";
+            }
           }
         })
         .catch(this.handleError);
@@ -171,6 +183,7 @@ export class PersonDetailsPage implements ICameraCallBack {
   }
 
   savePerson(value) {
+    this.copyValue(value);
     console.log("PersonDetailsPage: savePerson:: " + JSON.stringify(this.user));
 
     this.baseHttp.post<UserViewModel, JsonResult>(this.user, this.urlConfig.userConfig.personDetailsUpdateUrl)
@@ -180,6 +193,16 @@ export class PersonDetailsPage implements ICameraCallBack {
         this.showToast(res.message);
       })
       .catch(this.handleError);
+  }
+
+  copyValue(value) {
+    for (var key1 in this.user) {
+      for (var key2 in value) {
+        if (key1.toLocaleLowerCase() == key2.toLocaleLowerCase()) {
+          this.user[key1] = value[key2];
+        }
+      }
+    }
   }
 
   showToast(msg: string) {

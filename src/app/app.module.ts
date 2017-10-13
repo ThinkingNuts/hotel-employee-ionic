@@ -38,7 +38,9 @@ import { AccountProvider } from '../providers/account/account';
     HttpModule,
     IonicStorageModule.forRoot(),
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp, {
+      tabsHideOnSubPages: 'true'
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

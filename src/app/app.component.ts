@@ -33,6 +33,8 @@ export class MyApp {
 
   registerBackButtonAction() {
     this.platform.registerBackButtonAction(() => {
+      console.log("Back button pressed. ");
+
       //如果键盘开启则隐藏键盘
       if (this.keyboard.isOpen()) {
         this.keyboard.close();
@@ -49,6 +51,7 @@ export class MyApp {
       }
       let activeVC = this.nav.getActive();
       let page = activeVC.instance;
+      console.log("App page: " + this.nav.getActive().name);
 
       if (page instanceof LoginPage) {
         this.platform.exitApp();

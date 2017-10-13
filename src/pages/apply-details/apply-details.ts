@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ApplyViewModel } from '../../view-model/apply-model';
 import { HotelViewModel } from '../../view-model/hotel-model';
 
@@ -24,6 +24,7 @@ export class ApplyDetailsPage implements OnInit {
   private hotelDetails: HotelViewModel = null;
 
   constructor(
+    private app: App,
     private baseHttp: BaseHttpServiceProvider,
     private urlConfig: AppUrlConfigProvider,
     public navCtrl: NavController,
@@ -51,6 +52,16 @@ export class ApplyDetailsPage implements OnInit {
         }
       })
       .catch(this.handleError);
+  }
+
+  showMap(lng: string, lat: string): void {
+    let lngNum: number = parseFloat(lng);
+    let latNum: number = parseFloat(lat);
+    console.log("showMap:: lng:" + lng + "  lat:" + lat);
+    this.navCtrl.push("BaiduMapPage", {
+      "lng": lng,
+      "lat": lat
+    });
   }
 
   handleError(error: any) {
