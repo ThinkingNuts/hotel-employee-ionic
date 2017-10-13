@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 import { BaseHttpServiceProvider, JsonResult, BaseViewModel } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
@@ -21,11 +22,11 @@ import { UserViewModel } from '../../view-model/user-model';
 })
 export class UpdatePwdPage {
 
+  private pwdForm: FormGroup;
   private user: UserViewModel;
-  private oldPwd: string;
-  private newPwd: string;
 
   constructor(
+    private formBuilder: FormBuilder,
     private baseHttp: BaseHttpServiceProvider,
     private urlConfig: AppUrlConfigProvider,
     private account: AccountProvider,
@@ -33,14 +34,17 @@ export class UpdatePwdPage {
     private alertCtrl: AlertController,
     public navCtrl: NavController,
     public navParams: NavParams) {
+    this.pwdForm = formBuilder.group({
+      oldPwd: ["", Validators.compose([Validators.required])],
+      newPwd: ["", Validators.compose([Validators.required])]
+    });
   }
+
+  get oldPwd() { return this.pwdForm.get("oldPwd"); }
+  get newPwd() { return this.pwdForm.get("newPwd"); }
 
   ngOnInit() {
     this.getPersonDetails();
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UpdatePwdPage');
   }
 
   getPersonDetails(): void {
@@ -50,11 +54,13 @@ export class UpdatePwdPage {
     });
   }
 
-  updatePwd(): void {
-    this.askUpdatePwd();
+  updatePwd(value): void {
+    console.log("UpdatePwdPage: updatePwd value:: " + JSON.stringify(value));
+
+    this.askUpdatePwd(value);
   }
 
-  askUpdatePwd(): void {
+  askUpdatePwd(value): void {
     this.alertCtrl.create({
       title: "提示",
       message: "确认要修改吗？",
@@ -67,16 +73,16 @@ export class UpdatePwdPage {
         text: "确认",
         handler: () => {
           console.log("Agree clicked");
-          this.doUpdatePwd();
+          this.doUpdatePwd(value);
         }
       }]
     }).present();
   }
 
-  doUpdatePwd(): void {
+  doUpdatePwd(value): void {
     let form: UpdatePwdModel = new UpdatePwdModel();
-    form.newPassword = this.newPwd;
-    form.oldPassword = this.oldPwd;
+    form.newPassword = value.newPwd;
+    form.oldPassword = value.oldPwd;
     form.GUID = this.user.GUID;
     this.baseHttp.post<BaseViewModel, JsonResult>(form,
       this.urlConfig.userConfig.updatePwdUrl)
@@ -107,8 +113,4 @@ class UpdatePwdModel extends BaseViewModel {
   public newPassword: string;
   public oldPassword: string;
   public GUID: string;
-
-  ObjectToSerialize() {
-    return `newPassword=${this.newPassword}&oldPassword=${this.oldPassword}&GUID=${this.GUID}`;
-  }
 }
