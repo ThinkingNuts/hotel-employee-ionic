@@ -9,6 +9,7 @@ import { UserViewModel } from '../../view-model/user-model';
 })
 export class MyPage {
 
+  private userPicDefault: string = "assets/img/user_default.png";
   private user: UserViewModel;
   private loginState: LoginState = LOGIN_STATE_DEFAULT;
 

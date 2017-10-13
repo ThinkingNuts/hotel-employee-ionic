@@ -36,7 +36,7 @@ export class PersonDetailsPage implements ICameraCallBack {
 
   private user: UserViewModel;
   private whichPhoto: number;
-  private photoPlaceholder = "../../assets/img/photo_placeholder.png";
+  private photoPlaceholder = "assets/img/photo_placeholder.png";
   private idCardFront: string = this.photoPlaceholder;
   private idCardBack: string = this.photoPlaceholder;
   private healthCertificate: string = this.photoPlaceholder;

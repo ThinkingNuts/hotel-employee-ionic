@@ -10,7 +10,7 @@
     <button ion-item (click)="openPage('PersonDetailsPage')">
       <ion-thumbnail item-left>
         <!-- <img src="{{avatarPath}}"> -->
-        <img src="../../assets/icon/favicon.ico">
+        <img [src]="userPicDefault">
       </ion-thumbnail>
       <div>{{user?.RealName}} <span [ngClass]="{'state-login':loginState.state, 'state-logout':!loginState || !loginState.state}">[{{loginState.desc}}]</span></div>
       <div>{{user?.Phone}}</div>
