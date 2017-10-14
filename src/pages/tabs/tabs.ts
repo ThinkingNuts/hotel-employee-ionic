@@ -29,7 +29,7 @@ export class TabsPage {
 
   ngOnInit(): void {
     console.log("TabsPage ngOnInit");
-    this.checkLogin();
+    // this.checkLogin();
   }
 
   checkLogin(): void {

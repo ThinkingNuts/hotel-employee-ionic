@@ -71,7 +71,7 @@ export class MyPage {
     this.account.logout((msg) => {
       this.loginState = LOGIN_STATE_DEFAULT;
       this.showToast(msg);
-      this.navCtrl.push(LoginPage);
+      this.app.getRootNav().push(LoginPage);
     });
   }
 
