@@ -71,13 +71,13 @@ export class EmployeeListPage implements OnInit {
         console.log(JSON.stringify(res));
         if (!res || res.length === 0) {
           this.showResult(true, "当前没有用工信息");
-          return;
-        }
-        this.showResult(false, "已获取用工信息");
-        this.orders = res;
-        this.ordersCache = this.orders;
-        if (this.user) {
-          this.getApplyList();
+        } else {
+          this.showResult(false, "已获取用工信息");
+          this.orders = res;
+          this.ordersCache = this.orders;
+          if (this.user) {
+            this.getApplyList();
+          }
         }
         if (refresher) {
           refresher.complete();

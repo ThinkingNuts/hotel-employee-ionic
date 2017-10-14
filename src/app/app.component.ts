@@ -3,6 +3,7 @@ import { Platform, ToastController, Nav, IonicApp, Keyboard } from 'ionic-angula
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { AccountProvider, LoginState } from '../providers/account/account'
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 
@@ -10,11 +11,12 @@ import { LoginPage } from '../pages/login/login';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = TabsPage;
+  // rootPage: any = TabsPage;
   backButtonPressed: boolean = false;
   @ViewChild('myNav') nav: Nav;
 
   constructor(
+    public account: AccountProvider,
     public ionicApp: IonicApp,
     public toastCtrl: ToastController,
     public platform: Platform,
@@ -26,6 +28,8 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+
+      this.checkLogin();
       //注册返回键事件
       this.registerBackButtonAction();
     });
@@ -77,5 +81,17 @@ export class MyApp {
       this.backButtonPressed = true;
       setTimeout(() => this.backButtonPressed = false, 2000);//2秒内没有再次点击返回则将触发标志标记为false
     }
+  }
+
+  checkLogin(): void {
+    this.account.checkLogin((res: LoginState) => {
+      console.log("TabsPage: checkLogin res:: " + res.desc);
+
+      if (res.state) {
+        this.nav.setRoot(TabsPage);
+      } else {
+        this.nav.setRoot(LoginPage);
+      }
+    });
   }
 }

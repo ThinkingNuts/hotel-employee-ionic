@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { App, NavController, ToastController, AlertController } from 'ionic-angular';
 import { AccountProvider, LoginState, LOGIN_STATE_DEFAULT } from '../../providers/account/account';
 import { UserViewModel } from '../../view-model/user-model';
+import { LoginPage } from '../../pages/login/login';
 
 @Component({
   selector: 'page-my',
@@ -70,6 +71,7 @@ export class MyPage {
     this.account.logout((msg) => {
       this.loginState = LOGIN_STATE_DEFAULT;
       this.showToast(msg);
+      this.navCtrl.push(LoginPage);
     });
   }
 

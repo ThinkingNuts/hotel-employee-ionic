@@ -5,7 +5,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 
-// import { LoginPage } from '../pages/login/login';
+import { LoginPage } from '../pages/login/login';
 import { TabsPage } from '../pages/tabs/tabs';
 import { HomePage } from '../pages/home/home';
 import { EmployeeListPage } from '../pages/employee-list/employee-list';
@@ -25,7 +25,7 @@ import { AccountProvider } from '../providers/account/account';
 @NgModule({
   declarations: [
     MyApp,
-    // LoginPage,
+    LoginPage,
     TabsPage,
     MyPage,
     EmployeeListPage,
@@ -45,7 +45,7 @@ import { AccountProvider } from '../providers/account/account';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    // LoginPage,
+    LoginPage,
     TabsPage,
     HomePage,
     EmployeeListPage,

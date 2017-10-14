@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { TabsPage } from '../../pages/tabs/tabs';
 
 import { Storage } from '@ionic/storage';
 
@@ -75,7 +76,8 @@ export class LoginPage {
         message: message,
       }).present();
       if (state) {
-        _this.navCtrl.pop();
+        // _this.navCtrl.pop();
+        _this.navCtrl.push(TabsPage);
       }
     });
   }

@@ -71,11 +71,11 @@ export class ApplyRecordsPage {
         console.log("ApplyRecords: " + JSON.stringify(res));
         if (!res || res.length === 0) {
           this.showResult(true, "当前没有申请记录");
-          return;
+        } else {
+          this.showResult(false, "已获取申请记录");
+          this.items = res;
+          this.itemsCache = res;
         }
-        this.showResult(false, "已获取申请记录");
-        this.items = res;
-        this.itemsCache = res;
         if (refresher) {
           refresher.complete();
         }

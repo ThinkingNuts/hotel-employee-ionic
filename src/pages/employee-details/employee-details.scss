@@ -1,13 +1,13 @@
 page-employee-details {
-  .content{
+  .content {
     margin-bottom: 50px;
   }
-  p,
-  a {
+  p {
     font-size: 16px;
   }
-  .phone {
+  .company-info a {
     text-decoration: none;
+    font-size: 16px;
   }
   .icon-color {
     font-size: 18px;
@@ -31,10 +31,10 @@ page-employee-details {
   }
   .apply-btn:disabled {
     opacity: 1;
-    filter:alpha(opacity=100);
+    filter: alpha(opacity=100);
     background: lightgray;
   }
-  .company-info a{
+  .company-info a {
     display: block;
     margin: 10px auto;
   }
