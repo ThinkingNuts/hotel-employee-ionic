@@ -19,14 +19,10 @@
   </ion-list>
 
   <ion-list>
-    <button ion-item (click)="openPage('SettingsPage')">
-      <ion-icon name="settings" item-left color="primary"></ion-icon>
-      设置
+    <button ion-item (click)="openPage('MyOrderPage')">
+      <ion-icon name="list" item-left color="secondary"></ion-icon>
+      我的订单
     </button>
-    <!-- <button ion-item>
-      <ion-icon name="map" item-left color="bright"></ion-icon>
-      工作地图
-    </button> -->
   </ion-list>
 
   <ion-list>
@@ -45,8 +41,19 @@
   </ion-list>
 
   <ion-list>
+    <button ion-item (click)="openPage('SettingsPage')">
+      <ion-icon name="settings" item-left color="primary"></ion-icon>
+      设置
+    </button>
+    <!-- <button ion-item>
+      <ion-icon name="map" item-left color="bright"></ion-icon>
+      工作地图
+    </button> -->
+  </ion-list>
+
+  <ion-list>
     <button ion-item (click)="openPage('AboutPage')">
-      <ion-icon name="information-circle" item-left color="secondary"></ion-icon>
+      <ion-icon name="information-circle" item-left color="bright"></ion-icon>
       关于我们
     </button>
   </ion-list>

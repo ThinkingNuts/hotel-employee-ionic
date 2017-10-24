@@ -28,7 +28,10 @@ export class BaseHttpServiceProvider {
   }
 
   public postJson<T extends BaseViewModel, U>(obj: T, url: string): Observable<U> {
-    let form = JSON.stringify(obj);
+    let form;
+    if (obj) {
+      form = JSON.stringify(obj);
+    }
     let header = new Headers();
     header.append('Content-Type', "application/json");
     return this.http

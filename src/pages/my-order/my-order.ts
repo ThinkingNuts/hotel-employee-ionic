@@ -1,45 +1,32 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { BaseHttpServiceProvider } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
 import { AccountProvider } from '../../providers/account/account';
 
-import { ApplyViewModel } from '../../view-model/apply-model';
+import { OrderViewModel } from '../../view-model/order-model';
 import { UserViewModel } from '../../view-model/user-model';
 
 /**
- * Generated class for the ApplyRecordsPage page.
+ * Generated class for the MyOrderPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
 
+@IonicPage()
 @Component({
-  selector: 'page-apply-records',
-  templateUrl: 'apply-records.html'
+  selector: 'page-my-order',
+  templateUrl: 'my-order.html',
 })
-export class ApplyRecordsPage {
+export class MyOrderPage {
 
   private noRecords: boolean = true;
-  private whyEmpty: string = "正在获取申请记录";
-  private items: ApplyViewModel[] = [];
-  private itemsCache: ApplyViewModel[] = [];
+  private whyEmpty: string = "正在获取订单";
+  private orders: OrderViewModel[] = [];
+  private ordersCache: OrderViewModel[] = [];
   private user: UserViewModel;
-
-  @Input()
-  set searchText(text: string) {
-    this.items = this.itemsCache.filter((item) => {
-      if (!text) {
-        console.log("ApplyRecordsPage: set searchText: text is empty");
-        return true;
-      }
-      let s = item.Order.HotelName + item.Order.AreaName;
-      let res = (s.indexOf(text) > -1);
-      console.log("res::::: " + res);
-      return res;
-    })
-  }
 
   constructor(
     private navCtrl: NavController,
@@ -50,7 +37,7 @@ export class ApplyRecordsPage {
   }
 
   ngOnInit(): void {
-    console.log("ApplyRecordsPage ngOnInit");
+    console.log("MyOrderPage ngOnInit");
 
     this.account.getUserInfo((value) => {
       this.user = value;
@@ -60,17 +47,18 @@ export class ApplyRecordsPage {
 
   getList(refresher): void {
     let personGUID = this.user.GUID;
-    this.baseHttp.postJson<ApplyViewModel, ApplyViewModel[]>(new ApplyViewModel(),
-      this.urlConfig.employeeConfig.applyRecordsUrl + personGUID)
+    this.baseHttp.postJson<any, OrderViewModel[]>(null,
+      // this.urlConfig.employeeConfig.myOrderUrl + personGUID)
+      this.urlConfig.employeeConfig.employeeListUrl)
       .subscribe(
       (res) => {
-        console.log("ApplyRecords: " + JSON.stringify(res));
+        console.log("MyOrderPage order: " + JSON.stringify(res));
         if (!res || res.length === 0) {
-          this.showResult(true, "当前没有申请记录");
+          this.showResult(true, "当前没有订单");
         } else {
-          this.showResult(false, "已获取申请记录");
-          this.items = res;
-          this.itemsCache = res;
+          this.showResult(false, "已获取订单");
+          this.orders = res;
+          this.ordersCache = res;
         }
         if (refresher) {
           refresher.complete();
@@ -88,7 +76,7 @@ export class ApplyRecordsPage {
   }
 
   handleError(error: any) {//: Promise<any> {
-    this.showResult(true, "获取申请记录失败");
+    this.showResult(true, "获取订单失败");
     console.log("An error occurred: \n", error);
     // return Promise.reject(error.message || error);
   }
@@ -98,8 +86,7 @@ export class ApplyRecordsPage {
     this.getList(refresher);
   }
 
-  showItemDetails(item: ApplyViewModel): void {
-    console.log(item);
-    this.navCtrl.push("ApplyDetailsPage", item);
+  showItemDetails(item: OrderViewModel): void {
+    // this.navCtrl.push("ApplyDetailsPage", item);
   }
 }
