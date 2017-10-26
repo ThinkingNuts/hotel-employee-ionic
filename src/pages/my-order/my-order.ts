@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
 import { BaseHttpServiceProvider } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
@@ -31,6 +31,7 @@ export class MyOrderPage {
   constructor(
     private navCtrl: NavController,
     private navParams: NavParams,
+    private alertCtrl: AlertController,
     private account: AccountProvider,
     private baseHttp: BaseHttpServiceProvider,
     private urlConfig: AppUrlConfigProvider) {
@@ -88,5 +89,34 @@ export class MyOrderPage {
 
   showItemDetails(item: OrderViewModel): void {
     // this.navCtrl.push("ApplyDetailsPage", item);
+  }
+
+  finishOrder(order: OrderViewModel): void {
+    this.askFinishOrder(order);
+  }
+
+  askFinishOrder(order: OrderViewModel): void {
+    this.alertCtrl.create({
+      title: "提示",
+      message: "确认要终止该订单吗？",
+      buttons: [{
+        text: "取消",
+        handler: () => {
+          console.log("Disagree clicked");
+        }
+      }, {
+        text: "确认",
+        handler: () => {
+          console.log("Agree clicked");
+          this.doFinishOrder(order);
+        }
+      }]
+    }).present();
+  }
+
+  doFinishOrder(order: OrderViewModel): void {
+    console.log("MyOrderPage doFinishOrder");
+    
+    //TODO
   }
 }
