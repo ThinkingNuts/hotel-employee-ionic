@@ -91,10 +91,12 @@ export class EmployeeDetailsPage implements OnInit {
       d => {
         console.log("Apply result " + JSON.stringify(d));
         let mes: string = d.message;
-        this.showApplyResult(d);
         if (d.state) {
+          this.showApplyResult(d);
           this.callback(d.state);//.then(() => { this.navCtrl.pop() })
           this.navCtrl.pop();
+        } else {
+          this.promptInfo(mes);
         }
       }).catch(this.handleError);
   }
@@ -136,6 +138,19 @@ export class EmployeeDetailsPage implements OnInit {
       "lng": lng,
       "lat": lat
     });
+  }
+
+  promptInfo(msg): void {
+    this.alert.create({
+      title: "提示",
+      message: msg,
+      buttons: [{
+        text: "确认",
+        handler: () => {
+          console.log("Agree clicked");
+        }
+      }]
+    }).present();
   }
 }
 
