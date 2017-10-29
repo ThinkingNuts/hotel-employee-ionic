@@ -15,9 +15,9 @@
 
 <ion-content padding>
 
-  <form [formGroup]="registerForm" (ngSubmit)="register(registerForm.value)" novalidate>
+  <form [formGroup]="registerForm" novalidate>
     <ion-list class="list">
-      <ion-item>
+      <!-- <ion-item>
         <ion-label fixed>真实姓名</ion-label>
         <ion-input type="text" placeholder="请输入真实姓名" formControlName="realName" clearInput></ion-input>
       </ion-item>
@@ -33,7 +33,7 @@
           <ion-label class="sex">女</ion-label>
           <ion-radio value="女"></ion-radio>
         </ion-item>
-      </ion-item-group>
+      </ion-item-group> -->
 
       <ion-item>
         <ion-label fixed>手机号码</ion-label>
@@ -41,9 +41,15 @@
       </ion-item>
       <div class="error-hint" *ngIf="phone.hasError('required') && phone.touched">* 请输入手机号码</div>
       <div class="error-hint" *ngIf="phone.hasError('minLength') || phone.hasError('maxLength') || phone.hasError('pattern')">* 手机号码格式不正确</div>
+
+      <ion-item>
+        <ion-label fixed>手机验证码</ion-label>
+        <ion-input placeholder="请输入验证码" formControlName="veriCode" clearInput></ion-input>
+      </ion-item>
+      <button ion-button block (click)="getVeriCode()" [disabled]="veriCodeBtnState.disable">{{veriCodeBtnState.text}}</button>
     </ion-list>
 
-    <button ion-button block type="submit" [disabled]="!registerForm.valid">注册</button>
+    <button ion-button block (click)="register(registerForm.value)" [disabled]="!registerForm.valid">注册</button>
   </form>
 
 </ion-content>

@@ -58,11 +58,10 @@ export class AccountProvider {
     });
   }
 
-  login(user: UserViewModel, callback) {
+  login(user, callback) {
     console.log("AccountProvider: login phone: " + user.Phone + ", pwd: " + user.Pwd);
 
-    this.baseHttp
-      .post({
+    this.baseHttp.post({
         phone: user.Phone,
         password: user.Pwd
       }, this.urlConfig.userConfig.userLoginUrl)

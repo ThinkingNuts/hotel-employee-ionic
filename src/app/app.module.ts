@@ -19,6 +19,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { BaseHttpServiceProvider } from '../providers/base-http-service/base-http-service';
+import { Device } from '@ionic-native/device';
+import { AppNativeDeviceProvider } from '../providers/app-native-service/app-native-device';
 import { AppUrlConfigProvider } from '../providers/app-url-config/app-url-config';
 import { AccountProvider } from '../providers/account/account';
 
@@ -55,6 +57,8 @@ import { AccountProvider } from '../providers/account/account';
   ],
   providers: [
     AccountProvider,
+    Device,
+    AppNativeDeviceProvider,
     BaseHttpServiceProvider,
     AppUrlConfigProvider,
     StatusBar,

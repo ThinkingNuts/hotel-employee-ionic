@@ -48,18 +48,16 @@ export class MyOrderPage {
 
   getList(refresher): void {
     let personGUID = this.user.GUID;
-    this.baseHttp.postJson<any, OrderViewModel[]>(null,
-      // this.urlConfig.employeeConfig.myOrderUrl + personGUID)
-      this.urlConfig.employeeConfig.employeeListUrl)
-      .subscribe(
+    this.baseHttp.get<OrderViewModel[]>(this.urlConfig.employeeConfig.myOrderUrl + personGUID)
+      .then(
       (res) => {
         console.log("MyOrderPage order: " + JSON.stringify(res));
         if (!res || res.length === 0) {
           this.showResult(true, "当前没有订单");
         } else {
           this.showResult(false, "已获取订单");
-          this.orders = res;
-          this.ordersCache = res;
+          // this.orders = res;
+          // this.ordersCache = res;
         }
         if (refresher) {
           refresher.complete();
@@ -67,8 +65,7 @@ export class MyOrderPage {
       },
       (error) => {
         this.handleError(error);
-      }
-      );
+      });
   }
 
   showResult(isEmpty: boolean, msg: string): void {
@@ -116,7 +113,7 @@ export class MyOrderPage {
 
   doFinishOrder(order: OrderViewModel): void {
     console.log("MyOrderPage doFinishOrder");
-    
+
     //TODO
   }
 }

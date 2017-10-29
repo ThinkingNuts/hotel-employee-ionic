@@ -64,8 +64,9 @@ export class EmployeeListPage implements OnInit {
     let url: string = this.urlConfig.employeeConfig.employeeListUrl;
     if (area && area.id) {
       url += area.id;
+      // url = this.urlConfig.employeeConfig.areaEmployeeListUrl + area.id;
     }
-    this.baseHttp.postJson<EmployeeViewModel, OrderViewModel[]>(new EmployeeViewModel(), url)
+    this.baseHttp.postJson<any, OrderViewModel[]>(null, url)
       .subscribe(
       (res) => {
         console.log(JSON.stringify(res));
@@ -94,9 +95,8 @@ export class EmployeeListPage implements OnInit {
 
   getApplyList(): void {
     let personGUID = this.user.GUID;
-    this.baseHttp.postJson<ApplyViewModel, ApplyViewModel[]>(new ApplyViewModel(),
-      this.urlConfig.employeeConfig.applyRecordsUrl + personGUID)
-      .subscribe(
+    this.baseHttp.get<ApplyViewModel[]>(this.urlConfig.employeeConfig.applyRecordsUrl + personGUID)
+      .then(
       (res) => {
         console.log(res);
         if (!res) {
@@ -114,8 +114,7 @@ export class EmployeeListPage implements OnInit {
       },
       (error) => {
         this.handleError(error);
-      }
-      );
+      });
   }
 
   showResult(isEmpty: boolean, msg: string): void {

@@ -24,6 +24,11 @@ export class RegisterPage {
 
   private registerForm: FormGroup;
   private user: UserViewModel = new UserViewModel();
+  private veriCodeBtnState = {
+    text: "获取验证码",
+    disable: false
+  };
+  private veriMsgId: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,39 +38,80 @@ export class RegisterPage {
     public navCtrl: NavController,
     public navParams: NavParams) {
     this.registerForm = formBuilder.group({
-      realName: ["", Validators.compose([Validators.required])],
-      sex: ["男", Validators.compose([Validators.required])],
-      phone: ["", Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern(REG_EXP_PHONE)])]
+      phone: ["", Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern(REG_EXP_PHONE)])],
+      veriCode: ["", Validators.compose([Validators.required])]
     });
   }
 
-  get realName() { return this.registerForm.get("realName"); }
-  get sex() { return this.registerForm.get("sex"); }
   get phone() { return this.registerForm.get("phone"); }
+  get veriCode() { return this.registerForm.get("veriCode"); }
+
+  getVeriCode(): void {
+    if (!this.phone || !this.phone.valid) {
+      this.showToast("手机号码不正确");
+      return;
+    }
+    console.log("RegisterPage getVeriCode phone: " + this.phone.value);
+
+    this.baseHttp.get(this.urlConfig.userConfig.registerVeriCodeUrl + this.phone.value)
+      .then(
+      d => {
+        console.log("RegisterPage getVeriCode msg_id: " + d["msg_id"]);
+        this.veriMsgId = d["msg_id"];
+      }
+      ).catch(this.handleError);;
+    this.showCountdown();
+  }
+
+  showCountdown() {
+    this.veriCodeBtnState.text = "已发送 (60秒)";
+    let second: number = 59;
+    this.veriCodeBtnState.disable = true;
+    let countdown = setInterval(() => {
+      if (second <= 0) {
+        this.veriCodeBtnState.text = "获取验证码";
+        this.veriCodeBtnState.disable = false;
+        clearInterval(countdown);
+        return;
+      }
+      this.veriCodeBtnState.text = "已发送(" + (second--) + "秒)"
+    }, 1000);
+  }
 
   register(value) {
-    console.log('register RegisterPage  ' + JSON.stringify(value));
-    this.user.RealName = value.realName;
-    this.user.Sex = value.sex;
+    console.log("RegisterPage register  " + JSON.stringify(value));
     this.user.Phone = value.phone;
     this.toRegister();
   }
 
   toRegister(): void {
-    this.baseHttp.post<UserViewModel, JsonResult>(this.user,
+    let data = {
+      RealName: "",
+      Sex: "女",
+      Pwd: "",
+      IdentityCard: "",
+      Phone: this.user.Phone,
+      MsgId: this.veriMsgId,
+      Code: this.veriCode.value
+    }
+    this.baseHttp.postJson2<any, JsonResult>(data,
       this.urlConfig.userConfig.userRegisterUrl).then(
       d => {
         let msg: string = d.message;
         console.log("Register result " + msg);
-        this.toastCtrl.create({
-          duration: 1500,
-          position: "top",
-          message: msg,
-        }).present();
+        this.showToast(msg);
         if (d.state) {
           this.goBack();
         }
       }).catch(this.handleError);
+  }
+
+  showToast(msg: string): void {
+    this.toastCtrl.create({
+      duration: 1500,
+      position: "top",
+      message: msg,
+    }).present();
   }
 
   handleError(error: any) {

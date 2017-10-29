@@ -60,9 +60,8 @@ export class ApplyRecordsPage {
 
   getList(refresher): void {
     let personGUID = this.user.GUID;
-    this.baseHttp.postJson<ApplyViewModel, ApplyViewModel[]>(new ApplyViewModel(),
-      this.urlConfig.employeeConfig.applyRecordsUrl + personGUID)
-      .subscribe(
+    this.baseHttp.get<ApplyViewModel[]>(this.urlConfig.employeeConfig.applyRecordsUrl + personGUID)
+      .then(
       (res) => {
         console.log("ApplyRecords: " + JSON.stringify(res));
         if (!res || res.length === 0) {
@@ -78,8 +77,7 @@ export class ApplyRecordsPage {
       },
       (error) => {
         this.handleError(error);
-      }
-      );
+      });
   }
 
   showResult(isEmpty: boolean, msg: string): void {

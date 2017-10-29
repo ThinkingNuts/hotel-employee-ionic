@@ -13,11 +13,6 @@ export class AppUrlConfigProvider {
   public userConfig: UserConfig = new UserConfig();
 
   /**
-   * Signalr 服务器信息配置
-   */
-  public signalrConfig: SignalrConfig = new SignalrConfig();
-
-  /**
    * 用工信息及申请配置
    */
   public employeeConfig: EmployeeConfig = new EmployeeConfig();
@@ -29,37 +24,22 @@ export class AppUrlConfigProvider {
 
 class EmployeeConfig {
   public employeeListUrl: string = URL_ROOT + "HotelOrder/AreaOrders/";//+区域id(可选)
-  public applyRecordsUrl: string = URL_ROOT + "ServicePerson/Orders/";//+用户GUID(必须)
-  public applyUrl: string = URL_ROOT + "PersonOrder/Apply";
+  public areaEmployeeListUrl: string = URL_ROOT + "api/AreaWork/";//+区域id,null或0表示全部
+  public applyRecordsUrl: string = URL_ROOT + "api/PersonApply/";//+用户GUID(必须)
+  public applyUrl: string = URL_ROOT + "api/PersonApply";
   public hotelDetailsUrl: string = URL_ROOT + "Hotel/HotelDetail/";//+酒店GUID(必须)
   public areasInfoUrl: string = URL_ROOT + "Area/Areas";
-  public myOrderUrl: string = URL_ROOT + "ServicePerson/Orders/";//+用户GUID(必须)
+  public myOrderUrl: string = URL_ROOT + "api/PersonEmploy/";//+用户GUID(必须)
   public finishOrderUrl: string = URL_ROOT + "";
 }
 
 class UserConfig {
-  public userLoginUrl: string = URL_ROOT + "ServicePerson/Login";
-  public userRegisterUrl: string = URL_ROOT + "ServicePerson/Create";
+  public userLoginUrl: string = URL_ROOT + "api/Login";
+  public userRegisterUrl: string = URL_ROOT + "api/Register";
   public updatePwdUrl: string = URL_ROOT + "ServicePerson/UpdatePwd";
   public userUploadUrl: string = URL_ROOT + "ServicePerson/Upload";
   public personDetailsUrl: string = URL_ROOT + "ServicePerson/Details/";//+用户Id
   public personDetailsUpdateUrl: string = URL_ROOT + "ServicePerson/Update";
-}
-
-class SignalrConfig {
-
-  /**
-   * Signalr Hub名称
-   */
-  public hubName: string = "userHub";
-  /**
-   * Signalr Host地址
-   */
-  public hostUrl: string = "http://192.168.200.250/webrtc/signalr";
-
-  /**
-   * Signalr 监听服务器事件名称
-   */
-
-  public proxyOnEvnetName: string = "receiveMessage";
+  public registerVeriCodeUrl: string = URL_ROOT + "api/Register/";//+phone
+  public loginVeriCodeUrl: string = URL_ROOT + "api/Login/";//+phone
 }

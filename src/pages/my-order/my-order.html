@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color="my">
-    <ion-title>我的订单</ion-title>
+    <ion-title>我的工作</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -24,7 +24,7 @@
       <ion-item-divider class="group" color="divider">{{order.HotelName}}</ion-item-divider>
       <ion-item *ngFor="let work of order.Works" [ngClass]="{'item-applied': work.IsApplied}" (click)="showItemDetails(work)">
         <ion-avatar class="finish" item-end>
-          <button ion-button clear class="btn-finish" (click)="finishOrder(order)">终止</button>
+          <button ion-button color="danger" small class="btn-finish" (click)="finishOrder(order)">终止</button>
         </ion-avatar>
         <h2 class="item-title">{{work.DepartMentName}} - {{work.WorkTypeName}} - 招{{work.AppliedNum}}/{{work.Num}}人</h2>
         <p>{{work.Billing}} | {{work.WorkTypeName}}</p>

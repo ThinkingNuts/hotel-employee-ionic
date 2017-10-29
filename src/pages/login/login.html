@@ -24,10 +24,10 @@
       <div class="error-hint" *ngIf="phone.hasError('minLength') || phone.hasError('maxLength') || phone.hasError('pattern')">* 手机号码格式不正确</div>
 
       <ion-item>
-        <ion-input type="password" placeholder="密码" formControlName="password" clearInput></ion-input>
+        <!-- <ion-label fixed>手机验证码</ion-label> -->
+        <ion-input placeholder="请输入验证码" formControlName="veriCode" clearInput></ion-input>
       </ion-item>
-      <div class="error-hint" *ngIf="password.hasError('required') && password.touched">* 请输入密码</div>
-      <!-- <div class="error-hint" *ngIf="(password.hasError('minlength')) && password.touched">* 密码长度最少为六位</div> -->
+      <button ion-button block (click)="getVeriCode()" [disabled]="veriCodeBtnState.disable">{{veriCodeBtnState.text}}</button>
     </ion-list>
 
     <button class="action-btn" ion-button block type="submit" [disabled]="!loginForm.valid">登录</button>

@@ -11,11 +11,14 @@ page-apply-records {
     text-align: center;
     color: white;
   }
+  .apply-status-waitcheck{
+    background: #FDAF1E;
+  }
+  .apply-status-prepass{
+    background: orchid
+  }
   .apply-status-pass{
     background: #34CA34;
-  }
-  .apply-status-waitcheck{
-    background: orchid;
   }
   .apply-status-notpass{
     background: red;

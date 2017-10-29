@@ -42,16 +42,26 @@ export class BaseHttpServiceProvider {
     // .catch(this.handleError);
   }
 
+  public postJson2<T extends BaseViewModel, U>(obj: T, url: string): Promise<U> {
+    let form;
+    if (obj) {
+      form = JSON.stringify(obj);
+    }
+    let header = new Headers();
+    header.append('Content-Type', "application/json");
+    return this.http.post(url, form, { headers: header }).toPromise().then(d => d.json());
+  }
+
   handleError(error: any): Promise<any> {
     console.log("An error occurred: \n", error);
     return Promise.reject(error.message || error);
   }
 
-  public get<T extends BaseViewModel>(query: QueryParmModel, url: string): Promise<T[]> {
+  public get<T extends BaseViewModel>(url: string): Promise<T> {
 
     let header = new Headers();
     header.append('Content-Type', "application/json");
-    return this.http.post(url, JSON.stringify(query), { headers: header }).toPromise().then(d => d.json());
+    return this.http.get(url, { headers: header }).toPromise().then(d => d.json());
   }
 
 }

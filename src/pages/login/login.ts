@@ -5,6 +5,9 @@ import { TabsPage } from '../../pages/tabs/tabs';
 
 import { Storage } from '@ionic/storage';
 
+import { BaseHttpServiceProvider, JsonResult } from '../../providers/base-http-service/base-http-service';
+import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
+import { AppNativeDeviceProvider } from '../../providers/app-native-service/app-native-device';
 import { UserViewModel } from '../../view-model/user-model';
 import { AccountProvider, REG_EXP_PHONE } from '../../providers/account/account';
 
@@ -24,6 +27,11 @@ export class LoginPage {
 
   private loginForm: FormGroup;
   private user: UserViewModel = new UserViewModel();
+  private veriCodeBtnState = {
+    text: "获取验证码",
+    disable: false
+  };
+  private veriMsgId: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,15 +39,18 @@ export class LoginPage {
     private navParams: NavParams,
     private toastCtrl: ToastController,
     private storage: Storage,
-    private account: AccountProvider) {
+    private account: AccountProvider,
+    private baseHttp: BaseHttpServiceProvider,
+    private appDevice: AppNativeDeviceProvider,
+    private urlConfig: AppUrlConfigProvider) {
     this.loginForm = formBuilder.group({
       phone: [this.user.Phone, Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern(REG_EXP_PHONE)])],
-      password: [this.user.Pwd, Validators.compose([Validators.required])]
+      veriCode: ["", Validators.compose([Validators.required])]
     });
   }
 
   get phone() { return this.loginForm.get("phone"); }
-  get password() { return this.loginForm.get("password"); }
+  get veriCode() { return this.loginForm.get("veriCode"); }
 
   ngOnInit(): void {
     this.account.getUserInfo((userInfo) => {
@@ -47,7 +58,6 @@ export class LoginPage {
 
       if (userInfo) {
         this.user.Phone = userInfo.Phone;
-        this.user.Pwd = userInfo.Pwd || "123";
         this.ngOnChanges();
       }
     });
@@ -56,34 +66,80 @@ export class LoginPage {
   ngOnChanges() {
     this.loginForm.reset({
       phone: this.user.Phone,
-      password: this.user.Pwd
+      veriCode: ""
     });
   }
 
-  login(value) {
-    let phone = value.phone;
-    let password = value.password;
-    console.log("LoginPage: login phone: " + phone + ", pwd: " + password);
+  getVeriCode(): void {
+    if (!this.phone || !this.phone.valid) {
+      this.showToast("手机号码不正确");
+      return;
+    }
+    console.log("LoginPage getVeriCode phone: " + this.phone.value);
 
-    this.user.Phone = phone;
-    this.user.Pwd = password;
-    let _this = this;
-    this.account.login(this.user, (state, message) => {
-      console.log("LoginPage: in login callback");
-      _this.toastCtrl.create({
-        duration: 1500,
-        position: "top",
-        message: message,
-      }).present();
-      if (state) {
-        // _this.navCtrl.pop();
-        _this.navCtrl.push(TabsPage);
+    this.baseHttp.get(this.urlConfig.userConfig.loginVeriCodeUrl + this.phone.value)
+      .then(
+      d => {
+        console.log("LoginPage getVeriCode msg_id: " + d["msg_id"]);
+        this.veriMsgId = d["msg_id"];
       }
-    });
+      ).catch(this.handleError);;
+    this.showCountdown();
+  }
+
+  showCountdown() {
+    this.veriCodeBtnState.text = "已发送 (60秒)";
+    let second: number = 59;
+    this.veriCodeBtnState.disable = true;
+    let countdown = setInterval(() => {
+      if (second <= 0) {
+        this.veriCodeBtnState.text = "获取验证码";
+        this.veriCodeBtnState.disable = false;
+        clearInterval(countdown);
+        return;
+      }
+      this.veriCodeBtnState.text = "已发送(" + (second--) + "秒)"
+    }, 1000);
+  }
+
+  login(value) {
+    let data = {
+      MsgId: this.veriMsgId,
+      Code: this.veriCode.value,
+      Phone: this.phone.value,
+      IMEI: this.appDevice.getUUID(),
+      Device: this.appDevice.getManufacturer(),
+      SoftVersion: this.appDevice.getVersion(),
+      SystemType: this.appDevice.getPlatform(),
+      AccoutType: "用工端"
+    }
+    this.baseHttp.postJson2(data, this.urlConfig.userConfig.userLoginUrl)
+      .then((response) => {
+        console.log(JSON.stringify(response));
+
+        this.showToast(response["messgae"])
+        if (response["state"]) {
+          this.account.saveUserInfo(response["data"]);
+          this.account.saveToken(response["token"]);
+          this.navCtrl.push(TabsPage);
+        }
+      });
   }
 
   gotoRegister(): void {
     console.log('gotoRegister');
     this.navCtrl.push("RegisterPage");
+  }
+
+  showToast(msg: string): void {
+    this.toastCtrl.create({
+      duration: 1500,
+      position: "top",
+      message: msg,
+    }).present();
+  }
+
+  handleError(error: any) {
+    console.log("An error occurred to register: \n", error);
   }
 }

@@ -33,4 +33,16 @@ page-employee-list {
     font-size: 16px;
     line-height: 100%;
   }
+  .keyword{
+    position: absolute;
+    top: 0;
+    right: 80px;
+    width: 32px;
+    height: 32px;
+    background: url(../assets/img/hot.png) no-repeat;
+    text-align: center;
+    font-size: 10px;
+    padding-top: 2px;
+    color: white;
+  }
 }
