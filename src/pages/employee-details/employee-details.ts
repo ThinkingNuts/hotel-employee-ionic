@@ -79,21 +79,20 @@ export class EmployeeDetailsPage implements OnInit {
   onApply(): void {
     console.log('onApply EmployeeDetailsPage');
     this.mOrder.OrderId = this.item.Id;
-    this.mOrder.Status = 1;
-    this.mOrder.GUID = this.item.GUID;
+    // this.mOrder.Status = 1;
+    // this.mOrder.GUID = this.item.GUID;
     this.mOrder.Mark = this.item.Mark;
     this.toApply(this.mOrder);
   }
 
   toApply(order: OrderModule): void {
-    this.baseHttp.post<OrderModule, JsonResult>(order,
-      this.urlConfig.employeeConfig.applyUrl).then(
+    this.baseHttp.post<OrderModule, JsonResult>(order, this.urlConfig.employeeConfig.applyUrl).then(
       d => {
         console.log("Apply result " + JSON.stringify(d));
         let mes: string = d.message;
         if (d.state) {
           this.showApplyResult(d);
-          this.callback(d.state);//.then(() => { this.navCtrl.pop() })
+          this.callback(d.state);
           this.navCtrl.pop();
         } else {
           this.promptInfo(mes);
@@ -157,12 +156,11 @@ export class EmployeeDetailsPage implements OnInit {
 export class OrderModule extends BaseViewModel {
   public PersonId: number;
   public OrderId: number;
-  public Status: number;
+  // public Status: number;
   public Mark: string;
-  public GUID: string;
+  // public GUID: string;
 
   ObjectToSerialize() {
-    return `PersonId=${this.PersonId}&OrderId=${this.OrderId}&Status=${this.Status}&Mark=${this.Mark}
-    &GUID=${this.GUID}`;
+    return `PersonId=${this.PersonId}&OrderId=${this.OrderId}&Mark=${this.Mark}`;
   }
 }
