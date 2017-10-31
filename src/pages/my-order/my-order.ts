@@ -23,7 +23,7 @@ import { UserViewModel } from '../../view-model/user-model';
 export class MyOrderPage {
 
   private noRecords: boolean = true;
-  private whyEmpty: string = "正在获取订单";
+  private whyEmpty: string = "正在获取工作";
   private orders: OrderViewModel[] = [];
   private ordersCache: OrderViewModel[] = [];
   private user: UserViewModel;
@@ -48,14 +48,15 @@ export class MyOrderPage {
 
   getList(refresher): void {
     let personGUID = this.user.GUID;
-    this.baseHttp.get<OrderViewModel[]>(this.urlConfig.employeeConfig.myOrderUrl + personGUID)
+    this.baseHttp.get<any>(this.urlConfig.employeeConfig.myOrderUrl + personGUID)
+    // this.baseHttp.post<any, OrderViewModel[]>(null, this.urlConfig.employeeConfig.employeeListUrl + personGUID)
       .then(
       (res) => {
         console.log("MyOrderPage order: " + JSON.stringify(res));
         if (!res || res.length === 0) {
-          this.showResult(true, "当前没有订单");
+          this.showResult(true, "当前没有工作");
         } else {
-          this.showResult(false, "已获取订单");
+          this.showResult(false, "已获取工作");
           // this.orders = res;
           // this.ordersCache = res;
         }
@@ -74,7 +75,7 @@ export class MyOrderPage {
   }
 
   handleError(error: any) {//: Promise<any> {
-    this.showResult(true, "获取订单失败");
+    this.showResult(true, "获取工作失败");
     console.log("An error occurred: \n", error);
     // return Promise.reject(error.message || error);
   }
@@ -84,36 +85,11 @@ export class MyOrderPage {
     this.getList(refresher);
   }
 
-  showItemDetails(item: OrderViewModel): void {
-    // this.navCtrl.push("ApplyDetailsPage", item);
+  finishWork(order: OrderViewModel): void {
+    this.openFinishWork(order);
   }
 
-  finishOrder(order: OrderViewModel): void {
-    this.askFinishOrder(order);
-  }
-
-  askFinishOrder(order: OrderViewModel): void {
-    this.alertCtrl.create({
-      title: "提示",
-      message: "确认要终止该订单吗？",
-      buttons: [{
-        text: "取消",
-        handler: () => {
-          console.log("Disagree clicked");
-        }
-      }, {
-        text: "确认",
-        handler: () => {
-          console.log("Agree clicked");
-          this.doFinishOrder(order);
-        }
-      }]
-    }).present();
-  }
-
-  doFinishOrder(order: OrderViewModel): void {
-    console.log("MyOrderPage doFinishOrder");
-
-    //TODO
+  openFinishWork(order: OrderViewModel): void {
+    this.navCtrl.push("FinishWorkPage", { "order": order });
   }
 }

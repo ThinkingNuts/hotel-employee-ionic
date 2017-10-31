@@ -26,7 +26,7 @@ export class EmployeeDetailsPage implements OnInit {
   private item: EmployeeViewModel = null;
   private callback;
   private hotelDetails: HotelViewModel = null;
-  private mOrder: OrderModule = new OrderModule();
+  private order: OrderModule = new OrderModule();
 
   constructor(
     private app: App,
@@ -47,8 +47,8 @@ export class EmployeeDetailsPage implements OnInit {
     console.log('ionViewDidLoad EmployeeDetailsPage');
     this.account.getUserInfo((value) => {
       console.log("EmployeeDetails: user:: " + JSON.stringify(value));
-      this.mOrder.PersonId = value.Id;
-      console.log("EmployeeDetails: personId:: " + this.mOrder.PersonId);
+      this.order.PersonId = value.Id;
+      console.log("EmployeeDetails: personId:: " + this.order.PersonId);
     })
   }
 
@@ -70,23 +70,16 @@ export class EmployeeDetailsPage implements OnInit {
         text: "确认",
         handler: () => {
           console.log("Agree clicked");
-          this.onApply();
+          this.doApply();
         }
       }]
     }).present();
   }
 
-  onApply(): void {
-    console.log('onApply EmployeeDetailsPage');
-    this.mOrder.OrderId = this.item.Id;
-    // this.mOrder.Status = 1;
-    // this.mOrder.GUID = this.item.GUID;
-    this.mOrder.Mark = this.item.Mark;
-    this.toApply(this.mOrder);
-  }
-
-  toApply(order: OrderModule): void {
-    this.baseHttp.post<OrderModule, JsonResult>(order, this.urlConfig.employeeConfig.applyUrl).then(
+  doApply(): void {
+    this.order.OrderId = this.item.Id;
+    this.order.Mark = this.item.Mark;
+    this.baseHttp.postJson2<OrderModule, JsonResult>(this.order, this.urlConfig.employeeConfig.applyUrl).then(
       d => {
         console.log("Apply result " + JSON.stringify(d));
         let mes: string = d.message;
@@ -156,11 +149,5 @@ export class EmployeeDetailsPage implements OnInit {
 export class OrderModule extends BaseViewModel {
   public PersonId: number;
   public OrderId: number;
-  // public Status: number;
   public Mark: string;
-  // public GUID: string;
-
-  ObjectToSerialize() {
-    return `PersonId=${this.PersonId}&OrderId=${this.OrderId}&Mark=${this.Mark}`;
-  }
 }

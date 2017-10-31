@@ -3,7 +3,7 @@ import { EmployeeViewModel } from './employee-model';
 
 export class ApplyViewModel extends BaseViewModel {
   Order: EmployeeViewModel;
-  Status: string;
+  Status: number;
   StatusStr: string;
   ApplyTime: string;
   TotalApply: number;

@@ -22,9 +22,9 @@
   <ion-list *ngIf="!noOrder">
     <ion-item-group *ngFor="let order of orders">
       <ion-item-divider class="group" color="divider">{{order.HotelName}}</ion-item-divider>
-      <ion-item *ngFor="let work of order.Works" [ngClass]="{'item-applied': work.IsApplied}" (click)="showItemDetails(work)">
+      <ion-item *ngFor="let work of order.Works" [ngClass]="{'item-applied': work.IsApplied}">
         <ion-avatar class="finish" item-end>
-          <button ion-button color="danger" small class="btn-finish" (click)="finishOrder(order)">终止</button>
+          <button ion-button color="danger" small class="btn-finish" (click)="finishWork(order)">终止</button>
         </ion-avatar>
         <h2 class="item-title">{{work.DepartMentName}} - {{work.WorkTypeName}} - 招{{work.AppliedNum}}/{{work.Num}}人</h2>
         <p>{{work.Billing}} | {{work.WorkTypeName}}</p>

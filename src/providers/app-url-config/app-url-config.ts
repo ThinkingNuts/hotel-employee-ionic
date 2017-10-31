@@ -30,7 +30,7 @@ class EmployeeConfig {
   public hotelDetailsUrl: string = URL_ROOT + "Hotel/HotelDetail/";//+酒店GUID(必须)
   public areasInfoUrl: string = URL_ROOT + "Area/Areas";
   public myOrderUrl: string = URL_ROOT + "api/PersonEmploy/";//+用户GUID(必须)
-  public finishOrderUrl: string = URL_ROOT + "";
+  public finishOrderUrl: string = URL_ROOT + "api/PersonEmploy/";//+id(必须)
 }
 
 class UserConfig {

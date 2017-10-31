@@ -1,0 +1,39 @@
+page-finish-work {
+  h6 {
+    margin-left: 16px;
+  }
+  .star-box {
+    width: 80%;
+    height: 40px;
+    padding: 10px 10%;
+    p {
+      color: #F0841E; 
+      font-size: 12px;
+    }
+    ion-icon {
+      float: left;
+      font-size: 32px;
+    }
+  }
+  .desc-box {
+    width: 100%;
+    text-align: center;
+    textarea {
+      width: 80%;
+    }
+  }
+  .finish-btn {
+    position: fixed;
+    bottom: 0;
+    margin: 0;
+    display: block;
+    height: 50px;
+    z-index: 100;
+    font-size: 16px;
+  }
+  .finish-btn:disabled {
+    opacity: 1;
+    filter: alpha(opacity=100);
+    background: lightgray;
+  }
+}

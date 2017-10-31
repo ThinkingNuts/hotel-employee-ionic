@@ -52,7 +52,7 @@ export class TaskPage {
         this.showResult(false, "已获取任务");
         // this.items = res;
         res.forEach(e => {
-          if (e.Status == "2") {
+          if (e.Status == 2) {
             this.items.push(e);
           }
         });

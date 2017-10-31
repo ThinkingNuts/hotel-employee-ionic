@@ -22,10 +22,10 @@
   <ion-list *ngIf="!noRecords">
     <ion-item *ngFor="let item of items" (click)="showItemDetails(item)">
       <ion-avatar class="apply-status" item-end [ngSwitch]="item.Status">
-        <div *ngSwitchCase="'1'" class="apply-status-waitcheck">{{item.StatusStr}}</div>
-        <div *ngSwitchCase="'2'" class="apply-status-prepass">{{item.StatusStr}}</div>
-        <div *ngSwitchCase="'3'" class="apply-status-pass">{{item.StatusStr}}</div>
-        <div *ngSwitchCase="'4'" class="apply-status-notpass">{{item.StatusStr}}</div>
+        <div *ngSwitchCase="1" class="apply-status-waitcheck">{{item.StatusStr}}</div>
+        <div *ngSwitchCase="2" class="apply-status-prepass">{{item.StatusStr}}</div>
+        <div *ngSwitchCase="3" class="apply-status-pass">{{item.StatusStr}}</div>
+        <div *ngSwitchCase="4" class="apply-status-notpass">{{item.StatusStr}}</div>
       </ion-avatar>
       <h2>{{item.Order.HotelName}}</h2>
       <h2>{{item.Order.DepartMentName}} - {{item.Order.WorkTypeName}} - 招{{item.TotalApply}}/{{item.Order.Num}}人</h2>

@@ -52,6 +52,16 @@ export class BaseHttpServiceProvider {
     return this.http.post(url, form, { headers: header }).toPromise().then(d => d.json());
   }
 
+  public putJson<T extends BaseViewModel, U>(obj: T, url: string): Promise<U> {
+    let form;
+    if (obj) {
+      form = JSON.stringify(obj);
+    }
+    let header = new Headers();
+    header.append('Content-Type', "application/json");
+    return this.http.put(url, form, { headers: header }).toPromise().then(d => d.json());
+  }
+
   handleError(error: any): Promise<any> {
     console.log("An error occurred: \n", error);
     return Promise.reject(error.message || error);
