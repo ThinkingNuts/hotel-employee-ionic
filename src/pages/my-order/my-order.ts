@@ -5,7 +5,7 @@ import { BaseHttpServiceProvider } from '../../providers/base-http-service/base-
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
 import { AccountProvider } from '../../providers/account/account';
 
-import { OrderViewModel } from '../../view-model/order-model';
+import { MyOrderViewModel } from '../../view-model/my-order-model';
 import { UserViewModel } from '../../view-model/user-model';
 
 /**
@@ -24,8 +24,8 @@ export class MyOrderPage {
 
   private noRecords: boolean = true;
   private whyEmpty: string = "正在获取工作";
-  private orders: OrderViewModel[] = [];
-  private ordersCache: OrderViewModel[] = [];
+  private orders: MyOrderViewModel[] = [];
+  private ordersCache: MyOrderViewModel[] = [];
   private user: UserViewModel;
 
   constructor(
@@ -46,10 +46,16 @@ export class MyOrderPage {
     });
   }
 
+  ionViewDidEnter(): void {
+    console.log("MyOrderPage ionViewDidEnter");
+    if (this.user) {
+      this.getList(null);
+    }
+  }
+
   getList(refresher): void {
     let personGUID = this.user.GUID;
-    this.baseHttp.get<any>(this.urlConfig.employeeConfig.myOrderUrl + personGUID)
-    // this.baseHttp.post<any, OrderViewModel[]>(null, this.urlConfig.employeeConfig.employeeListUrl + personGUID)
+    this.baseHttp.get<MyOrderViewModel[]>(this.urlConfig.employeeConfig.myOrderUrl + personGUID)
       .then(
       (res) => {
         console.log("MyOrderPage order: " + JSON.stringify(res));
@@ -57,8 +63,8 @@ export class MyOrderPage {
           this.showResult(true, "当前没有工作");
         } else {
           this.showResult(false, "已获取工作");
-          // this.orders = res;
-          // this.ordersCache = res;
+          this.orders = res;
+          this.ordersCache = res;
         }
         if (refresher) {
           refresher.complete();
@@ -85,11 +91,11 @@ export class MyOrderPage {
     this.getList(refresher);
   }
 
-  finishWork(order: OrderViewModel): void {
+  finishWork(order: MyOrderViewModel): void {
     this.openFinishWork(order);
   }
 
-  openFinishWork(order: OrderViewModel): void {
+  openFinishWork(order: MyOrderViewModel): void {
     this.navCtrl.push("FinishWorkPage", { "order": order });
   }
 }

@@ -1,6 +1,13 @@
 page-my-order {
-  // .btn-finish {
-  //   border: 0.7px solid red;
-  //   border-radius: 8px;
-  // }
+  .item-finished {
+    background: #F0F0F0;
+    color: #777;
+  }
+  .item-finished * {
+    color: #777;
+  }
+  .item-finished label {
+    font-size: 80%;
+    color: #C2C2C2;
+  }
 }
