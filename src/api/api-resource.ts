@@ -8,7 +8,7 @@ import { Subject, BehaviorSubject, Observable } from "rxjs";
 import API_ROOT from "./config";
 
 @Injectable()
-export class ApiResource {
+export class ApiService {
 
   private headers: Headers = new Headers();
   private opts: RequestOptions = new RequestOptions();
@@ -51,12 +51,12 @@ export class ApiResource {
     return this.http.post(API_ROOT + "ServicePerson/Update", data, this.opts).toPromise().then(d => d.json());
   }
 
-  public getRegisterVeriCode<T>(phone, data): Promise<T> {
-    return this.http.post(API_ROOT + "api/Register/" + phone, data, this.opts).toPromise().then(d => d.json());
+  public getRegisterVeriCode<T>(phone): Promise<T> {
+    return this.http.get(API_ROOT + "api/Register/" + phone, this.opts).toPromise().then(d => d.json());
   }
 
-  public getLoginVeriCode<T>(phone, data): Promise<T> {
-    return this.http.post(API_ROOT + "api/Login/" + phone, data, this.opts).toPromise().then(d => d.json());
+  public getLoginVeriCode<T>(phone): Promise<T> {
+    return this.http.get(API_ROOT + "api/Login/" + phone, this.opts).toPromise().then(d => d.json());
   }
 
   public getEmpolyeeList<T>(areaId, data): Promise<T> {
@@ -67,20 +67,20 @@ export class ApiResource {
     return this.http.post(API_ROOT + "api/AreaWork/" + areaId, data, this.opts).toPromise().then(d => d.json());
   }
 
-  public getApplyRecordsList<T>(personGUID, data): Promise<T> {
-    return this.http.post(API_ROOT + "api/PersonApply/" + personGUID, data, this.opts).toPromise().then(d => d.json());
+  public getApplyRecordsList<T>(personGUID): Promise<T> {
+    return this.http.get(API_ROOT + "api/PersonApply/" + personGUID, this.opts).toPromise().then(d => d.json());
   }
 
   public applyWork<T>(data): Promise<T> {
     return this.http.post(API_ROOT + "api/PersonApply", data, this.opts).toPromise().then(d => d.json());
   }
 
-  public getHotelDetails<T>(hotelGUID, data): Promise<T> {
-    return this.http.post(API_ROOT + "Hotel/HotelDetail/" + hotelGUID, data, this.opts).toPromise().then(d => d.json());
+  public getHotelDetails<T>(hotelGUID): Promise<T> {
+    return this.http.post(API_ROOT + "Hotel/HotelDetail/" + hotelGUID, null, this.opts).toPromise().then(d => d.json());
   }
 
-  public getAreas<T>(data): Promise<T> {
-    return this.http.post(API_ROOT + "Area/Areas", data, this.opts).toPromise().then(d => d.json());
+  public getAreas<T>(): Promise<T> {
+    return this.http.post(API_ROOT + "Area/Areas", null, this.opts).toPromise().then(d => d.json());
   }
 
   public getMyWorkList<T>(personGUID, data): Promise<T> {
