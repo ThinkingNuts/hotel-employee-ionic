@@ -1,9 +1,9 @@
 page-home {
   .home-content {
-    background-image: url(../assets/img/home_bg.png);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    margin-top: 10%;
+    // background-image: url(../assets/img/home_bg.png);
+    // background-size: 100% 100%;
+    // background-repeat: no-repeat;
+    // margin-top: 10%;
   }
   .home-content-text {
     padding-top: 90%;
@@ -14,5 +14,13 @@ page-home {
   .welcome {
     line-height: 100%;
     text-align: center;
+  }
+  .banners-box{
+    // height: 240px;
+    height: auto;
+    .slide-image{
+      width: 100%;
+      height: auto;
+    }
   }
 }

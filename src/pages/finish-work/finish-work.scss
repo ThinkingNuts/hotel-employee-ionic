@@ -3,11 +3,11 @@ page-finish-work {
     margin-left: 16px;
   }
   .star-box {
-    width: 80%;
+    width: 100%;
     height: 40px;
     padding: 10px 10%;
     p {
-      color: #F0841E; 
+      color: #F0841E;
       font-size: 12px;
     }
     ion-icon {
@@ -20,6 +20,7 @@ page-finish-work {
     text-align: center;
     textarea {
       width: 80%;
+      border: solid lightgray 0.8px;
     }
   }
   .finish-btn {

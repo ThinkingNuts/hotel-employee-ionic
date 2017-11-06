@@ -4,33 +4,18 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="home-content">
-  <div class="home-content-text">
+<ion-content class="home-content">
+  <!-- <div class="home-content-text">
     <h2 class="welcome">欢迎使用<br><br>星加酒店Job！</h2>
     <br>
     <br>
-    <!-- <h4>使用说明：</h4>
-    <ol>
-      <li>
-        <p>显示酒店已发布的用工信息</p>
-      </li>
-      <li>
-        <p>申请工作</p>
-      </li>
-      <li>
-        <p>查看申请记录</p>
-      </li>
-      <li>
-        <p>个人账号管理</p>
-      </li>
-    </ol> -->
-  </div>
-  <!-- <ion-slides #homeslides class="box" [slidesPerView]="1" [pager]="true" autoplay="600" speed="800" loop="true" >
-    <ion-slide *ngFor="let item of items" [ngClass]="item.className">
+  </div> -->
+  <ion-slides #homeslides class="banners-box" pager [slidesPerView]="1" autoplay="600" speed="1500" loop="true" >
+    <ion-slide *ngFor="let item of banners">
       <div>
-        <h1>{{item.title}}</h1>
+        <img [src]="item.imgSrc" class="slide-image" />
       </div>
     </ion-slide>
-  </ion-slides> -->
+  </ion-slides>
 
 </ion-content>

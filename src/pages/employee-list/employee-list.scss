@@ -1,4 +1,7 @@
 page-employee-list {
+  .scroll-content {
+    margin-bottom: 0px !important;
+  }
   .num-hint {
     color: blue;
   }
@@ -33,10 +36,10 @@ page-employee-list {
     font-size: 16px;
     line-height: 100%;
   }
-  .keyword{
+  .keyword {
     position: absolute;
     top: 0;
-    right: 80px;
+    right: 16px;
     width: 32px;
     height: 32px;
     background: url(../assets/img/hot.png) no-repeat;

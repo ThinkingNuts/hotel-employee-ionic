@@ -72,7 +72,7 @@ export class FinishWorkPage {
       HotelComment: this.desc
     };
 
-    this.baseHttp.putJson<any, JsonResult>(data, this.urlConfig.employeeConfig.finishOrderUrl + this.order.HotelOrderId).then(
+    this.baseHttp.putJson<any, JsonResult>(data, this.urlConfig.employeeConfig.finishOrderUrl + this.order.GUID).then(
       (res) => {
         console.log("FinishWorkPage finishWork res: " + JSON.stringify(res));
         this.showToast(res.message);

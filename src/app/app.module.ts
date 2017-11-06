@@ -41,6 +41,8 @@ import { AccountProvider } from '../providers/account/account';
     IonicStorageModule.forRoot(),
     BrowserModule,
     IonicModule.forRoot(MyApp, {
+      mode: 'ios',//android是'md'
+      backButtonText: '',
       tabsHideOnSubPages: 'true'
     })
   ],
