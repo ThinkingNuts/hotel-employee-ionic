@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar color="my">
     <ion-title>主页</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="openPage('MessagePage')">
+        <ion-icon name="leaf"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -10,12 +15,22 @@
     <br>
     <br>
   </div> -->
-  <ion-slides #homeslides class="banners-box" pager [slidesPerView]="1" autoplay="600" speed="1500" loop="true" >
+  <ion-slides #homeslides class="banners-box" pager [slidesPerView]="1" autoplay="600" speed="1500" loop="true">
     <ion-slide *ngFor="let item of banners">
       <div>
         <img [src]="item.imgSrc" class="slide-image" />
       </div>
     </ion-slide>
   </ion-slides>
+
+  <ion-grid class="grid-menu">
+    <ion-row class="row" wrap *ngFor="let row of gridMenu">
+      <ion-col *ngFor="let item of row.cols" width-20 (click)="openPage(item.linkPage)">
+          <ion-icon class="avatars-icon" *ngIf="!item.isImage" [name]="item.icon" [color]="item.color"></ion-icon>
+          <img *ngIf="item.isImage" class="avatars-img" [src]="item.imageUrl">
+          <p class="col-title">{{item.title}}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>

@@ -16,9 +16,9 @@
 <ion-content>
 
   <ion-list>
-    <ion-item *ngFor="let item of items">
-      <label>{{item.name}}</label>：
-      <label>{{item.value}}</label>
+    <ion-item *ngFor="let item of items" (click)="openPage(item.linkPage)">
+      <label>{{item.name}}</label>
+      <label item-end>{{item.value}}</label>
     </ion-item>
   </ion-list>
 

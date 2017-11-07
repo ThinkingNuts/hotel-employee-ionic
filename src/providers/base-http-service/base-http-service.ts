@@ -67,7 +67,7 @@ export class BaseHttpServiceProvider {
     return Promise.reject(error.message || error);
   }
 
-  public get<T extends BaseViewModel>(url: string): Promise<T> {
+  public get<T>(url: string): Promise<T> {
 
     let header = new Headers();
     header.append('Content-Type', "application/json");

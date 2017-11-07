@@ -13,8 +13,6 @@ import { InfoListPage } from '../pages/info-list/info-list';
 import { MyPage } from '../pages/my/my';
 import { ApplyRecordsPage } from '../pages/apply-records/apply-records';
 
-import { AreaSelectorComponent } from '../components/area-selector/area-selector';
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -33,15 +31,14 @@ import { AccountProvider } from '../providers/account/account';
     EmployeeListPage,
     InfoListPage,
     HomePage,
-    ApplyRecordsPage,
-    AreaSelectorComponent
+    ApplyRecordsPage
   ],
   imports: [
     HttpModule,
     IonicStorageModule.forRoot(),
     BrowserModule,
     IonicModule.forRoot(MyApp, {
-      mode: 'ios',//android是'md'
+      mode: 'ios',
       backButtonText: '',
       tabsHideOnSubPages: 'true'
     })
@@ -54,8 +51,7 @@ import { AccountProvider } from '../providers/account/account';
     HomePage,
     EmployeeListPage,
     InfoListPage,
-    MyPage,
-    AreaSelectorComponent
+    MyPage
   ],
   providers: [
     AccountProvider,

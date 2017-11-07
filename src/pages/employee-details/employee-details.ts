@@ -79,16 +79,15 @@ export class EmployeeDetailsPage implements OnInit {
   doApply(): void {
     this.order.OrderId = this.item.Id;
     this.order.Mark = this.item.Mark;
-    this.baseHttp.postJson2<OrderModule, JsonResult>(this.order, this.urlConfig.employeeConfig.applyUrl).then(
+    this.baseHttp.postJson2<OrderModule, any>(this.order, this.urlConfig.employeeConfig.applyUrl).then(
       d => {
         console.log("Apply result " + JSON.stringify(d));
-        let mes: string = d.message;
         if (d.state) {
           this.showApplyResult(d);
           this.callback(d.state);
           this.navCtrl.pop();
         } else {
-          this.promptInfo(mes);
+          this.promptInfo(d.message, d.code);
         }
       }).catch(this.handleError);
   }
@@ -132,14 +131,22 @@ export class EmployeeDetailsPage implements OnInit {
     });
   }
 
-  promptInfo(msg): void {
+  promptInfo(msg, code): void {
     this.alert.create({
       title: "提示",
       message: msg,
       buttons: [{
+        text: "取消",
+        handler: () => {
+          console.log("Disagree clicked");
+        }
+      }, {
         text: "确认",
         handler: () => {
           console.log("Agree clicked");
+          if (code == 4001) {
+            this.navCtrl.push("PersonDetailsPage");
+          }
         }
       }]
     }).present();

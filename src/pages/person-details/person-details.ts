@@ -186,6 +186,9 @@ export class PersonDetailsPage implements ICameraCallBack {
     this.copyValue(value);
     console.log("PersonDetailsPage: savePerson:: " + JSON.stringify(this.user));
 
+    // TODO upload default user pic
+    // this.sendPicture("Icon", );
+
     this.baseHttp.post<UserViewModel, JsonResult>(this.user, this.urlConfig.userConfig.personDetailsUpdateUrl)
       .then(
       (res) => {

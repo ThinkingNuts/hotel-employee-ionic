@@ -8,8 +8,6 @@ import { AccountProvider } from '../../providers/account/account';
 import { AreaViewModel } from '../../view-model/area-model';
 import { UserViewModel } from '../../view-model/user-model';
 
-import { AreaSelectorComponent } from '../../components/area-selector/area-selector';
-
 /**
  * Generated class for the InfoListPage page.
  *

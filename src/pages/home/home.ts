@@ -23,10 +23,36 @@ export class HomePage {
       imgSrc: "assets/img/4.jpg"
     }
   ];
+  private gridMenu = [
+    {
+      rowId: 1,
+      cols: [{
+        title: "我的工作",
+        icon: "briefcase",
+        color: "primary",
+        linkPage: "MyOrderPage",
+        isImage: false,
+        imageUrl: ""
+      }, {
+        title: "个人资料",
+        icon: "paper",
+        color: "secondary",
+        linkPage: "PersonDetailsPage",
+        isImage: false,
+        imageUrl: ""
+      }]
+    }];
 
   constructor(
     private navCtrl: NavController
   ) { }
+
+  openPage(pageName: string) {
+    if (!pageName || pageName.length == 0) {
+      return;
+    }
+    this.navCtrl.push(pageName);
+  }
 
   //解决切换其他页面回去轮播图不动问题
   // ionViewWillEnter() {

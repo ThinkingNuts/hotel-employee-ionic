@@ -61,13 +61,16 @@ export class EmployeeListPage implements OnInit {
   }
 
   getEmployeeList(area: AreaViewModel, refresher): void {
-    let url: string = this.urlConfig.employeeConfig.employeeListUrl;
-    if (area && area.id) {
+    // let url: string = this.urlConfig.employeeConfig.employeeListUrl;
+    let url: string = this.urlConfig.employeeConfig.areaEmployeeListUrl;
+    // if (area && area.id) {
       url += area.id;
       // url = this.urlConfig.employeeConfig.areaEmployeeListUrl + area.id;
-    }
-    this.baseHttp.postJson<any, OrderViewModel[]>(null, url)
-      .subscribe(
+    // }
+    // this.baseHttp.postJson<any, OrderViewModel[]>(null, url)
+    //   .subscribe(
+    this.baseHttp.get<OrderViewModel[]>(url)
+      .then(
       (res) => {
         console.log("EmployeeList getEmployeeList res: " + JSON.stringify(res));
         if (!res || res.length === 0) {

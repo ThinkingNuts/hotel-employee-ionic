@@ -20,19 +20,19 @@
 
   <ion-list>
     <button ion-item (click)="openPage('MyOrderPage')">
-      <ion-icon name="list" item-left color="secondary"></ion-icon>
+      <ion-icon name="list" item-left color="primary"></ion-icon>
       我的工作
+    </button>
+    <button ion-item (click)="openPage('MessagePage')">
+      <ion-icon name="text" item-left color="primary"></ion-icon>
+      我的消息
     </button>
   </ion-list>
 
   <ion-list>
-    <button ion-item (click)="openPage('UpdatePwdPage')">
+    <!-- <button ion-item (click)="openPage('UpdatePwdPage')">
       <ion-icon name="document" item-left color="danger"></ion-icon>
       修改密码
-    </button>
-    <!-- <button ion-item (click)="openPage('LoginPage', '登录')">
-      <ion-icon name="log-in" item-left color="danger"></ion-icon>
-      更换账号
     </button> -->
     <button ion-item (click)="logout()">
       <ion-icon name="log-out" item-left color="danger"></ion-icon>
@@ -42,13 +42,9 @@
 
   <ion-list>
     <button ion-item (click)="openPage('SettingsPage')">
-      <ion-icon name="settings" item-left color="primary"></ion-icon>
+      <ion-icon name="settings" item-left color="dark"></ion-icon>
       设置
     </button>
-    <!-- <button ion-item>
-      <ion-icon name="map" item-left color="bright"></ion-icon>
-      工作地图
-    </button> -->
   </ion-list>
 
   <ion-list>
