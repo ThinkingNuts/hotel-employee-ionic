@@ -17,6 +17,7 @@ import { UserViewModel } from '../../view-model/user-model';
  * Ionic pages and navigation.
  */
 
+const PHOTO_USER_AVATAR: number = 0;
 const PHOTO_IDCARD_FRONT: number = 1;
 const PHOTO_IDCARD_BACK: number = 2;
 const PHOTO_HEALTH_CERTIFICATE: number = 3;
@@ -37,6 +38,8 @@ export class PersonDetailsPage implements ICameraCallBack {
   private user: UserViewModel;
   private whichPhoto: number;
   private photoPlaceholder = "assets/img/photo_placeholder.png";
+  private avatarPlaceholder = "assets/img/user_default.png";
+  private userAvatar: string = this.avatarPlaceholder;
   private idCardFront: string = this.photoPlaceholder;
   private idCardBack: string = this.photoPlaceholder;
   private healthCertificate: string = this.photoPlaceholder;
@@ -92,6 +95,9 @@ export class PersonDetailsPage implements ICameraCallBack {
             this.user = d["data"];
             this.ngOnChanges();
 
+            if (this.user.Icon) {
+              this.userAvatar = URL_ROOT + "upload/" + this.user.GUID + "/Icon.jpg";
+            }
             if (this.user.ICardPositive) {
               this.idCardFront = URL_ROOT + "upload/" + this.user.GUID + "/ICardPositive.jpg";
             }
@@ -150,6 +156,10 @@ export class PersonDetailsPage implements ICameraCallBack {
   getSuccessPicture(base64Str: string) {
     console.log("getSuccessPicture:::length:" + base64Str.length);
     switch (this.whichPhoto) {
+      case PHOTO_USER_AVATAR:
+        this.userAvatar = base64Str;
+        this.sendPicture("Icon", this.userAvatar);
+        break;
       case PHOTO_IDCARD_FRONT:
         this.idCardFront = base64Str;
         this.sendPicture("ICardPositive", this.idCardFront);
@@ -185,9 +195,6 @@ export class PersonDetailsPage implements ICameraCallBack {
   savePerson(value) {
     this.copyValue(value);
     console.log("PersonDetailsPage: savePerson:: " + JSON.stringify(this.user));
-
-    // TODO upload default user pic
-    // this.sendPicture("Icon", );
 
     this.baseHttp.post<UserViewModel, JsonResult>(this.user, this.urlConfig.userConfig.personDetailsUpdateUrl)
       .then(

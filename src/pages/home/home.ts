@@ -40,6 +40,20 @@ export class HomePage {
         linkPage: "PersonDetailsPage",
         isImage: false,
         imageUrl: ""
+      }, {
+        title: "我的工作",
+        icon: "briefcase",
+        color: "primary",
+        linkPage: "MyOrderPage",
+        isImage: false,
+        imageUrl: ""
+      }, {
+        title: "个人资料",
+        icon: "paper",
+        color: "secondary",
+        linkPage: "PersonDetailsPage",
+        isImage: false,
+        imageUrl: ""
       }]
     }];
 

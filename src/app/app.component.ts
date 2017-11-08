@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, ToastController, Nav, IonicApp, Keyboard, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Storage } from '@ionic/storage';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { BaseHttpServiceProvider, JsonResult } from '../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../providers/app-url-config/app-url-config';
@@ -19,6 +21,8 @@ export class MyApp {
   private protocol;
 
   constructor(
+    private sanitizer: DomSanitizer,
+    private storage: Storage,
     private baseHttp: BaseHttpServiceProvider,
     private urlConfig: AppUrlConfigProvider,
     private alertCtrl: AlertController,
@@ -35,7 +39,6 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
-      // this.getProtocol();
       this.checkLogin();
       //注册返回键事件
       this.registerBackButtonAction();
@@ -43,7 +46,14 @@ export class MyApp {
   }
 
   ngOnInit() {
-    this.getProtocol();
+    this.storage.ready().then(() => {
+      this.storage.get("agreeProtocol").then(
+        (value) => {
+          if (!value) {
+            this.getProtocol();
+          }
+        });
+    });
   }
 
   registerBackButtonAction() {
@@ -107,9 +117,10 @@ export class MyApp {
   }
 
   getProtocol(): void {
-    this.baseHttp.get(this.urlConfig.employeeConfig.protocolUrl).then(
+    this.baseHttp.get<string>(this.urlConfig.employeeConfig.protocolUrl).then(
       res => {
-        this.protocol = res;
+        // this.protocol = res;
+        this.protocol = this.sanitizer.bypassSecurityTrustHtml(res);
         this.showProtocol();
       });
   }
@@ -128,6 +139,9 @@ export class MyApp {
         text: "同意",
         handler: () => {
           console.log("Agree clicked");
+          this.storage.ready().then(() => {
+            this.storage.set("agreeProtocol", true);
+          });
         }
       }]
     }).present();

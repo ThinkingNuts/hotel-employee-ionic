@@ -20,7 +20,13 @@
 
   <form [formGroup]="personForm" novalidate>
     <ion-list class="list" *ngIf="user">
-      <!-- <ion-item class="item-input" formControlName="name">
+      <ion-item>
+        <div class="img-box" (click)="addPhoto(0)">
+          <img class="avatar-img" [src]="userAvatar" alt="头像">
+        </div>
+      </ion-item>
+
+    <!-- <ion-item class="item-input" formControlName="name">
       <ion-label class="item-key">用户名</ion-label>
       <ion-input type="text" [(ngModel)]="user.Name" clearInput></ion-input>
     </ion-item> -->
@@ -40,7 +46,6 @@
       <ion-item class="item-input">
         <ion-label class="item-key">真实姓名</ion-label>
         <ion-input type="text" formControlName="realName" clearInput></ion-input>
-        <!-- <button ion-button clear>修改</button> -->
       </ion-item>
       <div class="error-hint" *ngIf="realName.hasError('required') && realName.touched">* 请输入真实姓名</div>
 

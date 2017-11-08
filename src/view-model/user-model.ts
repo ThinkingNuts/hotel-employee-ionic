@@ -8,7 +8,7 @@ export class UserViewModel extends BaseViewModel {
   public IdentityCard: string;
   public Phone: string;
   public Address: string;
-  public Icon;
+  public Icon: string;
   public Status: string;
   public Id: number;
   public GUID: string;

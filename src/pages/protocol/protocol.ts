@@ -34,10 +34,10 @@ export class ProtocolPage {
   }
 
   getProtocol() {
-    this.baseHttp.get(this.urlConfig.employeeConfig.protocolUrl)
+    this.baseHttp.get<string>(this.urlConfig.employeeConfig.protocolUrl)
       .then(res => {
         // console.log("ProtocolPage getProtocol res: " + JSON.stringify(res));
-        this.protocol = this.sanitizer.bypassSecurityTrustHtml(res as string);
+        this.protocol = this.sanitizer.bypassSecurityTrustHtml(res);
       }).catch(this.handleError);
   }
 
