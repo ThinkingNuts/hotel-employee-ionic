@@ -17,7 +17,7 @@
       <ion-item-divider class="group" color="divider">{{order.HotelName}}</ion-item-divider>
       <ion-item *ngFor="let work of order.Works" [ngClass]="{'item-applied': work.IsApplied}" (click)="showItemDetails(work)">
         <div *ngIf="work.KeyWord" class="keyword">{{work.KeyWord}}</div>
-        <h2 class="item-title">{{work.DepartMentName}} - {{work.WorkTypeName}} - 招{{work.AppliedNum}}/{{work.Num}}人</h2>
+        <h2 class="item-title">{{work.DepartMentName}} - {{work.WorkTypeName}} - 招{{work.EmployNum}}/{{work.Num}}人</h2>
         <p>{{work.Billing}} | {{work.WorkTypeName}}</p>
         <p>时间：{{work.Start | date:"yyyy-MM-dd HH:mm"}} -- {{work.End | date:"yyyy-MM-dd HH:mm"}}</p>
         <label item-end *ngIf="work.IsApplied">已申请</label>

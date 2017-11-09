@@ -19,6 +19,7 @@ export class EmployeeViewModel extends BaseViewModel {
   GUID: string;
   CreateTime: string;//创建时间
   AppliedNum: number;
+  EmployNum: number;
   NewApply: number;
 
 }

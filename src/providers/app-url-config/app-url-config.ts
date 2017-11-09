@@ -35,6 +35,7 @@ class EmployeeConfig {
 }
 
 class UserConfig {
+  public userMessage: string = URL_ROOT + "api/PersonMessage/";//+用户GUID(必须)
   public userLoginUrl: string = URL_ROOT + "api/Login";
   public userRegisterUrl: string = URL_ROOT + "api/Register";
   public updatePwdUrl: string = URL_ROOT + "ServicePerson/UpdatePwd";

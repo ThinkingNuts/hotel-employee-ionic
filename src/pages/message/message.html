@@ -21,12 +21,12 @@
 
   <ion-list class="list">
     <ion-item-sliding #item>
-      <ion-item>
+      <ion-item *ngFor="let item of messages">
         <ion-avatar item-start>
           <img src="assets/img/user_default.png">
         </ion-avatar>
-        <h2>Venkman</h2>
-        <p>Back off man, I'm a scientist.</p>
+        <h2>{{item.Type}}</h2>
+        <p>{{item.Context}}</p>
         <ion-note item-end>17:50</ion-note>
       </ion-item>
 
