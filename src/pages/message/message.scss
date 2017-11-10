@@ -1,11 +1,17 @@
 page-message {
-  .list {
-    .right-options {
-      ion-icon{
-        font-size: 24px;
+  .card {
+    position: relative;
+    .card-content {
+      p {
+        line-height: 30px;
       }
-      button {
-        font-size: 14px;
+      span {
+        display: block;
+        position: absolute;
+        right: 16px;
+        bottom: 16px;
+        color: #ccc;
+        font-size: 12px;
       }
     }
   }

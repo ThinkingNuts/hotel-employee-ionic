@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { App, NavController, ToastController, AlertController } from 'ionic-angular';
 import { AccountProvider, LoginState, LOGIN_STATE_DEFAULT } from '../../providers/account/account';
+import { URL_ROOT } from '../../providers/app-url-config/app-url-config';
 import { UserViewModel } from '../../view-model/user-model';
 import { LoginPage } from '../../pages/login/login';
 
@@ -11,6 +12,7 @@ import { LoginPage } from '../../pages/login/login';
 export class MyPage {
 
   private userPicDefault: string = "assets/img/user_default.png";
+  private userAvatar: string = this.userPicDefault;
   private user: UserViewModel;
   private loginState: LoginState = LOGIN_STATE_DEFAULT;
 
@@ -26,6 +28,11 @@ export class MyPage {
     this.checkLogin();
   }
 
+  ionViewDidEnter(): void {
+    console.log("MyDetails ionViewDidEnter");
+    this.getPersonDetails();
+  }
+
   openPage(pageName: string, pageTitle?: string): void {
     this.navCtrl.push(pageName, pageTitle);
   }
@@ -33,6 +40,9 @@ export class MyPage {
   getPersonDetails(): void {
     this.account.getUserInfo((value) => {
       this.user = value;
+      if (this.user.Icon) {
+        this.userAvatar = URL_ROOT + "upload/" + this.user.GUID + "/Icon.jpg";
+      }
       console.log("MyDetails: userInfo:: " + JSON.stringify(this.user));
     });
   }

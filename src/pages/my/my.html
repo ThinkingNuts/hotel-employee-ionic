@@ -9,8 +9,7 @@
   <ion-list>
     <button ion-item (click)="openPage('PersonDetailsPage')">
       <ion-thumbnail item-left>
-        <!-- <img src="{{avatarPath}}"> -->
-        <img [src]="userPicDefault">
+        <img class="user-avatar" [src]="userAvatar">
       </ion-thumbnail>
       <div>{{user?.RealName}} <span [ngClass]="{'state-login':loginState.state, 'state-logout':!loginState || !loginState.state}">[{{loginState.desc}}]</span></div>
       <div>{{user?.Phone}}</div>
@@ -23,7 +22,7 @@
       <ion-icon name="list" item-left color="primary"></ion-icon>
       我的工作
     </button>
-    <button ion-item (click)="openPage('MessagePage')">
+    <button ion-item (click)="openPage('MessageListPage')">
       <ion-icon name="text" item-left color="primary"></ion-icon>
       我的消息
     </button>

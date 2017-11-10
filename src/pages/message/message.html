@@ -7,36 +7,27 @@
 <ion-header>
 
   <ion-navbar color="my">
-    <ion-title>我的消息</ion-title>
+    <ion-title *ngIf="item">{{item.Type}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
-    </ion-refresher-content>
-  </ion-refresher>
+  <ion-card class="card" *ngIf="item">
 
-  <ion-list class="list">
-    <ion-item-sliding #item>
-      <ion-item *ngFor="let item of messages">
-        <ion-avatar item-start>
-          <img src="assets/img/user_default.png">
-        </ion-avatar>
-        <h2>{{item.Type}}</h2>
-        <p>{{item.Context}}</p>
-        <ion-note item-end>17:50</ion-note>
-      </ion-item>
+    <!-- <ion-card-header class="card-header">
+      {{item.CreateTime}}
+    </ion-card-header> -->
 
-      <ion-item-options class="right-options" side="right">
-        <button ion-button color="danger" (click)="deleteMsg(item)">
-          <ion-icon name="trash"></ion-icon>
-          删除
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
+    <ion-card-content class="card-content">
+      <p>
+        <ion-icon color="bright" class="message-icon" name="megaphone"></ion-icon>
+        &nbsp;&nbsp; {{item.Context}}
+      </p>
+      <br><br>
+      <span>{{item.CreateTime | date:"yyyy-MM-dd HH:mm"}}</span>
+    </ion-card-content>
 
+  </ion-card>
 </ion-content>

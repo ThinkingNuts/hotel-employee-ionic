@@ -48,4 +48,11 @@ page-employee-list {
     padding-top: 2px;
     color: white;
   }
+  .star-box {
+    margin-top: 4px;
+    ion-icon {
+      float: left;
+      font-size: 12px;
+    }
+  }
 }

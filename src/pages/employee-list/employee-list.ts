@@ -22,6 +22,10 @@ export class EmployeeListPage implements OnInit {
   private ordersCache: OrderViewModel[] = [];
   private user: UserViewModel;
   private areaNow: AreaViewModel;
+  private score: any = {
+    star: 3,
+    starMap: ["不满意", "还行", "一般", "满意", "很满意"]
+  };
 
   @Input()
   set area(areaInfo: AreaViewModel) {

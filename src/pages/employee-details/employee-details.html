@@ -16,7 +16,7 @@
 <ion-content>
   <div padding class="content" *ngIf="item != null">
     <h2>{{item.HotelName}}</h2>
-    <h3>{{item.DepartMentName}} - {{item.WorkTypeName}} - 招{{item.AppliedNum}}/{{item.Num}}人</h3>
+    <h3>{{item.DepartMentName}} - {{item.WorkTypeName}} - 招{{item.EmployNum}}/{{item.Num}}人</h3>
     <small>创建于 {{item.CreateTime | date:"yyyy-MM-dd HH:mm"}} </small>
     <h6 class="billing">{{item.Billing}}</h6>
     <p>

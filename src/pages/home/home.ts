@@ -28,30 +28,30 @@ export class HomePage {
       rowId: 1,
       cols: [{
         title: "我的工作",
-        icon: "briefcase",
+        icon: "cube",
         color: "primary",
         linkPage: "MyOrderPage",
         isImage: false,
         imageUrl: ""
       }, {
         title: "个人资料",
-        icon: "paper",
-        color: "secondary",
+        icon: "document",
+        color: "bright",
         linkPage: "PersonDetailsPage",
         isImage: false,
         imageUrl: ""
       }, {
-        title: "我的工作",
-        icon: "briefcase",
-        color: "primary",
-        linkPage: "MyOrderPage",
+        title: "我的消息",
+        icon: "chatbubbles",
+        color: "secondary",
+        linkPage: "MessageListPage",
         isImage: false,
         imageUrl: ""
       }, {
-        title: "个人资料",
-        icon: "paper",
-        color: "secondary",
-        linkPage: "PersonDetailsPage",
+        title: "设置",
+        icon: "settings",
+        color: "dark",
+        linkPage: "SettingsPage",
         isImage: false,
         imageUrl: ""
       }]

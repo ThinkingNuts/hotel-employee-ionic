@@ -21,49 +21,21 @@ import { MessageViewModel } from '../../view-model/message-model';
 })
 export class MessagePage {
 
-  private user: UserViewModel;
-  private messages: MessageViewModel[];
+  private item: MessageViewModel;
 
   constructor(
-    private account: AccountProvider,
-    private baseHttp: BaseHttpServiceProvider,
-    private urlConfig: AppUrlConfigProvider,
     private navCtrl: NavController,
     private navParams: NavParams) {
+    this.item = this.navParams.get("message");
   }
 
   ngOnInit(): void {
     console.log("MessagePage ngOnInit");
 
-    this.account.getUserInfo((value) => {
-      this.user = value;
-      this.getMessage();
-    });
-  }
-
-  getMessage(): void {
-    let personGUID = this.user.GUID;
-    this.baseHttp.get<MessageViewModel[]>(this.urlConfig.userConfig.userMessage + personGUID)
-      .then(
-      (res) => {
-        console.log("MessagePage order: " + JSON.stringify(res));
-        this.messages = res;
-      },
-      (error) => {
-        this.handleError(error);
-      });
   }
 
   handleError(error: any) {
     console.log("An error occurred: \n", error);
   }
 
-  deleteMsg(item) {
-
-  }
-
-  doRefresh(refresher): void {
-    console.log("doRefresh ");
-    this.getMessage();
-  }
 }

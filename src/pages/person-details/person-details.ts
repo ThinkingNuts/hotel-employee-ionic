@@ -96,16 +96,16 @@ export class PersonDetailsPage implements ICameraCallBack {
             this.ngOnChanges();
 
             if (this.user.Icon) {
-              this.userAvatar = URL_ROOT + "upload/" + this.user.GUID + "/Icon.jpg";
+              this.userAvatar = URL_ROOT + this.user.Icon;
             }
             if (this.user.ICardPositive) {
-              this.idCardFront = URL_ROOT + "upload/" + this.user.GUID + "/ICardPositive.jpg";
+              this.idCardFront = URL_ROOT + this.user.ICardPositive;
             }
             if (this.user.ICardBack) {
-              this.idCardBack = URL_ROOT + "upload/" + this.user.GUID + "/ICardBack.jpg";
+              this.idCardBack = URL_ROOT + this.user.ICardBack;
             }
             if (this.user.Health) {
-              this.healthCertificate = URL_ROOT + "upload/" + this.user.GUID + "/Health.jpg";
+              this.healthCertificate = URL_ROOT + this.user.Health;
             }
           }
         })
@@ -201,6 +201,9 @@ export class PersonDetailsPage implements ICameraCallBack {
       (res) => {
         console.log("PersonDetailsPage: savePerson result:: " + JSON.stringify(res));
         this.showToast(res.message);
+        if (res.state) {
+          this.account.saveUserInfo(this.user);
+        }
       })
       .catch(this.handleError);
   }
