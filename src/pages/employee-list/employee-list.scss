@@ -48,11 +48,16 @@ page-employee-list {
     padding-top: 2px;
     color: white;
   }
-  .star-box {
-    margin-top: 4px;
-    ion-icon {
-      float: left;
-      font-size: 12px;
+  .star-bg {
+    display: inline-block;
+    position: absolute;
+    right: 16px;
+    width: 60px;
+    height: 16px;
+    background: url("/assets/img/star_gray.png");
+    .star-over {
+      height: 16px;
+      background: url("/assets/img/star_org.png") no-repeat;
     }
   }
 }

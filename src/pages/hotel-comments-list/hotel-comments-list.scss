@@ -1,0 +1,38 @@
+page-hotel-comments-list {
+  .list {
+    .comment-time {
+      color: #B5B2B2;
+    }
+    .evaluate-line {
+      line-height: 100%;
+      span {
+        color: #898787;
+        font-size: 10px;
+      }
+      .hotel-evaluate {
+        display: inline-block;
+        font-size: 10px;
+        color: #FEBD05;
+        margin-left: 4px;
+      }
+      .no-hotel-evaluate{
+        color: #898787;
+      }
+    }
+    .hotel-comment {
+      margin-top: 16px;
+      color: black;
+      line-height: 20px;
+    }
+  }
+  .star-bg {
+    display: inline-block;
+    width: 60px;
+    height: 16px;
+    background: url("/assets/img/star_gray.png");
+    .star-over {
+      height: 16px;
+      background: url("/assets/img/star_org.png") no-repeat;
+    }
+  }
+}

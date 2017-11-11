@@ -2,14 +2,11 @@ page-message {
   .card {
     position: relative;
     .card-content {
-      p {
+      .message {
         line-height: 30px;
       }
-      span {
-        display: block;
-        position: absolute;
-        right: 16px;
-        bottom: 16px;
+      .create-time {
+        text-align: right;
         color: #ccc;
         font-size: 12px;
       }

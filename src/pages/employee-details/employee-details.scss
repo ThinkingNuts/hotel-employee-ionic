@@ -1,12 +1,23 @@
 page-employee-details {
   .content {
     margin-bottom: 50px;
+    .title{
+      display: inline-block;
+    }
+    .show-comments{
+      margin-left: 16px;
+      font-size: 12px;
+      color: #FEBD05;
+      padding: 2px;
+      border: solid 0.8px #FEBD05;
+      border-radius: 8px;
+    }
+    .show-comments:hover{
+      color: white;
+      background-color: #FEBD05;
+    }
   }
   p {
-    font-size: 16px;
-  }
-  .company-info a {
-    text-decoration: none;
     font-size: 16px;
   }
   .icon-color {
@@ -35,6 +46,8 @@ page-employee-details {
     background: lightgray;
   }
   .company-info a {
+    text-decoration: none;
+    font-size: 16px;
     display: block;
     margin: 10px auto;
   }

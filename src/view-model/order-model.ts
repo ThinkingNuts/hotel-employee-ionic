@@ -7,6 +7,7 @@ export class OrderViewModel extends BaseViewModel {
   HotelName: string;
   AreaId: number;
   AreaName: string;
+  HotelEvaluate: number;
   Works: EmployeeViewModel[];
 
 }

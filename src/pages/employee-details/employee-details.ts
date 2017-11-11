@@ -131,6 +131,10 @@ export class EmployeeDetailsPage implements OnInit {
     });
   }
 
+  showHotelComments(): void {
+    this.navCtrl.push("HotelCommentsListPage", { "hotel": this.hotelDetails });
+  }
+
   promptInfo(msg, code): void {
     this.alert.create({
       title: "提示",

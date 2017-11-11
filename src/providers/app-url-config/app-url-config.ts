@@ -23,6 +23,7 @@ export class AppUrlConfigProvider {
 }
 
 class EmployeeConfig {
+  public hotelCommentsUrl: string = URL_ROOT + "api/HotelEvaluate/";//+酒店GUID(必须)
   public protocolUrl: string = URL_ROOT + "api/Declare";
   public employeeListUrl: string = URL_ROOT + "HotelOrder/AreaOrders/";//+区域id(可选)
   public areaEmployeeListUrl: string = URL_ROOT + "api/AreaWork/";//+区域id,null或0表示全部

@@ -31,13 +31,12 @@ page-home {
       width: 90%;
       text-align: center;
       margin: auto 5%;
-      .col-title{
+      .col-title {
         font-size: 12px;
       }
     }
-    .avatars-icon{
-      font-size: 32px;
-      // font-weight: bold;
+    .avatars-icon {
+      font-size: 32px; // font-weight: bold;
     }
     .avatars-img {
       border-radius: 50%;
@@ -45,6 +44,24 @@ page-home {
       margin-top: 4px;
       width: 65%;
       text-align: center;
+    }
+  }
+  .star-wrap {
+    border: solid saddlebrown 10px;
+    margin-top: 30px;
+    background: red;
+    text-align: center;
+    .star-box {
+      display: inline-block;
+      width: auto;
+      background: lightblue;
+      .one-star {
+        background: white;
+        .star {
+          color: gold;
+          font-size: 30px;
+        }
+      }
     }
   }
 }

@@ -16,17 +16,12 @@
 <ion-content>
   <ion-card class="card" *ngIf="item">
 
-    <!-- <ion-card-header class="card-header">
-      {{item.CreateTime}}
-    </ion-card-header> -->
-
     <ion-card-content class="card-content">
-      <p>
+      <p class="message">
         <ion-icon color="bright" class="message-icon" name="megaphone"></ion-icon>
         &nbsp;&nbsp; {{item.Context}}
       </p>
-      <br><br>
-      <span>{{item.CreateTime | date:"yyyy-MM-dd HH:mm"}}</span>
+      <p class="create-time">{{item.CreateTime | date:"yyyy-MM-dd HH:mm"}}</p>
     </ion-card-content>
 
   </ion-card>

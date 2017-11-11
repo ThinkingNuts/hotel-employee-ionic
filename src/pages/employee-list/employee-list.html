@@ -15,11 +15,10 @@
   <ion-list *ngIf="!noEmployee">
     <ion-item-group *ngFor="let order of orders">
       <ion-item-divider class="group" color="divider">
-        {{order.HotelName}}
-        <div class="star-box">
-          <div *ngFor="let scoreMap of score.starMap; let indx = index">
-            <ion-icon name="star" color="bright" *ngIf="score.star>=indx+1;" style="padding-right: .5em" [attr.data-index]="indx+1"></ion-icon>
-            <ion-icon name="star-outline" color="bright" *ngIf="score.star<indx+1;" style="padding-right: .5em" [attr.data-index]="indx+1"></ion-icon>
+        <div>
+          <span>{{order.HotelName}}</span>
+          <div class="star-bg">
+            <div class="star-over" [style.width]="order.HotelEvaluate/5*60+'px'"></div>
           </div>
         </div>
       </ion-item-divider>
