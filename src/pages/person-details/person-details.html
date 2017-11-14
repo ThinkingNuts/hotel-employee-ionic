@@ -26,18 +26,24 @@
         </div>
       </ion-item>
 
-    <!-- <ion-item class="item-input" formControlName="name">
+      <!-- <ion-item class="item-input" formControlName="name">
       <ion-label class="item-key">用户名</ion-label>
       <ion-input type="text" [(ngModel)]="user.Name" clearInput></ion-input>
     </ion-item> -->
 
       <ion-item-group class="sex-box" radio-group formControlName="sex">
         <ion-label class="item-key">性别</ion-label>
-        <ion-item>
+        <ion-item class="sex-box">
+          <!-- <label class="sex">
+            <input type="radio" name="male" value="男" checked> 男
+          </label>
+          <label class="sex">
+            <input type="radio" name="female" value="女"> 女
+          </label> -->
           <ion-label class="sex">男</ion-label>
           <ion-radio value="男"></ion-radio>
         </ion-item>
-        <ion-item>
+        <ion-item item-end>
           <ion-label class="sex">女</ion-label>
           <ion-radio value="女"></ion-radio>
         </ion-item>
@@ -47,20 +53,20 @@
         <ion-label class="item-key">真实姓名</ion-label>
         <ion-input type="text" formControlName="realName" clearInput></ion-input>
       </ion-item>
-      <div class="error-hint" *ngIf="realName.hasError('required') && realName.touched">* 请输入真实姓名</div>
+      <div class="error-hint" *ngIf="realName.hasError('required')">* 请输入真实姓名</div>
 
       <ion-item class="item-input">
         <ion-label class="item-key">身份证号</ion-label>
         <ion-input type="text" formControlName="identityCard" clearInput></ion-input>
       </ion-item>
-      <div class="error-hint" *ngIf="identityCard.hasError('required') && identityCard.touched">* 请输入身份证号</div>
+      <div class="error-hint" *ngIf="identityCard.hasError('required')">* 请输入身份证号</div>
       <div class="error-hint" *ngIf="identityCard.hasError('minLength') || identityCard.hasError('maxLength') || identityCard.hasError('pattern')">* 身份证号格式不正确</div>
 
       <ion-item class="item-input">
         <ion-label class="item-key">手机号码</ion-label>
         <ion-input type="tel" formControlName="phone" clearInput></ion-input>
       </ion-item>
-      <div class="error-hint" *ngIf="phone.hasError('required') && phone.touched">* 请输入手机号码</div>
+      <div class="error-hint" *ngIf="phone.hasError('required')">* 请输入手机号码</div>
       <div class="error-hint" *ngIf="phone.hasError('minLength') || phone.hasError('maxLength') || phone.hasError('pattern')">* 手机号码格式不正确</div>
 
       <ion-item class="item-input">

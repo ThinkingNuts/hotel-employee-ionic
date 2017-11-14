@@ -80,10 +80,9 @@ export class MyOrderPage {
     this.whyEmpty = msg;
   }
 
-  handleError(error: any) {//: Promise<any> {
+  handleError(error: any) {
     this.showResult(true, "获取工作失败");
     console.log("An error occurred: \n", error);
-    // return Promise.reject(error.message || error);
   }
 
   doRefresh(refresher): void {
@@ -91,11 +90,11 @@ export class MyOrderPage {
     this.getList(refresher);
   }
 
-  finishWork(order: MyOrderViewModel): void {
-    this.openFinishWork(order);
+  finishWork(order: MyOrderViewModel, commentable: boolean): void {
+    this.openFinishWork(order, commentable);
   }
 
-  openFinishWork(order: MyOrderViewModel): void {
-    this.navCtrl.push("FinishWorkPage", { "order": order });
+  openFinishWork(order: MyOrderViewModel, commentable: boolean): void {
+    this.navCtrl.push("FinishWorkPage", { "order": order, "commentable": commentable });
   }
 }

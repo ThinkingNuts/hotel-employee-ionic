@@ -13,4 +13,18 @@ page-my-order {
     font-size: 80%;
     color: #C2C2C2;
   }
+  .finish {
+    .go-comment-btn {
+      border: solid 0.8px #FEBD05;
+      border-radius: 8px;
+      color: #FEBD05 !important;
+      background: transparent;
+    }
+    .show-comment-btn {
+      border: solid 0.8px #FEBD05;
+      border-radius: 8px;
+      background: transparent;
+      color: white !important;
+    }
+  }
 }

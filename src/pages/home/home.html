@@ -25,7 +25,7 @@
 
   <ion-grid class="grid-menu">
     <ion-row class="row" wrap *ngFor="let row of gridMenu">
-      <ion-col *ngFor="let item of row.cols" width-20 (click)="openPage(item.linkPage)">
+      <ion-col *ngFor="let item of row.cols" width-20 (click)="openPage(item)">
         <ion-icon class="avatars-icon" *ngIf="!item.isImage" [name]="item.icon" [color]="item.color"></ion-icon>
         <img *ngIf="item.isImage" class="avatars-img" [src]="item.imageUrl">
         <p class="col-title">{{item.title}}</p>

@@ -33,7 +33,7 @@ page-employee-list {
     color: #C2C2C2;
   }
   .group {
-    font-size: 16px;
+    font-size: 15px;
     line-height: 100%;
   }
   .keyword {
@@ -54,10 +54,10 @@ page-employee-list {
     right: 16px;
     width: 60px;
     height: 16px;
-    background: url("/assets/img/star_gray.png");
+    background: url(../assets/img/star_gray.png);
     .star-over {
       height: 16px;
-      background: url("/assets/img/star_org.png") no-repeat;
+      background: url(../assets/img/star_org.png) no-repeat;
     }
   }
 }

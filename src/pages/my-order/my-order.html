@@ -22,8 +22,14 @@
   <ion-list *ngIf="!noRecords">
     <ion-item *ngFor="let item of orders" [ngClass]="{'item-finished': item.Status==0}">
       <ion-avatar class="finish" item-end>
-        <button ion-button color="danger" small (click)="finishWork(item)" *ngIf="item.Status!=0">终止</button>
-        <button ion-button color="danger" small clear *ngIf="item.Status==0">已终止</button>
+        <div>
+          <button ion-button block color="danger" small (click)="finishWork(item, true)" *ngIf="item.Status!=0">终止</button>
+          <button ion-button block class="go-comment-btn" small (click)="finishWork(item, true)" *ngIf="item.Status==0 && item.HotelEvaluate==null">评价</button>
+        </div>
+        <div>
+          <button ion-button block color="danger" small clear *ngIf="item.Status==0">已终止</button>
+          <button ion-button block class="show-comment-btn" small (click)="finishWork(item, false)" *ngIf="item.Status==0 && item.HotelEvaluate!=null">查看评论</button>
+        </div>
       </ion-avatar>
       <h2>{{item.Order.HotelName}}</h2>
       <h2>{{item.Order.DepartName}} - {{item.Order.WorkTypeName}} - 招{{item.Order.Num}}人</h2>

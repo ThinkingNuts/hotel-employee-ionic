@@ -29,10 +29,10 @@ page-hotel-comments-list {
     display: inline-block;
     width: 60px;
     height: 16px;
-    background: url("/assets/img/star_gray.png");
+    background: url(../assets/img/star_gray.png);
     .star-over {
       height: 16px;
-      background: url("/assets/img/star_org.png") no-repeat;
+      background: url(../assets/img/star_org.png) no-repeat;
     }
   }
 }

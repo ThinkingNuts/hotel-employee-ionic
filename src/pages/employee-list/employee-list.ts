@@ -70,7 +70,7 @@ export class EmployeeListPage implements OnInit {
     this.baseHttp.get<OrderViewModel[]>(url)
       .then(
       (res) => {
-        console.log("EmployeeList getEmployeeList res: " + JSON.stringify(res));
+        // console.log("EmployeeList getEmployeeList res: " + JSON.stringify(res));
         if (!res || res.length === 0) {
           this.showResult(true, "当前没有用工信息");
         } else {
@@ -145,5 +145,9 @@ export class EmployeeListPage implements OnInit {
         })
       }
     });
+  }
+
+  showHotelComments(hotelGUID: string): void {
+    this.navCtrl.push("HotelCommentsListPage", { "hotelGUID": hotelGUID });
   }
 }

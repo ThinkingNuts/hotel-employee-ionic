@@ -9,7 +9,7 @@
   <ion-navbar color="my">
     <ion-title>终止工作</ion-title>
     <ion-buttons end>
-      <button ion-button clear (click)="askFinishWork()">完成</button>
+      <button ion-button clear [disabled]="!commentable" (click)="askFinishWork()">完成</button>
     </ion-buttons>
   </ion-navbar>
 
@@ -18,20 +18,20 @@
 
 <ion-content>
 
-    <h6>请您对此次工作评分：</h6>
-    <div class="star-box" (click)="chooseStar($event)">
-      <div *ngFor="let scoreMap of score.starMap; let indx = index">
-        <ion-icon name="star" color="bright" *ngIf="score.star>=indx+1;" style="padding-right: .5em" [attr.data-index]="indx+1"></ion-icon>
-        <ion-icon name="star-outline" color="bright" *ngIf="score.star<indx+1;" style="padding-right: .5em" [attr.data-index]="indx+1"></ion-icon>
-      </div>
-      <p>{{score.starMap[score.star-1]}}</p>
+  <h6>请您对此次工作评分：</h6>
+  <div class="star-box" (click)="chooseStar($event)">
+    <div *ngFor="let scoreMap of score.starMap; let indx = index">
+      <ion-icon name="star" color="bright" *ngIf="score.star>=indx+1;" style="padding-right: .5em" [attr.data-index]="indx+1"></ion-icon>
+      <ion-icon name="star-outline" color="bright" *ngIf="score.star<indx+1;" style="padding-right: .5em" [attr.data-index]="indx+1"></ion-icon>
     </div>
-    <br><br>
+    <p>{{score.starMap[score.star-1]}}</p>
+  </div>
+  <br><br>
 
-    <h6>补充描述：</h6>
-    <div class="desc-box">
-      <textarea name="desc" id="desc" rows="8" [(ngModel)]="desc"></textarea>
-    </div>
+  <h6>补充描述：</h6>
+  <div class="desc-box">
+    <textarea name="desc" id="desc" rows="8" [disabled]="!commentable" [(ngModel)]="desc"></textarea>
+  </div>
 
   <!-- <button class="finish-btn" ion-button block (click)="askFinishWork()">终止</button> -->
 

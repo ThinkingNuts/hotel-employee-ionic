@@ -16,26 +16,28 @@
 <ion-content class="content">
   <ion-list no-lines class="list" *ngIf="comments">
     <ion-item *ngFor="let item of comments.Details">
-      <ion-card>
+      <ion-card *ngIf="item.HotelEvaluate">
         <ion-card-content>
           <div>
             <p class="comment-time">{{item.CommentTime}}</p>
 
-            <div class="evaluate-line">
+            <div class="evaluate-line" *ngIf="item.HotelEvaluate">
               <span>评分：</span>
               <div class="star-bg" *ngIf="item.HotelEvaluate">
                 <div class="star-over" [style.width]="item.HotelEvaluate/5*60+'px'"></div>
               </div>
-              <p class="hotel-evaluate" *ngIf="item.HotelEvaluate">
+              <!-- <p class="hotel-evaluate" *ngIf="item.HotelEvaluate">
                 {{item.HotelEvaluate}}
-              </p>
-              <p class="hotel-evaluate no-hotel-evaluate" *ngIf="!item.HotelEvaluate">
+              </p> -->
+              <!-- <p class="hotel-evaluate no-hotel-evaluate" *ngIf="!item.HotelEvaluate">
                 该用户未评分
-              </p>
+              </p> -->
             </div>
 
-            <p class="hotel-comment" *ngIf="item.HotelComment">{{item.HotelComment}}</p>
-            <p class="hotel-comment" *ngIf="!item.HotelComment">该用户未评论</p>
+            <div>
+              <p class="hotel-comment" *ngIf="item.HotelComment">{{item.HotelComment}}</p>
+              <p class="hotel-comment" *ngIf="!item.HotelComment">该用户未评论</p>
+            </div>
           </div>
         </ion-card-content>
       </ion-card>

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { HotelViewModel } from '../../view-model/hotel-model';
 
 import { BaseHttpServiceProvider, JsonResult } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
@@ -20,7 +19,7 @@ import { AccountProvider } from '../../providers/account/account';
 })
 export class HotelCommentsListPage {
 
-  private hotel: HotelViewModel;
+  private hotelGUID: string;
   private comments: Comments;
 
   constructor(
@@ -28,12 +27,12 @@ export class HotelCommentsListPage {
     private urlConfig: AppUrlConfigProvider,
     public navCtrl: NavController,
     public navParams: NavParams) {
-    this.hotel = this.navParams.get("hotel");
+    this.hotelGUID = this.navParams.get("hotelGUID");
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HotelCommentsListPage');
-    this.baseHttp.get<Comments>(this.urlConfig.employeeConfig.hotelCommentsUrl + this.hotel.GUID)
+    this.baseHttp.get<Comments>(this.urlConfig.employeeConfig.hotelCommentsUrl + this.hotelGUID)
       .then(res => {
         console.log("HotelCommentsListPage res: " + JSON.stringify(res));
         this.comments = res;

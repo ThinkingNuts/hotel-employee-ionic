@@ -75,7 +75,7 @@ export class PersonDetailsPage implements ICameraCallBack {
 
   ngOnChanges() {
     this.personForm.reset({
-      sex: this.user.Sex,
+      sex: this.user.Sex || "男",
       realName: this.user.RealName,
       identityCard: this.user.IdentityCard,
       phone: this.user.Phone,
@@ -94,9 +94,10 @@ export class PersonDetailsPage implements ICameraCallBack {
           if (d.state) {
             this.user = d["data"];
             this.ngOnChanges();
+            this.account.saveUserInfo(this.user);
 
             if (this.user.Icon) {
-              this.userAvatar = URL_ROOT + this.user.Icon;
+              this.userAvatar = URL_ROOT + this.user.Icon + "?" + new Date();
             }
             if (this.user.ICardPositive) {
               this.idCardFront = URL_ROOT + this.user.ICardPositive;
@@ -184,6 +185,10 @@ export class PersonDetailsPage implements ICameraCallBack {
       .then(d => {
         console.log("PersonDetailsPage: sendPicture:: result " + JSON.stringify(d));
         this.showToast(d.message);
+        if (type == "Icon") {
+          this.user.Icon = URL_ROOT + "upload/" + this.user.GUID + "Icon.jpg";
+        }
+        this.account.saveUserInfo(this.user);
       })
       .catch(this.handleError);
   }
@@ -202,6 +207,8 @@ export class PersonDetailsPage implements ICameraCallBack {
         console.log("PersonDetailsPage: savePerson result:: " + JSON.stringify(res));
         this.showToast(res.message);
         if (res.state) {
+          console.log("PersonDetailsPage: savePerson user:: " + this.user);
+          // this.showToast("" + this.user.Icon);
           this.account.saveUserInfo(this.user);
         }
       })

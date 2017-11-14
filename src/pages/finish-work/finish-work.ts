@@ -20,6 +20,7 @@ import { MyOrderViewModel } from '../../view-model/my-order-model';
 export class FinishWorkPage {
 
   private order: MyOrderViewModel;
+  private commentable: boolean;
   private score: any = {
     star: 3,
     starMap: ["不满意", "还行", "一般", "满意", "很满意"]
@@ -34,9 +35,17 @@ export class FinishWorkPage {
     public navCtrl: NavController,
     public navParams: NavParams) {
     this.order = navParams.get("order");
+    this.commentable = navParams.get("commentable");
+    if (!this.commentable) {
+      this.score.star = this.order.HotelEvaluate;
+      this.desc = this.order.HotelComment;
+    }
   }
 
   chooseStar(ev) {
+    if (!this.commentable) {
+      return
+    }
     let star = parseInt(ev.target.dataset.index);
     this.score.star = star;
     console.log("FinishWorkPage chooseStar: " + ev.target.dataset.index);
@@ -45,6 +54,10 @@ export class FinishWorkPage {
   }
 
   askFinishWork(): void {
+    if (this.order.Status == 0) {
+      this.finishWork();
+      return;
+    }
     this.alertCtrl.create({
       title: "提示",
       message: "确认要终止该工作吗？",

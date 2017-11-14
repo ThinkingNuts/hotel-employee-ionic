@@ -25,6 +25,6 @@
 
 
 <ion-content [ngSwitch]="page">
-  <page-employee-list class="child-page" style="width:100%;height:100%;" [searchText]="searchText" [area]="area" *ngSwitchCase="'employee-list'"></page-employee-list>
+  <page-employee-list class="child-page" [searchText]="searchText" [area]="area" *ngSwitchCase="'employee-list'"></page-employee-list>
   <page-apply-records class="child-page" [searchText]="searchText" *ngSwitchCase="'apply-records'"></page-apply-records>
 </ion-content>

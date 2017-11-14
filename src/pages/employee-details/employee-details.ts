@@ -132,7 +132,7 @@ export class EmployeeDetailsPage implements OnInit {
   }
 
   showHotelComments(): void {
-    this.navCtrl.push("HotelCommentsListPage", { "hotel": this.hotelDetails });
+    this.navCtrl.push("HotelCommentsListPage", { "hotelGUID": this.hotelDetails.GUID });
   }
 
   promptInfo(msg, code): void {

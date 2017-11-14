@@ -41,9 +41,10 @@ export class MyPage {
     this.account.getUserInfo((value) => {
       this.user = value;
       if (this.user.Icon) {
-        this.userAvatar = URL_ROOT + "upload/" + this.user.GUID + "/Icon.jpg";
+        this.userAvatar = URL_ROOT + this.user.Icon + "?" + new Date();
       }
-      console.log("MyDetails: userInfo:: " + JSON.stringify(this.user));
+      // console.log("MyDetails: userInfo:: " + JSON.stringify(this.user));
+      // this.showToast("" + this.user.Icon) ;
     });
   }
 

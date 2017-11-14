@@ -17,27 +17,38 @@ export class HomePage {
       imgSrc: "assets/img/2.jpg"
     }, {
       title: "33333333",
-      imgSrc: "assets/img/3.gif"
-    }, {
-      title: "44444444",
-      imgSrc: "assets/img/4.jpg"
+      imgSrc: "assets/img/3.jpg"
     }
   ];
   private gridMenu = [
     {
       rowId: 1,
       cols: [{
-        title: "我的工作",
-        icon: "cube",
+        title: "用工列表",
+        value: "employee-list",
+        icon: "list-box",
         color: "primary",
-        linkPage: "MyOrderPage",
+        linkPage: "InfoListPage",
+        tabId: 1,
         isImage: false,
         imageUrl: ""
       }, {
-        title: "个人资料",
-        icon: "document",
+        title: "我的工作",
+        icon: "cube",
         color: "bright",
-        linkPage: "PersonDetailsPage",
+        linkPage: "MyOrderPage",
+        isImage: false,
+        imageUrl: ""
+      }]
+    }, {
+      rowId: 2,
+      cols: [{
+        title: "我的申请",
+        value: "apply-records",
+        icon: "hand",
+        color: "pink",
+        linkPage: "MyRecordsPage",
+        tabId: 1,
         isImage: false,
         imageUrl: ""
       }, {
@@ -47,13 +58,6 @@ export class HomePage {
         linkPage: "MessageListPage",
         isImage: false,
         imageUrl: ""
-      }, {
-        title: "设置",
-        icon: "settings",
-        color: "dark",
-        linkPage: "SettingsPage",
-        isImage: false,
-        imageUrl: ""
       }]
     }];
 
@@ -61,11 +65,16 @@ export class HomePage {
     private navCtrl: NavController
   ) { }
 
-  openPage(pageName: string) {
-    if (!pageName || pageName.length == 0) {
+  openPage(col) {
+    if (!col.linkPage || col.linkPage.length == 0) {
       return;
     }
-    this.navCtrl.push(pageName);
+    if (!col.tabId) {
+      this.navCtrl.push(col.linkPage);
+    } else {
+      this.navCtrl.parent.select(col.tabId, { "page": col.value });
+      
+    }
   }
 
   //解决切换其他页面回去轮播图不动问题
