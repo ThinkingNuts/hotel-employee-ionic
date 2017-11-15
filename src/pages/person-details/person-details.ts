@@ -55,7 +55,7 @@ export class PersonDetailsPage implements ICameraCallBack {
     private navCtrl: NavController,
     private navParams: NavParams) {
     this.personForm = formBuilder.group({
-      sex: ["男", Validators.compose([Validators.required])],
+      sex: ["女", Validators.compose([Validators.required])],
       realName: ["", Validators.compose([Validators.required])],
       identityCard: ["", Validators.compose([Validators.required, Validators.minLength(15), Validators.maxLength(18)/*, Validators.pattern(REG_EXP_IDCARD)*/])],
       phone: ["", Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern(REG_EXP_PHONE)])],
@@ -74,6 +74,8 @@ export class PersonDetailsPage implements ICameraCallBack {
   }
 
   ngOnChanges() {
+    console.log("PersonDetailsPage ngOnChanges");
+    
     this.personForm.reset({
       sex: this.user.Sex || "男",
       realName: this.user.RealName,
@@ -88,11 +90,11 @@ export class PersonDetailsPage implements ICameraCallBack {
       this.user = value;
       console.log("PersonDetails: userInfo:: " + JSON.stringify(this.user));
 
-      this.baseHttp.post<any, JsonResult>(null, this.urlConfig.userConfig.personDetailsUrl + this.user.Id)
+      this.baseHttp.get<UserViewModel>(this.urlConfig.userConfig.personDetailsUrl + this.user.GUID)
         .then(d => {
           console.log("PersonDetails: getPersonDetails:: " + JSON.stringify(d));
-          if (d.state) {
-            this.user = d["data"];
+          if (d) {
+            this.user = d;
             this.ngOnChanges();
             this.account.saveUserInfo(this.user);
 

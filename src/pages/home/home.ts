@@ -65,7 +65,11 @@ export class HomePage {
     private navCtrl: NavController
   ) { }
 
-  openPage(col) {
+  openPage(pageName: string) {
+    this.navCtrl.push(pageName);
+  }
+
+  openPageFromMenu(col) {
     if (!col.linkPage || col.linkPage.length == 0) {
       return;
     }
@@ -73,7 +77,6 @@ export class HomePage {
       this.navCtrl.push(col.linkPage);
     } else {
       this.navCtrl.parent.select(col.tabId, { "page": col.value });
-      
     }
   }
 

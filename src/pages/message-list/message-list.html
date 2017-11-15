@@ -5,40 +5,41 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  
-    <ion-navbar color="my">
-      <ion-title>我的消息</ion-title>
-    </ion-navbar>
-  
-  </ion-header>
-  
-  
-  <ion-content>
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-      <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
-      </ion-refresher-content>
-    </ion-refresher>
-  
-    <ion-list class="list">
-      <ion-item-sliding #item>
-        <ion-item *ngFor="let item of messages" (click)="showMessage(item)">
-          <ion-avatar item-start>
-            <!-- <img src="assets/img/user_default.png"> -->
-            <ion-icon color="bright" class="message-icon" name="volume-up"></ion-icon>
-          </ion-avatar>
-          <h2>{{item.Type}}</h2>
-          <p>{{item.Context}}</p>
-          <ion-note class="time-note" item-end>{{item.CreateTime | date:"yyyy-MM-dd HH:mm"}}</ion-note>
-        </ion-item>
-  
-        <!-- <ion-item-options class="right-options" side="right">
+
+  <ion-navbar color="my">
+    <ion-title>我的消息</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <h3 class="no-item" *ngIf="noItem">{{whyEmpty}}</h3>
+
+  <ion-list class="list" *ngIf="!noItem">
+    <ion-item-sliding #item>
+      <ion-item *ngFor="let item of messages" (click)="showMessage(item)">
+        <ion-avatar item-start>
+          <!-- <img src="assets/img/user_default.png"> -->
+          <ion-icon color="bright" class="message-icon" name="volume-up"></ion-icon>
+        </ion-avatar>
+        <h2>{{item.Type}}</h2>
+        <p>{{item.Context}}</p>
+        <ion-note class="time-note" item-end>{{item.CreateTime | date:"yyyy-MM-dd HH:mm"}}</ion-note>
+      </ion-item>
+
+      <!-- <ion-item-options class="right-options" side="right">
           <button ion-button color="danger" (click)="deleteMsg(item)">
             <ion-icon name="trash"></ion-icon>
             删除
           </button>
         </ion-item-options> -->
-      </ion-item-sliding>
-    </ion-list>
-  
-  </ion-content>
-  
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>

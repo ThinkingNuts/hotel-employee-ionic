@@ -19,6 +19,8 @@ import { AccountProvider } from '../../providers/account/account';
 })
 export class HotelCommentsListPage {
 
+  private noItem: boolean = true;
+  private whyEmpty: string = "正在获取评价";
   private hotelGUID: string;
   private comments: Comments;
 
@@ -32,13 +34,42 @@ export class HotelCommentsListPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HotelCommentsListPage');
+    this.getComments(null);
+  }
+
+  getComments(refresher): void {
     this.baseHttp.get<Comments>(this.urlConfig.employeeConfig.hotelCommentsUrl + this.hotelGUID)
       .then(res => {
         console.log("HotelCommentsListPage res: " + JSON.stringify(res));
-        this.comments = res;
-      })
+        if (!res || res.Details.length === 0) {
+          this.showResult(true, "当前没有评价");
+        } else {
+          this.showResult(false, "已获取评价");
+          this.comments = res;
+        }
+        if (refresher) {
+          refresher.complete();
+        }
+      },
+      (error) => {
+        this.showResult(true, "获取评价失败");
+        this.handleError(error);
+      });
   }
 
+  handleError(error: any) {
+    console.log("An error occurred: \n", error);
+  }
+
+  showResult(isEmpty: boolean, msg: string): void {
+    this.noItem = isEmpty;
+    this.whyEmpty = msg;
+  }
+
+  doRefresh(refresher): void {
+    console.log("doRefresh ");
+    this.getComments(refresher);
+  }
 }
 
 class Comments {

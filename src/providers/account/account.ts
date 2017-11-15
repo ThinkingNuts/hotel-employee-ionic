@@ -5,8 +5,8 @@ import { AppUrlConfigProvider } from '../app-url-config/app-url-config';
 import { UserViewModel } from '../../view-model/user-model';
 
 // export const REG_EXP_IDCARD: string = "^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$|^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$";
-export const REG_EXP_IDCARD: string = "^(\d{15})$|^(\d{18})$|^(\d{17}(\d|X|x))$";
-export const REG_EXP_PHONE: string = "^(13[0-9]|15[012356789]|17[03678]|18[0-9]|14[57])[0-9]{8}$";
+export const REG_EXP_IDCARD = `^(\d{15})$|^(\d{18})$|^(\d{17}(\d|X|x))$`;
+export const REG_EXP_PHONE = `^(13[0-9]|15[012356789]|17[03678]|18[0-9]|14[57])[0-9]{8}$`;
 
 @Injectable()
 export class AccountProvider {

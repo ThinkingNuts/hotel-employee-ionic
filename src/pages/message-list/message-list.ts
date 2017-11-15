@@ -21,6 +21,8 @@ import { MessageViewModel } from '../../view-model/message-model';
 })
 export class MessageListPage {
 
+  private noItem: boolean = true;
+  private whyEmpty: string = "正在获取消息";
   private user: UserViewModel;
   private messages: MessageViewModel[];
 
@@ -47,14 +49,25 @@ export class MessageListPage {
       .then(
       (res) => {
         console.log("MessageListPage order: " + JSON.stringify(res));
-        this.messages = res;
+        if (!res || res.length === 0) {
+          this.showResult(true, "当前没有消息");
+        } else {
+          this.showResult(false, "已获取消息");
+          this.messages = res;
+        }
         if (refresher) {
           refresher.complete();
         }
       },
       (error) => {
+        this.showResult(true, "获取消息失败");
         this.handleError(error);
       });
+  }
+
+  showResult(isEmpty: boolean, msg: string): void {
+    this.noItem = isEmpty;
+    this.whyEmpty = msg;
   }
 
   handleError(error: any) {

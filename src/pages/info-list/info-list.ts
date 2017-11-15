@@ -51,6 +51,10 @@ export class InfoListPage {
     })
   }
 
+  ionViewDidEnter(){
+    console.log("InfoListPage ionViewDidEnter");
+  }
+
   searchItems(event: any) {
     this.searchText = event.target.value;
     console.log("InfoListPage: searchItems:: searchText == " + this.searchText);

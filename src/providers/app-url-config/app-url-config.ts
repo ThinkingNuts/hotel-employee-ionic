@@ -41,8 +41,8 @@ class UserConfig {
   public userRegisterUrl: string = URL_ROOT + "api/Register";
   public updatePwdUrl: string = URL_ROOT + "ServicePerson/UpdatePwd";
   public userUploadUrl: string = URL_ROOT + "ServicePerson/Upload";
-  public personDetailsUrl: string = URL_ROOT + "ServicePerson/Details/";//+用户Id
+  public personDetailsUrl: string = URL_ROOT + "api/PersonInfo/";//+用户GUID(必须)
   public personDetailsUpdateUrl: string = URL_ROOT + "ServicePerson/Update";
-  public registerVeriCodeUrl: string = URL_ROOT + "api/Register/";//+phone
-  public loginVeriCodeUrl: string = URL_ROOT + "api/Login/";//+phone
+  public registerVeriCodeUrl: string = URL_ROOT + "api/Register/";//+phone(必须)
+  public loginVeriCodeUrl: string = URL_ROOT + "api/Login/";//+phone(必须)
 }

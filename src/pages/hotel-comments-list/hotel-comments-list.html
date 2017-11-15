@@ -14,12 +14,19 @@
 
 
 <ion-content class="content">
-  <ion-list no-lines class="list" *ngIf="comments">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <h3 class="no-item" *ngIf="noItem">{{whyEmpty}}</h3>
+
+  <ion-list no-lines class="list" *ngIf="!noItem">
     <ion-item *ngFor="let item of comments.Details">
       <ion-card *ngIf="item.HotelEvaluate">
         <ion-card-content>
           <div>
-            <p class="comment-time">{{item.CommentTime}}</p>
+            <p class="comment-time">{{item.CommentTime | date:"yyyy-MM-dd HH:mm"}}</p>
 
             <div class="evaluate-line" *ngIf="item.HotelEvaluate">
               <span>评分：</span>
