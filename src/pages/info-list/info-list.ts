@@ -8,6 +8,8 @@ import { AccountProvider } from '../../providers/account/account';
 import { AreaViewModel } from '../../view-model/area-model';
 import { UserViewModel } from '../../view-model/user-model';
 
+import { TabsPage } from '../tabs/tabs';
+
 /**
  * Generated class for the InfoListPage page.
  *
@@ -51,8 +53,11 @@ export class InfoListPage {
     })
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     console.log("InfoListPage ionViewDidEnter");
+    if (TabsPage.whichInfoPage) {
+      this.page = TabsPage.whichInfoPage;
+    }
   }
 
   searchItems(event: any) {

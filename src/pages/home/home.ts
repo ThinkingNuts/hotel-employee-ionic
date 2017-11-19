@@ -1,6 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { Platform, NavController, Slides, AlertController } from 'ionic-angular';
 
+import { InfoListPage } from '../info-list/info-list';
+import { TabsPage } from '../tabs/tabs';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -76,7 +79,8 @@ export class HomePage {
     if (!col.tabId) {
       this.navCtrl.push(col.linkPage);
     } else {
-      this.navCtrl.parent.select(col.tabId, { "page": col.value });
+      TabsPage.whichInfoPage = col.value;
+      this.navCtrl.parent.select(col.tabId);
     }
   }
 

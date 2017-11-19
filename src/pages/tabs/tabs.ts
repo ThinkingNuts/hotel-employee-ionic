@@ -16,6 +16,7 @@ import { UserViewModel } from '../../view-model/user-model';
 })
 export class TabsPage {
 
+  public static whichInfoPage: string;
   @ViewChild('mainTabs') tabs: Tabs;
   tab1Root = HomePage;
   tab2Root = InfoListPage;

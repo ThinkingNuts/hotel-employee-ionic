@@ -32,38 +32,42 @@
     </ion-item> -->
 
       <ion-item>
-        <ion-label class="item-key">性别</ion-label>
-        <div radio-group item-end>
-          <label>
-            <input type="radio" name="sex" value="男" formControlName="sex"> 男
-          </label>
-          <label>
-            <input type="radio" name="sex" value="女" formControlName="sex" checked> 女
-          </label>
+        <div style="display: flex">
+          <div style="flex: 1">
+            <p class="item-key">性别</p>
+          </div>
+          <div style="flex: 2.7">
+            <label>
+              <input type="radio" name="sex" value="男" formControlName="sex"> 男
+            </label>
+            <label>
+              <input type="radio" name="sex" value="女" formControlName="sex" checked> 女
+            </label>
+          </div>
         </div>
       </ion-item>
 
-      <ion-item class="item-input">
+      <ion-item>
         <ion-label class="item-key">真实姓名</ion-label>
         <ion-input type="text" formControlName="realName" clearInput></ion-input>
       </ion-item>
       <div class="error-hint" *ngIf="realName.hasError('required')">* 请输入真实姓名</div>
 
-      <ion-item class="item-input">
+      <ion-item>
         <ion-label class="item-key">身份证号</ion-label>
         <ion-input type="number" formControlName="identityCard" clearInput></ion-input>
       </ion-item>
       <div class="error-hint" *ngIf="identityCard.hasError('required')">* 请输入身份证号</div>
       <div class="error-hint" *ngIf="identityCard.hasError('minlength') || identityCard.hasError('maxlength') || identityCard.hasError('pattern')">* 身份证号格式不正确</div>
 
-      <ion-item class="item-input">
+      <ion-item>
         <ion-label class="item-key">手机号码</ion-label>
         <ion-input type="tel" formControlName="phone" clearInput></ion-input>
       </ion-item>
       <div class="error-hint" *ngIf="phone.hasError('required')">* 请输入手机号码</div>
       <div class="error-hint" *ngIf="phone.hasError('minlength') || phone.hasError('maxlength') || phone.hasError('pattern')">* 手机号码格式不正确</div>
 
-      <ion-item class="item-input">
+      <ion-item>
         <ion-label class="item-key">通讯地址</ion-label>
         <ion-input type="text" formControlName="address" clearInput></ion-input>
       </ion-item>

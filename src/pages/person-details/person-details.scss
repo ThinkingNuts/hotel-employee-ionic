@@ -6,12 +6,9 @@ page-person-details {
     padding: 0;
   }
   .item-key {
-    // display: inline-block;
+    display: inline-block;
     font-size: 16px !important;
     color: gray !important;
-  }
-  ion-item-group * {
-    display: inline-block;
   }
   img {
     border: lightgray solid 0.8px;
@@ -45,5 +42,8 @@ page-person-details {
     width: 100px;
     height: 100px;
     border-radius: 50%;
+  }
+  .test{
+    // border: none;
   }
 }

@@ -75,7 +75,7 @@ export class PersonDetailsPage implements ICameraCallBack {
 
   ngOnChanges() {
     console.log("PersonDetailsPage ngOnChanges");
-    
+
     this.personForm.reset({
       sex: this.user.Sex || "男",
       realName: this.user.RealName,
@@ -188,7 +188,7 @@ export class PersonDetailsPage implements ICameraCallBack {
         console.log("PersonDetailsPage: sendPicture:: result " + JSON.stringify(d));
         this.showToast(d.message);
         if (type == "Icon") {
-          this.user.Icon = URL_ROOT + "upload/" + this.user.GUID + "Icon.jpg";
+          this.user.Icon = "upload/" + this.user.GUID + "/Icon.jpg";
         }
         this.account.saveUserInfo(this.user);
       })
@@ -203,7 +203,14 @@ export class PersonDetailsPage implements ICameraCallBack {
     this.copyValue(value);
     console.log("PersonDetailsPage: savePerson:: " + JSON.stringify(this.user));
 
-    this.baseHttp.post<UserViewModel, JsonResult>(this.user, this.urlConfig.userConfig.personDetailsUpdateUrl)
+    let data = {
+      RealName: this.user.RealName,
+      Sex: this.user.Sex,
+      IdentityCard: this.user.IdentityCard,
+      Phone: this.user.Phone,
+      Address: this.user.Address
+    }
+    this.baseHttp.putJson<any, JsonResult>(data, this.urlConfig.userConfig.personDetailsUrl + this.user.GUID)
       .then(
       (res) => {
         console.log("PersonDetailsPage: savePerson result:: " + JSON.stringify(res));
