@@ -21,7 +21,7 @@ export class AboutPage {
     linkPage: ""
   }, {
     name: "软件版本",
-    value: "1.0.1",
+    value: "1.0.3",
     linkPage: ""
   }, {
     name: "公司名称",

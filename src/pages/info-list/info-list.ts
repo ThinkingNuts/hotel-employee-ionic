@@ -55,9 +55,16 @@ export class InfoListPage {
 
   ionViewDidEnter() {
     console.log("InfoListPage ionViewDidEnter");
-    if (TabsPage.whichInfoPage) {
+    if (TabsPage.jumpInfoPageFromHome && TabsPage.whichInfoPage) {
       this.page = TabsPage.whichInfoPage;
     }
+  }
+
+  ionViewDidLeave() {
+    if (TabsPage.jumpInfoPageFromHome) {
+      TabsPage.whichInfoPage = "employee-list";
+    }
+    TabsPage.jumpInfoPageFromHome = false;
   }
 
   searchItems(event: any) {

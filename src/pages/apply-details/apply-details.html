@@ -15,7 +15,8 @@
 
 <ion-content>
   <div padding *ngIf="item != null">
-    <h2>{{item.Order.HotelName}}</h2>
+    <h2 class="title">{{item.Order.HotelName}}</h2>
+    <span class="show-comments" (click)="showHotelComments()">查看酒店评价</span>
     <h3>{{item.Order.DepartMentName}} - {{item.Order.WorkTypeName}} - 招{{item.TotalApply}}/{{item.Order.Num}}人</h3>
     <small block>创建于 {{item.Order.CreateTime | date:"yyyy-MM-dd HH:mm"}} </small>，
     <small block>申请于 {{item.ApplyTime | date:"yyyy-MM-dd HH:mm"}} </small>

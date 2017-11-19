@@ -64,6 +64,10 @@ export class ApplyDetailsPage implements OnInit {
     });
   }
 
+  showHotelComments(): void {
+    this.navCtrl.push("HotelCommentsListPage", { "hotelGUID": this.hotelDetails.GUID });
+  }
+
   handleError(error: any) {
     console.log("An error occurred to apply: \n", error);
   }

@@ -7,4 +7,5 @@ export class ApplyViewModel extends BaseViewModel {
   StatusStr: string;
   ApplyTime: string;
   TotalApply: number;
+  EmployNum: number;
 }

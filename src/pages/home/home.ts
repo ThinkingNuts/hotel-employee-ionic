@@ -79,6 +79,7 @@ export class HomePage {
     if (!col.tabId) {
       this.navCtrl.push(col.linkPage);
     } else {
+      TabsPage.jumpInfoPageFromHome = true;
       TabsPage.whichInfoPage = col.value;
       this.navCtrl.parent.select(col.tabId);
     }
