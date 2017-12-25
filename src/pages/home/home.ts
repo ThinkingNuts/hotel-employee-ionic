@@ -46,6 +46,14 @@ export class HomePage {
     }, {
       rowId: 2,
       cols: [{
+        title: "RoomCheck",
+        icon: "hand",
+        color: "pink",
+        linkPage: "RoomCheckPage",
+        isImage: false,
+        imageUrl: ""
+      }
+      /* {
         title: "我的申请",
         value: "apply-records",
         icon: "hand",
@@ -54,7 +62,7 @@ export class HomePage {
         tabId: 1,
         isImage: false,
         imageUrl: ""
-      }, {
+      } */, {
         title: "我的消息",
         icon: "chatbubbles",
         color: "secondary",
