@@ -31,7 +31,6 @@ export class InfoListPage {
   };
   private area: AreaViewModel;
   private user: UserViewModel;
-  private areas: AreaViewModel[] = [];
   private hintMsg: string;
 
   constructor(

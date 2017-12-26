@@ -4,11 +4,13 @@ import { IonicPage, NavController, NavParams, Tabs } from 'ionic-angular';
 import { InfoListPage } from '../info-list/info-list';
 import { MyPage } from '../my/my';
 import { HomePage } from '../home/home';
+import { OrderListPage } from '../order-list/order-list';
 
 import { Storage } from '@ionic/storage';
 
 import { AccountProvider, LoginState } from '../../providers/account/account';
 import { UserViewModel } from '../../view-model/user-model';
+import { from } from 'rxjs/observable/from';
 
 @IonicPage()
 @Component({
@@ -20,7 +22,7 @@ export class TabsPage {
   public static whichInfoPage: string;
   @ViewChild('mainTabs') tabs: Tabs;
   tab1Root = HomePage;
-  tab2Root = InfoListPage;
+  tab2Root = OrderListPage;
   tab3Root = MyPage;
 
   constructor(
@@ -31,17 +33,6 @@ export class TabsPage {
 
   ngOnInit(): void {
     console.log("TabsPage ngOnInit");
-    // this.checkLogin();
-  }
-
-  checkLogin(): void {
-    this.account.checkLogin((res: LoginState) => {
-      console.log("TabsPage: checkLogin res:: " + res.desc);
-
-      if (!res.state) {
-        this.openPage("LoginPage");
-      }
-    });
   }
 
   openPage(pageName: string) {

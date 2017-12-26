@@ -12,6 +12,7 @@ import { EmployeeListPage } from '../pages/employee-list/employee-list';
 import { InfoListPage } from '../pages/info-list/info-list';
 import { MyPage } from '../pages/my/my';
 import { ApplyRecordsPage } from '../pages/apply-records/apply-records';
+import { OrderListPage } from '../pages/order-list/order-list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -29,9 +30,10 @@ import { AccountProvider } from '../providers/account/account';
     TabsPage,
     MyPage,
     EmployeeListPage,
+    ApplyRecordsPage,
     InfoListPage,
     HomePage,
-    ApplyRecordsPage
+    OrderListPage
   ],
   imports: [
     HttpModule,
@@ -51,7 +53,8 @@ import { AccountProvider } from '../providers/account/account';
     HomePage,
     EmployeeListPage,
     InfoListPage,
-    MyPage
+    MyPage,
+    OrderListPage
   ],
   providers: [
     AccountProvider,

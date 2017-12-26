@@ -1,0 +1,48 @@
+<!--
+  Generated template for the GrabOrderPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="my">
+    <ion-title *ngIf="item">{{item.HotelName}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div padding class="content" *ngIf="item">
+    <h2 class="billing">{{item.Billing}}</h2>
+    <h5>{{item.DepartMentName}} - {{item.WorkTypeName}}</h5>
+    <p>工作时间：{{item.Start | date:"yyyy-MM-dd"}}</p>
+    <p>
+      <ion-icon class="icon-color" name="pricetag"></ion-icon>
+      说明：{{item.Mark}}
+    </p>
+    <ion-item-group *ngIf="hotelDetails" class="company-info">
+      <ion-item-divider color="light"></ion-item-divider>
+      <a class="phone" [href]="'tel:'+hotelDetails.Phone">
+        <ion-icon class="icon-color" name="call"></ion-icon>
+        联系电话：{{hotelDetails.Phone}}
+      </a>
+      <a (click)="showMap(hotelDetails.Longitude, hotelDetails.Latitude)">
+        <ion-icon class="icon-color" name="pin"></ion-icon>
+        工作地址：{{hotelDetails.Address}}
+      </a>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider color="light"></ion-item-divider>
+      <h6>
+        <ion-icon class="icon-color" name="text"></ion-icon>
+        工作描述：
+      </h6>
+      <p>工作排班：{{item.ScheduleName}}</p>
+      <p>工作类型：{{item.WorkTypeName}}</p>
+    </ion-item-group>
+  </div>
+
+  <button class="grab-btn" ion-button block (click)="askApply()">抢单</button>
+</ion-content>

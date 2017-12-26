@@ -6,53 +6,35 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>我的任务</ion-title>
+  <ion-navbar color="my">
+    <ion-title>我的工作</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
-    </ion-refresher-content>
-  </ion-refresher>
-  <h3 class="no-records" *ngIf="noRecords">{{whyEmpty}}</h3>
-
-  <ul *ngIf="!noRecords" class="timeline">
-    <li class="timeline-node">
-      <a class="btn btn-palegreen">NOW</a>
-    </li>
-    <li *ngFor="let item of items">
-      <!-- <div class="timeline-datetime">
-        <span class="timeline-time">8:19</span>
-        <span class="timeline-date">Today</span>
-      </div> -->
-      <div class="timeline-badge blue">
-        <ion-icon name="leaf"></ion-icon>
-      </div>
-      <div class="timeline-panel bordered-bottom-2 bordered-right-2 bordered-blue" (click)="showItemDetails(item)">
-        <div class="timeline-header bordered-bottom bordered-blue">
-          <span class="timeline-title">{{item.Order.Start | date:"yyyy-MM-dd HH:mm"}}</span>
-          <!-- <p class="timeline-datetime"> -->
-            <div class="text-muted timeline-datetime">
-              <!-- <ion-icon name="leaf"></ion-icon> -->
-              -
-              <span class="timeline-date">{{item.Order.End | date:"yyyy-MM-dd HH:mm"}}</span>
-              <span class="timeline-time">{{item.Order.ScheduleName}}</span>
-              <span class="timeline-time">{{item.Order.WorkTypeName}}</span>
-            </div>
-          <!-- </p> -->
-        </div>
-        <div class="timeline-body">
-          <p>{{item.Order.Billing}}</p>
-          <p>{{item.Order.Title}}</p>
-        </div>
-      </div>
-    </li>
-    <li class="timeline-node">
-      <a class="btn btn-info">END</a>
-    </li>
-  </ul>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
+      </ion-refresher-content>
+    </ion-refresher>
+    <h3 class="no-records" *ngIf="noRecords">{{whyEmpty}}</h3>
+    <ion-list *ngIf="!noRecords">
+      <ion-item *ngFor="let item of orders" [ngClass]="{'item-finished': item.Status==0}">
+        <ion-avatar class="finish" item-end>
+          <div>
+            <button ion-button block color="danger" small (click)="finishWork(item, true)" *ngIf="item.Status!=0">终止</button>
+            <button ion-button block class="go-comment-btn" small (click)="finishWork(item, true)" *ngIf="item.Status==0 && item.HotelEvaluate==null">评价</button>
+          </div>
+          <div>
+            <button ion-button block color="danger" small clear *ngIf="item.Status==0">已终止</button>
+            <button ion-button block class="show-comment-btn" small (click)="finishWork(item, false)" *ngIf="item.Status==0 && item.HotelEvaluate!=null">查看评论</button>
+          </div>
+        </ion-avatar>
+        <h2>{{item.Order.HotelName}}</h2>
+        <h2>{{item.Order.DepartName}} - {{item.Order.WorkTypeName}} - 招{{item.Order.Num}}人</h2>
+        <p>{{item.Order.Billing}} | {{item.Order.WorkTypeName}} | {{item.Order.ScheduleName}}</p>
+        <p>{{item.Order.Start | date:"yyyy-MM-dd HH:mm"}} -- {{item.Order.End | date:"yyyy-MM-dd HH:mm"}}</p>
+      </ion-item>
+    </ion-list>
 </ion-content>

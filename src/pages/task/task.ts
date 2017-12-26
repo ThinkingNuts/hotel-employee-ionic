@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+
 import { BaseHttpServiceProvider } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
-import { ApplyViewModel } from '../../view-model/apply-model';
+import { AccountProvider } from '../../providers/account/account';
+
+import { MyOrderViewModel } from '../../view-model/my-order-model';
+import { UserViewModel } from '../../view-model/user-model';
 
 /**
  * Generated class for the TaskPage page.
@@ -19,51 +23,56 @@ import { ApplyViewModel } from '../../view-model/apply-model';
 export class TaskPage {
 
   private noRecords: boolean = true;
-  private whyEmpty: string = "正在获取任务";
-  private items: ApplyViewModel[] = [];
+  private whyEmpty: string = "正在获取工作";
+  private orders: MyOrderViewModel[] = [];
+  private ordersCache: MyOrderViewModel[] = [];
+  private user: UserViewModel;
 
   constructor(
     private navCtrl: NavController,
     private navParams: NavParams,
+    private alertCtrl: AlertController,
+    private account: AccountProvider,
     private baseHttp: BaseHttpServiceProvider,
-    private urlConfig: AppUrlConfigProvider) { }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TaskPage');
+    private urlConfig: AppUrlConfigProvider) {
   }
 
   ngOnInit(): void {
-    console.log("ApplyRecordsPage ngOnInit");
+    console.log("MyOrderPage ngOnInit");
 
-    this.getList(null);
+    this.account.getUserInfo((value) => {
+      this.user = value;
+      this.getList(null);
+    });
+  }
+
+  ionViewDidEnter(): void {
+    console.log("MyOrderPage ionViewDidEnter");
+    if (this.user) {
+      this.getList(null);
+    }
   }
 
   getList(refresher): void {
-    let personId = 6;
-    this.baseHttp.postJson<ApplyViewModel, ApplyViewModel[]>(new ApplyViewModel(),
-      this.urlConfig.employeeConfig.applyRecordsUrl + personId)
-      .subscribe(
+    let personGUID = this.user.GUID;
+    this.baseHttp.get<MyOrderViewModel[]>(this.urlConfig.employeeConfig.myOrderUrl + personGUID)
+      .then(
       (res) => {
-        console.log(res);
+        console.log("MyOrderPage order: " + JSON.stringify(res));
         if (!res || res.length === 0) {
-          this.showResult(true, "当前没有任务");
-          return;
+          this.showResult(true, "当前没有工作");
+        } else {
+          this.showResult(false, "已获取工作");
+          this.orders = res;
+          this.ordersCache = res;
         }
-        this.showResult(false, "已获取任务");
-        // this.items = res;
-        res.forEach(e => {
-          if (e.Status == 2) {
-            this.items.push(e);
-          }
-        });
         if (refresher) {
           refresher.complete();
         }
       },
       (error) => {
         this.handleError(error);
-      }
-      );
+      });
   }
 
   showResult(isEmpty: boolean, msg: string): void {
@@ -71,19 +80,21 @@ export class TaskPage {
     this.whyEmpty = msg;
   }
 
-  handleError(error: any) {//: Promise<any> {
-    this.showResult(true, "获取任务失败");
+  handleError(error: any) {
+    this.showResult(true, "获取工作失败");
     console.log("An error occurred: \n", error);
-    // return Promise.reject(error.message || error);
   }
 
   doRefresh(refresher): void {
     console.log("doRefresh ");
     this.getList(refresher);
   }
-  
-  showItemDetails(item: ApplyViewModel): void {
-    console.log(item);
-    this.navCtrl.push("ApplyDetailsPage", item);
+
+  finishWork(order: MyOrderViewModel, commentable: boolean): void {
+    this.openFinishWork(order, commentable);
+  }
+
+  openFinishWork(order: MyOrderViewModel, commentable: boolean): void {
+    this.navCtrl.push("FinishWorkPage", { "order": order, "commentable": commentable });
   }
 }

@@ -1,24 +1,53 @@
-page-room-check {
-  .hint {
-    margin: 16px;
-    text-align: center;
-  }
-  .room-list {
-    display: flex;
-    margin-top: 16px;
-    padding: 8px;
-    ion-col {
-      border: 1px solid lightgray;
-			border-radius: 2px; 
-			// background: #1ee76a;
-      // background: lightgray;
-      background: #ff9d35;
-      margin: 4px;
-      height: 70px;
+  page-room-check {
+    // background: #1ee76a;
+    // background: #ff9d35;
+    // background: lightgray;
+    .hint {
+      margin: 16px;
       text-align: center;
-      div {
-        margin-top: 16px;
+    }
+    .room-list {
+      display: flex;
+      margin-top: 16px;
+      padding: 8px;
+      ion-col {
+        border: 1px solid lightgray;
+        border-radius: 2px; 
+        // background: lightgray;
+        background: #ff9d35;
+        margin: 4px;
+        height: 70px;
+        text-align: center;
+        input[type='checkbox'] {
+          display: inline-block;
+          vertical-align: middle;
+          width:100%;
+          height: 100%;
+          -webkit-appearance: none;
+          border: none;
+          margin: 0;
+          outline: 0 !important;
+          line-height: 100%;
+          color: #d8d8d8;
+        }
+        input[type=checkbox]:after {
+          content: "";
+          display: inline-block;
+          margin: 0;
+          width: 100%;
+          height: 50px;
+          text-align: center;
+          line-height: 100%;
+          font-size: 16px;
+          color: #fff;
+          border: 1px solid #ddd;
+          background-color: #fff;
+          box-sizing: border-box;
+        }
+        input[type=checkbox]:checked:after {
+          border: 1px solid #ddd;
+          background-color: #37AF6E;
+        }
       }
     }
   }
-}

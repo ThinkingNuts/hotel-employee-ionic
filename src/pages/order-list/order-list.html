@@ -1,0 +1,47 @@
+<!--
+  Generated template for the OrderListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="my">
+    <ion-searchbar (ionInput)="searchItems($event)" placeholder="搜索酒店"></ion-searchbar>
+    <ion-buttons end>
+      <button ion-button clear (click)="switchArea()">
+        {{area.text}}
+        <ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <h3 class="no-employee" *ngIf="noEmployee">{{whyEmpty}}</h3>
+
+  <ion-list *ngIf="!noEmployee">
+    <ion-item-group *ngFor="let order of orders">
+      <ion-item-divider class="group" color="divider">
+        <div>
+          <span class="hotel-name">{{order.HotelName}}</span>
+          <div class="star-bg" (click)="showHotelComments(order.HotelGUID)">
+            <div class="star-over" [style.width]="order.HotelEvaluate/5*60+'px'"></div>
+          </div>
+        </div>
+      </ion-item-divider>
+      <ion-item *ngFor="let work of order.Works" (click)="showItemDetails(work)">
+        <h2 class="item-title">{{work.DepartMentName}} - {{work.WorkTypeName}}</h2>
+        <p>{{work.Billing}} | {{work.Start | date:"yyyy-MM-dd"}}</p>
+        <label class="room-remain" item-end>剩余<br>200间</label>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+</ion-content>
