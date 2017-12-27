@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import { BaseHttpServiceProvider, JsonResult, BaseViewModel } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
 import { AccountProvider } from '../../providers/account/account';
+import { Item } from 'ionic-angular/components/item/item';
 
 /**
  * Generated class for the GrabOrderPage page.
@@ -54,7 +55,9 @@ export class GrabOrderPage {
 
   ngOnInit(): void {
     console.log('ngOnInit GrabOrderPage');
-    this.getHotelDetails(this.item.HotelGUID);
+    if (this.item) {
+      this.getHotelDetails(this.item.HotelGUID);
+    }
   }
 
   askApply(): void {

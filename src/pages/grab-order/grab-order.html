@@ -16,14 +16,46 @@
 <ion-content>
   <div padding class="content" *ngIf="item">
     <h2 class="billing">{{item.Billing}}</h2>
-    <h5>{{item.DepartMentName}} - {{item.WorkTypeName}}</h5>
-    <p>工作时间：{{item.Start | date:"yyyy-MM-dd"}}</p>
-    <p>
-      <ion-icon class="icon-color" name="pricetag"></ion-icon>
-      说明：{{item.Mark}}
-    </p>
+
+    <ion-grid class="important-info">
+      <ion-row>
+        <ion-col class="info">
+          <p class="work-time">{{item.Start | date:"yyyy-MM-dd"}}</p>工作时间
+        </ion-col>
+        <ion-col class="info">
+          <p class="room-remain">200</p>剩余房间
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-item-divider color="light"></ion-item-divider>
+
+    <ion-item-group class="grab-order">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-5>
+            <ion-item class="grab-count">
+              <button ion-button clear item-start>-</button>
+              <ion-input type="number" value="5"></ion-input>
+              <button ion-button clear item-end>+</button>
+            </ion-item>
+          </ion-col>
+          <ion-col col-7>
+            <button ion-button class="grab" (click)="askApply()">抢</button>
+          </ion-col>
+        </ion-row>
+        <p class="grab-hint">友情提示：输入的数字需大于0、小于30，实际数量以用工方为准</p>
+      </ion-grid>
+    </ion-item-group>
+    <ion-item-divider color="light"></ion-item-divider>
+
+
+    <ion-item-group class="work-desc">
+      <h5>{{item.DepartMentName}} - {{item.WorkTypeName}}</h5>
+      <p>说明：{{item.Mark}}</p>
+    </ion-item-group>
+    <ion-item-divider color="light"></ion-item-divider>
+
     <ion-item-group *ngIf="hotelDetails" class="company-info">
-      <ion-item-divider color="light"></ion-item-divider>
       <a class="phone" [href]="'tel:'+hotelDetails.Phone">
         <ion-icon class="icon-color" name="call"></ion-icon>
         联系电话：{{hotelDetails.Phone}}
@@ -33,16 +65,7 @@
         工作地址：{{hotelDetails.Address}}
       </a>
     </ion-item-group>
-    <ion-item-group>
-      <ion-item-divider color="light"></ion-item-divider>
-      <h6>
-        <ion-icon class="icon-color" name="text"></ion-icon>
-        工作描述：
-      </h6>
-      <p>工作排班：{{item.ScheduleName}}</p>
-      <p>工作类型：{{item.WorkTypeName}}</p>
-    </ion-item-group>
   </div>
 
-  <button class="grab-btn" ion-button block (click)="askApply()">抢单</button>
+  <!-- <button class="grab-btn" ion-button block (click)="askApply()">抢单</button> -->
 </ion-content>
