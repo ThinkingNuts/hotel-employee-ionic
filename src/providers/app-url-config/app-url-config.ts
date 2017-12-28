@@ -33,6 +33,8 @@ class EmployeeConfig {
   public areasInfoUrl: string = URL_ROOT + "Area/Areas";
   public myOrderUrl: string = URL_ROOT + "api/PersonEmploy/";//+用户GUID(必须)
   public finishOrderUrl: string = URL_ROOT + "api/PersonEmploy/";//+id(必须)
+
+  public areaWorkPlusUrl: string = URL_ROOT + "api/AreaWorkPlus/";//+区域id,null或0表示全部
 }
 
 class UserConfig {

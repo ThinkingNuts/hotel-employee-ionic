@@ -6,9 +6,12 @@ export class EmployeeViewModel extends BaseViewModel {
   HotelId: number;
   AreaName: string;
   AreaId: number;
+  DepartID: number;
   DepartMentName: string;
   HotelName: string;//酒店
+  ScheduleId: number;
   ScheduleName: string;//工作排班
+  WorkTypeId: number;
   WorkTypeName: string;//用工类型
   Num: number;//人数
   Start: string;//开始时间
@@ -21,5 +24,11 @@ export class EmployeeViewModel extends BaseViewModel {
   AppliedNum: number;
   EmployNum: number;
   NewApply: number;
-
+  Examine;
+  HotelEvaluate: number;
+  KeyWord;
+  Max: number;
+  Min: number;
+  Sort: number;
+  Status: string;
 }

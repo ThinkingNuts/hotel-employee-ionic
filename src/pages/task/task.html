@@ -21,7 +21,7 @@
     <h3 class="no-records" *ngIf="noRecords">{{whyEmpty}}</h3>
     <ion-list *ngIf="!noRecords">
       <ion-item *ngFor="let item of orders" [ngClass]="{'item-finished': item.Status==0}">
-        <ion-avatar class="finish" item-end>
+        <!-- <ion-avatar class="finish" item-end>
           <div>
             <button ion-button block color="danger" small (click)="finishWork(item, true)" *ngIf="item.Status!=0">终止</button>
             <button ion-button block class="go-comment-btn" small (click)="finishWork(item, true)" *ngIf="item.Status==0 && item.HotelEvaluate==null">评价</button>
@@ -30,11 +30,10 @@
             <button ion-button block color="danger" small clear *ngIf="item.Status==0">已终止</button>
             <button ion-button block class="show-comment-btn" small (click)="finishWork(item, false)" *ngIf="item.Status==0 && item.HotelEvaluate!=null">查看评论</button>
           </div>
-        </ion-avatar>
+        </ion-avatar> -->
         <h2>{{item.Order.HotelName}}</h2>
-        <h2>{{item.Order.DepartName}} - {{item.Order.WorkTypeName}} - 招{{item.Order.Num}}人</h2>
-        <p>{{item.Order.Billing}} | {{item.Order.WorkTypeName}} | {{item.Order.ScheduleName}}</p>
-        <p>{{item.Order.Start | date:"yyyy-MM-dd HH:mm"}} -- {{item.Order.End | date:"yyyy-MM-dd HH:mm"}}</p>
+        <h3>{{item.Order.DepartMentName}} - {{item.Order.WorkTypeName}}</h3>
+        <p>{{item.Order.Billing}} | {{item.Order.Start | date:"yyyy-MM-dd"}}</p>
       </ion-item>
     </ion-list>
 </ion-content>

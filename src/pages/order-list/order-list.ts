@@ -45,7 +45,7 @@ export class OrderListPage {
   // set area(areaInfo: AreaViewModel) {
   //   this.areaNow = areaInfo;
   //   console.log("EmployeeListPage: set area: " + JSON.stringify(this.areaNow));
-  //   this.getEmployeeList(areaInfo, null);
+  //   this.getOrderList(areaInfo, null);
   // }
   // @Input()
   // set searchText(text: string) {
@@ -74,7 +74,7 @@ export class OrderListPage {
 
     this.account.getUserInfo((value) => {
       this.user = value;
-      this.getEmployeeList(this.areaNow, null);
+      this.getOrderList(this.areaNow, null);
     })
   }
 
@@ -91,14 +91,14 @@ export class OrderListPage {
           console.log("OrderListPage: callback:: " + areaSelected.text);
           this.area = areaSelected;
           console.log("OrderListPage: set area: " + JSON.stringify(this.areaNow));
-          this.getEmployeeList(this.area , null);
+          this.getOrderList(this.area , null);
         })
       }
     });
   }
 
-  getEmployeeList(area: AreaViewModel, refresher): void {
-    let url: string = this.urlConfig.employeeConfig.areaEmployeeListUrl;
+  getOrderList(area: AreaViewModel, refresher): void {
+    let url: string = this.urlConfig.employeeConfig.areaWorkPlusUrl;
     url += area.id;
     this.baseHttp.get<OrderViewModel[]>(url)
       .then(
@@ -136,7 +136,7 @@ export class OrderListPage {
 
   doRefresh(refresher): void {
     console.log("doRefresh ");
-    this.getEmployeeList(this.areaNow, refresher);
+    this.getOrderList(this.areaNow, refresher);
   }
 
   showItemDetails(item: EmployeeViewModel): void {
@@ -146,7 +146,7 @@ export class OrderListPage {
       "callback": (state) => {
         return new Promise((resolve, reject) => {
           console.log("OrderListPage: callback:: " + state);
-          this.getEmployeeList(this.areaNow, null);
+          this.getOrderList(this.areaNow, null);
         })
       }
     });

@@ -39,7 +39,8 @@ export class HomePage {
         title: "我的工作",
         icon: "cube",
         color: "bright",
-        linkPage: "MyOrderPage",
+        // linkPage: "MyOrderPage",
+        linkPage: "TaskPage",
         isImage: false,
         imageUrl: ""
       }]

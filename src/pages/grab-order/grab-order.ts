@@ -9,6 +9,7 @@ import { BaseHttpServiceProvider, JsonResult, BaseViewModel } from '../../provid
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
 import { AccountProvider } from '../../providers/account/account';
 import { Item } from 'ionic-angular/components/item/item';
+import { elementAt } from 'rxjs/operator/elementAt';
 
 /**
  * Generated class for the GrabOrderPage page.
@@ -28,6 +29,7 @@ export class GrabOrderPage {
   private callback;
   private hotelDetails: HotelViewModel = null;
   private order: OrderModule = new OrderModule();
+  private grabNum: number;
 
   constructor(
     private app: App,
@@ -60,6 +62,18 @@ export class GrabOrderPage {
     }
   }
 
+  operGrabNum(symbol: number) {
+    if (symbol < 0) {
+      if (this.grabNum > this.item.Min) {
+        this.grabNum--;
+      }
+    } else if (symbol > 0) {
+      if (this.grabNum < this.item.Max) {
+        this.grabNum++;
+      }
+    }
+  }
+
   askApply(): void {
     this.alert.create({
       title: "提示",
@@ -82,6 +96,7 @@ export class GrabOrderPage {
   doApply(): void {
     this.order.OrderId = this.item.Id;
     this.order.Mark = this.item.Mark;
+    this.order.Num = this.grabNum;
     this.baseHttp.postJson2<OrderModule, any>(this.order, this.urlConfig.employeeConfig.applyUrl).then(
       d => {
         console.log("GrabOrderPage: Apply result " + JSON.stringify(d));
@@ -163,4 +178,5 @@ export class OrderModule extends BaseViewModel {
   public PersonId: number;
   public OrderId: number;
   public Mark: string;
+  public Num: number;
 }

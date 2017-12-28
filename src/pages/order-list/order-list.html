@@ -40,7 +40,7 @@
       <ion-item *ngFor="let work of order.Works" (click)="showItemDetails(work)">
         <h2 class="item-title">{{work.DepartMentName}} - {{work.WorkTypeName}}</h2>
         <p>{{work.Billing}} | {{work.Start | date:"yyyy-MM-dd"}}</p>
-        <label class="room-remain" item-end>剩余<br>200间</label>
+        <label class="room-remain" item-end>剩余<br>{{work.Num - work.AppliedNum}}间</label>
       </ion-item>
     </ion-item-group>
   </ion-list>

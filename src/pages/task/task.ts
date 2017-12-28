@@ -5,7 +5,7 @@ import { BaseHttpServiceProvider } from '../../providers/base-http-service/base-
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
 import { AccountProvider } from '../../providers/account/account';
 
-import { MyOrderViewModel } from '../../view-model/my-order-model';
+import { ApplyViewModel } from '../../view-model/apply-model';
 import { UserViewModel } from '../../view-model/user-model';
 
 /**
@@ -24,8 +24,8 @@ export class TaskPage {
 
   private noRecords: boolean = true;
   private whyEmpty: string = "正在获取工作";
-  private orders: MyOrderViewModel[] = [];
-  private ordersCache: MyOrderViewModel[] = [];
+  private orders: ApplyViewModel[] = [];
+  private ordersCache: ApplyViewModel[] = [];
   private user: UserViewModel;
 
   constructor(
@@ -38,7 +38,7 @@ export class TaskPage {
   }
 
   ngOnInit(): void {
-    console.log("MyOrderPage ngOnInit");
+    console.log("TaskPage ngOnInit");
 
     this.account.getUserInfo((value) => {
       this.user = value;
@@ -47,7 +47,7 @@ export class TaskPage {
   }
 
   ionViewDidEnter(): void {
-    console.log("MyOrderPage ionViewDidEnter");
+    console.log("TaskPage ionViewDidEnter");
     if (this.user) {
       this.getList(null);
     }
@@ -55,10 +55,10 @@ export class TaskPage {
 
   getList(refresher): void {
     let personGUID = this.user.GUID;
-    this.baseHttp.get<MyOrderViewModel[]>(this.urlConfig.employeeConfig.myOrderUrl + personGUID)
+    this.baseHttp.get<ApplyViewModel[]>(this.urlConfig.employeeConfig.applyRecordsUrl + personGUID)
       .then(
       (res) => {
-        console.log("MyOrderPage order: " + JSON.stringify(res));
+        console.log("TaskPage order: " + JSON.stringify(res));
         if (!res || res.length === 0) {
           this.showResult(true, "当前没有工作");
         } else {
@@ -90,11 +90,11 @@ export class TaskPage {
     this.getList(refresher);
   }
 
-  finishWork(order: MyOrderViewModel, commentable: boolean): void {
+  finishWork(order: ApplyViewModel, commentable: boolean): void {
     this.openFinishWork(order, commentable);
   }
 
-  openFinishWork(order: MyOrderViewModel, commentable: boolean): void {
-    this.navCtrl.push("FinishWorkPage", { "order": order, "commentable": commentable });
+  openFinishWork(order: ApplyViewModel, commentable: boolean): void {
+    // this.navCtrl.push("FinishWorkPage", { "order": order, "commentable": commentable });
   }
 }

@@ -20,7 +20,7 @@ export class ApiService {
 
   interceptor() {
     this.opts.headers = this.headers;
-    this.storage.get("AUTH_TOKEN").then(res => {
+    this.storage.get("token").then(res => {
       if (res && !this.opts.headers.get("Authorization")) {
         this.opts.headers.append("Authorization", `Bearer ${res}`);
       }

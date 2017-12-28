@@ -23,7 +23,7 @@
           <p class="work-time">{{item.Start | date:"yyyy-MM-dd"}}</p>工作时间
         </ion-col>
         <ion-col class="info">
-          <p class="room-remain">200</p>剩余房间
+          <p class="room-remain">{{item.Num - item.AppliedNum}}</p>剩余房间
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -34,16 +34,16 @@
         <ion-row>
           <ion-col col-5>
             <ion-item class="grab-count">
-              <button ion-button clear item-start>-</button>
-              <ion-input type="number" value="5"></ion-input>
-              <button ion-button clear item-end>+</button>
+              <button ion-button clear item-start (click)="operGrabNum(-1)">-</button>
+              <ion-input type="number" value="5" [(ngModel)]="grabNum"></ion-input>
+              <button ion-button clear item-end (click)="operGrabNum(1)">+</button>
             </ion-item>
           </ion-col>
           <ion-col col-7>
             <button ion-button class="grab" (click)="askApply()">抢</button>
           </ion-col>
         </ion-row>
-        <p class="grab-hint">友情提示：输入的数字需大于0、小于30，实际数量以用工方为准</p>
+        <p class="grab-hint">友情提示：输入的数字需大于{{item.Min}}、小于{{item.Max}}，实际数量以用工方为准</p>
       </ion-grid>
     </ion-item-group>
     <ion-item-divider color="light"></ion-item-divider>
@@ -51,7 +51,7 @@
 
     <ion-item-group class="work-desc">
       <h5>{{item.DepartMentName}} - {{item.WorkTypeName}}</h5>
-      <p>说明：{{item.Mark}}</p>
+      <p *ngIf="item.Mark">说明：{{item.Mark}}</p>
     </ion-item-group>
     <ion-item-divider color="light"></ion-item-divider>
 
