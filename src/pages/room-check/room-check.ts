@@ -15,8 +15,51 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class RoomCheckPage {
 
+  private rooms = [
+    {
+      id: 0,
+      finished: true
+    },
+    {
+      id: 1,
+      finished: true
+    },
+    {
+      id: 2,
+      finished: true
+    },
+    {
+      id: 3,
+      finished: false
+    },
+    {
+      id: 4,
+      finished: false
+    },
+    {
+      id: 5,
+      finished: false
+    },
+    {
+      id: 6,
+      finished: false
+    },
+    {
+      id: 7,
+      finished: false
+    },
+    {
+      id: 8,
+      finished: false
+    },
+    {
+      id: 9,
+      finished: false
+    }
+  ]
+
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams) {
   }
 
@@ -24,4 +67,13 @@ export class RoomCheckPage {
     console.log('ionViewDidLoad RoomCheckPage');
   }
 
+  addRoom() {
+    this.rooms.push({
+      id: this.rooms.length,
+      finished: false
+    });
+  }
+  submit() {
+    
+  }
 }

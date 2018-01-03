@@ -16,81 +16,14 @@
 <ion-content>
   <ion-label class="hint">Room Check</ion-label>
 
-  <ion-grid class="room-list">
-    <ion-row>
-      <ion-col>
-        <div>
-          <input type="checkbox" name="room" value="Bike" />
-        </div>
-      </ion-col>
-      <ion-col>
-        <div>
-          <input type="checkbox" name="room" value="Car" />
-        </div>
-      </ion-col>
-      <ion-col>
-        <div>3</div>
-      </ion-col>
-      <ion-col>
-        <div>4</div>
-      </ion-col>
-      <ion-col>
-        <div>5</div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <div>
-          6
-        </div>
-      </ion-col>
-      <ion-col>
-        <div>
-          7
-        </div>
-      </ion-col>
-      <ion-col>
-        <div>
-          8
-        </div>
-      </ion-col>
-      <ion-col>
-        <div>
-          9
-        </div>
-      </ion-col>
-      <ion-col>
-        <div>
-          10
-        </div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <div>
-          11
-        </div>
-      </ion-col>
-      <ion-col>
-        <div>
-          12
-        </div>
-      </ion-col>
-      <ion-col>
-        <div>
-          13
-        </div>
-      </ion-col>
-      <ion-col>
-        <div>
-          14
-        </div>
-      </ion-col>
-      <ion-col>
-        <div>
-          15
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-list class="room-list" no-lines>
+    <ion-item class="room-item" *ngFor="let room of rooms">
+      <div>
+        <input type="checkbox" name="room" value="Bike" [(disabled)]="room.finished"/>
+      </div>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button (click)="addRoom()">add room</button>
+  <button ion-button (click)="submit()">submit</button>
 </ion-content>
