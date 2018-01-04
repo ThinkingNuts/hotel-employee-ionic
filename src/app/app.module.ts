@@ -22,6 +22,7 @@ import { Device } from '@ionic-native/device';
 import { AppNativeDeviceProvider } from '../providers/app-native-service/app-native-device';
 import { AppUrlConfigProvider } from '../providers/app-url-config/app-url-config';
 import { AccountProvider } from '../providers/account/account';
+import { ApiService } from '../api/api-resource';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { AccountProvider } from '../providers/account/account';
     OrderListPage
   ],
   providers: [
+    ApiService,
     AccountProvider,
     Device,
     AppNativeDeviceProvider,

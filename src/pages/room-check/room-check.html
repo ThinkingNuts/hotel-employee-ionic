@@ -16,10 +16,10 @@
 <ion-content>
   <ion-label class="hint">Room Check</ion-label>
 
-  <ion-list class="room-list" no-lines>
-    <ion-item class="room-item" *ngFor="let room of rooms">
+  <ion-list class="room-list" no-lines *ngIf="roomList && roomList.length>0">
+    <ion-item class="room-item" *ngFor="let room of roomList">
       <div>
-        <input type="checkbox" name="room" value="Bike" [(disabled)]="room.finished"/>
+        <input type="checkbox" name="room" value="room.Id" (click)="roomStatusChange(room)" [checked]="room.RommStatus==1" [disabled]="room.RommStatus==2"/>
       </div>
     </ion-item>
   </ion-list>

@@ -58,7 +58,7 @@ export class TaskPage {
     this.baseHttp.get<ApplyViewModel[]>(this.urlConfig.employeeConfig.applyRecordsUrl + personGUID)
       .then(
       (res) => {
-        console.log("TaskPage order: " + JSON.stringify(res));
+        // console.log("TaskPage order: " + JSON.stringify(res));
         if (!res || res.length === 0) {
           this.showResult(true, "当前没有工作");
         } else {
@@ -90,11 +90,19 @@ export class TaskPage {
     this.getList(refresher);
   }
 
+  openRoomCheck(item) {
+    this.openPage("RoomCheckPage", { POrderId: item.POrderId });
+  }
+
   finishWork(order: ApplyViewModel, commentable: boolean): void {
     this.openFinishWork(order, commentable);
   }
 
   openFinishWork(order: ApplyViewModel, commentable: boolean): void {
     // this.navCtrl.push("FinishWorkPage", { "order": order, "commentable": commentable });
+  }
+
+  openPage(pageName: string, params = null) {
+    this.navCtrl.push(pageName, params);
   }
 }

@@ -20,7 +20,7 @@
     </ion-refresher>
     <h3 class="no-records" *ngIf="noRecords">{{whyEmpty}}</h3>
     <ion-list *ngIf="!noRecords">
-      <ion-item *ngFor="let item of orders" [ngClass]="{'item-finished': item.Status==0}">
+      <ion-item *ngFor="let item of orders" (click)="openRoomCheck(item)" [ngClass]="{'item-finished': item.Status==0}">
         <!-- <ion-avatar class="finish" item-end>
           <div>
             <button ion-button block color="danger" small (click)="finishWork(item, true)" *ngIf="item.Status!=0">终止</button>

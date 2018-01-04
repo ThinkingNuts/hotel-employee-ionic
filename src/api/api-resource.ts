@@ -5,7 +5,8 @@ import "rxjs/add/operator/map";
 import "rxjs/add/operator/toPromise";
 import { Subject, BehaviorSubject, Observable } from "rxjs";
 
-import API_ROOT from "./config";
+// import API_ROOT from "./config";
+const API_ROOT: string = "http://123.56.15.145:5000/";
 
 @Injectable()
 export class ApiService {
@@ -92,22 +93,22 @@ export class ApiService {
   }
 
   // new -------
-  public getOrderList(areaId = 0) {
+  public getOrderList<T>(areaId = 0): Promise<T> {
     return this.http.get(API_ROOT + "api/AreaWorkPlus/" + areaId, this.opts).toPromise().then(d => d.json());
   }
-  public grabOrder(data) {
+  public grabOrder<T>(data): Promise<T> {
     return this.http.post(API_ROOT + "api/PersonApply", data, this.opts).toPromise().then(d => d.json());
   }
-  public getRoomList(id) {
+  public getRoomList<T>(id): Promise<T> {
     return this.http.get(API_ROOT + "api/GrabOrder/" + id, this.opts).toPromise().then(d => d.json());
   }
-  public updateRoomState(id) {
-    return this.http.put(API_ROOT + "api/GrabOrder/" + id, this.opts).toPromise().then(d => d.json());
+  public updateRoomState<T>(id, data): Promise<T> {
+    return this.http.put(API_ROOT + "api/GrabOrder/" + id, data, this.opts).toPromise().then(d => d.json());
   }
-  public addRoom(data) {
+  public addRoom<T>(data): Promise<T> {
     return this.http.post(API_ROOT + "api/GrabOrder", data, this.opts).toPromise().then(d => d.json());
   }
-  public deleteRoom(id) {
+  public deleteRoom<T>(id): Promise<T> {
     return this.http.delete(API_ROOT + "api/GrabOrder/" + id, this.opts).toPromise().then(d => d.json());
   }
 }

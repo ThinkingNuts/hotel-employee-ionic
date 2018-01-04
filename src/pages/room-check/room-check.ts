@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+
+import { ApiService } from '../../api/api-resource';
+import { BaseViewModel } from '../../providers/base-http-service/base-http-service';
 
 /**
  * Generated class for the RoomCheckPage page.
@@ -15,65 +18,64 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class RoomCheckPage {
 
-  private rooms = [
-    {
-      id: 0,
-      finished: true
-    },
-    {
-      id: 1,
-      finished: true
-    },
-    {
-      id: 2,
-      finished: true
-    },
-    {
-      id: 3,
-      finished: false
-    },
-    {
-      id: 4,
-      finished: false
-    },
-    {
-      id: 5,
-      finished: false
-    },
-    {
-      id: 6,
-      finished: false
-    },
-    {
-      id: 7,
-      finished: false
-    },
-    {
-      id: 8,
-      finished: false
-    },
-    {
-      id: 9,
-      finished: false
-    }
-  ]
+  private roomList: Room[] = [];
+  private pOrderId: number;
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams) {
+    private api: ApiService,
+    private toastCtrl: ToastController,
+    private navCtrl: NavController,
+    private navParams: NavParams) {
+    this.pOrderId = navParams.get("POrderId");
+    console.log("pOrderId: " + this.pOrderId);
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RoomCheckPage');
+    this.getRoomList();
+  }
+
+  getRoomList() {
+    this.api.getRoomList<Room[]>(this.pOrderId).then(res => {
+      this.roomList = res;
+    });
+  }
+
+  roomStatusChange(room: Room) {
+    if (room.RommStatus == 0) {
+      room.RommStatus = 1;
+    } else if (room.RommStatus == 1) {
+      room.RommStatus = 0;
+    }
   }
 
   addRoom() {
-    this.rooms.push({
-      id: this.rooms.length,
-      finished: false
+    this.api.addRoom<any>({}).then(res => {
+
     });
   }
+
   submit() {
-    
+    this.api.updateRoomState<any>(this.pOrderId, this.roomList).then(res => {
+      this.showToast(res.message);
+    });
   }
+
+  showToast(msg: string) {
+    this.toastCtrl.create({
+      duration: 2000,
+      position: "top",
+      message: msg,
+    }).present();
+  }
+}
+
+class Room {
+  CreateTime: string;
+  GUID: string;
+  Id: number;
+  OrderId: number;
+  POrderId: number;
+  PersonId: number;
+  RommStatus: number;
+  RoomID: string;
 }
