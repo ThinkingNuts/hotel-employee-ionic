@@ -49,9 +49,19 @@ export class RoomCheckPage {
   }
 
   addRoom() {
-    this.api.addRoom<any>({}).then(res => {
+    let newRoom: Room = {
+      CreateTime: "",
+      GUID: "",
+      Id: 0,
+      OrderId: 0,
+      POrderId: this.pOrderId,
+      PersonId: 0,
+      RommStatus: 0,
+      RoomID: ""
+    };
+    // this.api.addRoom<any>(newRoom).then(res => {
 
-    });
+    // });
   }
 
   submit() {
