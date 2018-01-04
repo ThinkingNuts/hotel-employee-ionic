@@ -90,6 +90,26 @@ export class ApiService {
   public finishWork<T>(orderId, data): Promise<T> {
     return this.http.post(API_ROOT + "api/PersonEmploy/" + orderId, data, this.opts).toPromise().then(d => d.json());
   }
+
+  // new -------
+  public getOrderList(areaId = 0) {
+    return this.http.get(API_ROOT + "api/AreaWorkPlus/" + areaId, this.opts).toPromise().then(d => d.json());
+  }
+  public grabOrder(data) {
+    return this.http.post(API_ROOT + "api/PersonApply", data, this.opts).toPromise().then(d => d.json());
+  }
+  public getRoomList(id) {
+    return this.http.get(API_ROOT + "api/GrabOrder/" + id, this.opts).toPromise().then(d => d.json());
+  }
+  public updateRoomState(id) {
+    return this.http.put(API_ROOT + "api/GrabOrder/" + id, this.opts).toPromise().then(d => d.json());
+  }
+  public addRoom(data) {
+    return this.http.post(API_ROOT + "api/GrabOrder", data, this.opts).toPromise().then(d => d.json());
+  }
+  public deleteRoom(id) {
+    return this.http.delete(API_ROOT + "api/GrabOrder/" + id, this.opts).toPromise().then(d => d.json());
+  }
 }
 
 
