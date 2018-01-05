@@ -24,6 +24,7 @@ export class CounterComponent {
 
   ngOnInit() {
     this.num = this.default;
+    this.output.emit(this.num);
   }
 
   operNum(symbol: number) {

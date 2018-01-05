@@ -62,24 +62,13 @@ export class GrabOrderPage {
     }
   }
 
-  operGrabNum(symbol: number) {
-    if (symbol < 0) {
-      if (this.grabNum > this.item.Min) {
-        this.grabNum--;
-      }
-    } else if (symbol > 0) {
-      if (this.grabNum < this.item.Max) {
-        this.grabNum++;
-      }
-    }
-  }
-
   outputCounter($event) {
     console.log("counter:: " + $event);
     this.grabNum = $event;
   }
 
   askApply(): void {
+    console.log("grabNum:: " + this.grabNum);
     this.alert.create({
       title: "提示",
       message: "确认要申请吗？",
