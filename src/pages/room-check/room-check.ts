@@ -71,6 +71,7 @@ export class RoomCheckPage {
         }
       });
     });
+    console.log(this.roomList);
   }
 
   saveLocalRooms() {
@@ -80,23 +81,18 @@ export class RoomCheckPage {
   }
 
   addRoom() {
-    let date = new Date();
     let lastRoom = this.roomList[this.roomList.length - 1];
-    let newRoom: Room = {
-      CreateTime: date.toLocaleString(),
-      GUID: "",
-      Id: lastRoom.Id + 1,
+    let newRoom = {
       OrderId: lastRoom.OrderId,
       POrderId: this.pOrderId,
       PersonId: lastRoom.PersonId,
-      RommStatus: 0,
-      RoomID: date.toLocaleDateString() + "_" + this.pOrderId + "_" + lastRoom.PersonId + "_" + this.roomList.length
     };
-    console.log("******************* new room **********************");
-    console.log(JSON.stringify(newRoom));
-    // this.api.addRoom<any>(newRoom).then(res => {
-
-    // });
+    this.api.addRoom<any>(newRoom).then(res => {
+      // this.showToast(res.message);
+      if (res.state) {
+        this.getRoomList();
+      }
+    });
   }
 
   submit() {
@@ -123,4 +119,5 @@ class Room {
   PersonId: number;
   RommStatus: number;
   RoomID: string;
+  RoomIndex: number;
 }
