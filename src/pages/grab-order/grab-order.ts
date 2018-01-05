@@ -8,8 +8,7 @@ import { Storage } from '@ionic/storage';
 import { BaseHttpServiceProvider, JsonResult, BaseViewModel } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
 import { AccountProvider } from '../../providers/account/account';
-import { Item } from 'ionic-angular/components/item/item';
-import { elementAt } from 'rxjs/operator/elementAt';
+import { ApiService } from '../../api/api-resource';
 
 /**
  * Generated class for the GrabOrderPage page.
@@ -32,6 +31,7 @@ export class GrabOrderPage {
   private grabNum: number;
 
   constructor(
+    private api: ApiService,
     private app: App,
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -74,6 +74,11 @@ export class GrabOrderPage {
     }
   }
 
+  outputCounter($event) {
+    console.log("counter:: " + $event);
+    this.grabNum = $event;
+  }
+
   askApply(): void {
     this.alert.create({
       title: "提示",
@@ -97,17 +102,21 @@ export class GrabOrderPage {
     this.order.OrderId = this.item.Id;
     this.order.Mark = this.item.Mark;
     this.order.Num = this.grabNum;
-    this.baseHttp.postJson2<OrderModule, any>(this.order, this.urlConfig.employeeConfig.applyUrl).then(
-      d => {
-        console.log("GrabOrderPage: Apply result " + JSON.stringify(d));
-        if (d.state) {
-          this.showApplyResult(d);
-          this.callback(d.state);
+    this.api.grabOrder<any>(this.order).then(
+      res => {
+        console.log("GrabOrderPage: Apply result " + JSON.stringify(res));
+        if (res.state) {
+          this.showApplyResult(res);
+          this.callback(res.state);
           this.navCtrl.pop();
         } else {
-          this.promptInfo(d.message, d.code);
+          this.promptInfo(res.message, res.code);
         }
-      }).catch(this.handleError);
+      },
+      (error) => {
+        this.handleError(error);
+      }
+    );
   }
 
   handleError(error: any) {
@@ -127,15 +136,17 @@ export class GrabOrderPage {
   }
 
   getHotelDetails(hotelGUID: string): void {
-    this.baseHttp.post<any, JsonResult>(null,
-      this.urlConfig.employeeConfig.hotelDetailsUrl + hotelGUID)
-      .then(d => {
-        console.log("GrabOrderPage: HotelDetails:: " + JSON.stringify(d));
-        if (d.state == true) {
-          this.hotelDetails = d["data"];
+    this.api.getHotelDetails<JsonResult>(hotelGUID).then(
+      res => {
+        console.log("GrabOrderPage: HotelDetails:: " + JSON.stringify(res));
+        if (res.state == true) {
+          this.hotelDetails = res["data"];
         }
-      })
-      .catch(this.handleError);
+      },
+      (error) => {
+        this.handleError(error);
+      }
+    );
   }
 
   showMap(lng: string, lat: string): void {

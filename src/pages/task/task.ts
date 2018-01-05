@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { BaseHttpServiceProvider } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
 import { AccountProvider } from '../../providers/account/account';
+import { ApiService } from '../../api/api-resource';
 
 import { ApplyViewModel } from '../../view-model/apply-model';
 import { UserViewModel } from '../../view-model/user-model';
@@ -29,6 +30,7 @@ export class TaskPage {
   private user: UserViewModel;
 
   constructor(
+    private api: ApiService,
     private navCtrl: NavController,
     private navParams: NavParams,
     private alertCtrl: AlertController,
@@ -54,10 +56,8 @@ export class TaskPage {
   }
 
   getList(refresher): void {
-    let personGUID = this.user.GUID;
-    this.baseHttp.get<ApplyViewModel[]>(this.urlConfig.employeeConfig.applyRecordsUrl + personGUID)
-      .then(
-      (res) => {
+    this.api.getTask<ApplyViewModel[]>(this.user.GUID).then(
+      res => {
         // console.log("TaskPage order: " + JSON.stringify(res));
         if (!res || res.length === 0) {
           this.showResult(true, "当前没有工作");

@@ -99,6 +99,9 @@ export class ApiService {
   public grabOrder<T>(data): Promise<T> {
     return this.http.post(API_ROOT + "api/PersonApply", data, this.opts).toPromise().then(d => d.json());
   }
+  public getTask<T>(personGUID): Promise<T> {
+    return this.http.get(API_ROOT + "api/PersonApply/" + personGUID, this.opts).toPromise().then(d => d.json());
+  }
   public getRoomList<T>(id): Promise<T> {
     return this.http.get(API_ROOT + "api/GrabOrder/" + id, this.opts).toPromise().then(d => d.json());
   }

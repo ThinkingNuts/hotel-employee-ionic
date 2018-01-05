@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 import { ApiService } from '../../api/api-resource';
 import { BaseViewModel } from '../../providers/base-http-service/base-http-service';
@@ -24,6 +25,7 @@ export class RoomCheckPage {
   constructor(
     private api: ApiService,
     private toastCtrl: ToastController,
+    private storage: Storage,
     private navCtrl: NavController,
     private navParams: NavParams) {
     this.pOrderId = navParams.get("POrderId");
@@ -37,6 +39,7 @@ export class RoomCheckPage {
   getRoomList() {
     this.api.getRoomList<Room[]>(this.pOrderId).then(res => {
       this.roomList = res;
+      this.getLocalRooms();
     });
   }
 
@@ -46,19 +49,51 @@ export class RoomCheckPage {
     } else if (room.RommStatus == 1) {
       room.RommStatus = 0;
     }
+    this.saveLocalRooms();
+  }
+
+  getLocalRooms() {
+    this.storage.ready().then(() => {
+      this.storage.get("rooms" + this.pOrderId).then(
+        (value) => {
+          if (value) {
+            this.mergeRooms(value as Room[]);
+          }
+        });
+    });
+  }
+
+  mergeRooms(localRooms: Room[]) {
+    this.roomList.forEach(room => {
+      localRooms.forEach(lRoom => {
+        if (room.GUID == lRoom.GUID && room.RommStatus != 2) {
+          room.RommStatus = lRoom.RommStatus;
+        }
+      });
+    });
+  }
+
+  saveLocalRooms() {
+    this.storage.ready().then(() => {
+      this.storage.set("rooms" + this.pOrderId, this.roomList);
+    });
   }
 
   addRoom() {
+    let date = new Date();
+    let lastRoom = this.roomList[this.roomList.length - 1];
     let newRoom: Room = {
-      CreateTime: "",
+      CreateTime: date.toLocaleString(),
       GUID: "",
-      Id: 0,
-      OrderId: 0,
+      Id: lastRoom.Id + 1,
+      OrderId: lastRoom.OrderId,
       POrderId: this.pOrderId,
-      PersonId: 0,
+      PersonId: lastRoom.PersonId,
       RommStatus: 0,
-      RoomID: ""
+      RoomID: date.toLocaleDateString() + "_" + this.pOrderId + "_" + lastRoom.PersonId + "_" + this.roomList.length
     };
+    console.log("******************* new room **********************");
+    console.log(JSON.stringify(newRoom));
     // this.api.addRoom<any>(newRoom).then(res => {
 
     // });

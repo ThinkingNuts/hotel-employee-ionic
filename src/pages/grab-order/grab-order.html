@@ -32,14 +32,12 @@
     <ion-item-group class="grab-order">
       <ion-grid>
         <ion-row>
-          <ion-col col-5>
+          <ion-col col-6>
             <ion-item class="grab-count">
-              <button ion-button clear item-start (click)="operGrabNum(-1)">-</button>
-              <ion-input type="number" value="5" [(ngModel)]="grabNum"></ion-input>
-              <button ion-button clear item-end (click)="operGrabNum(1)">+</button>
+              <counter [default]="5" [min]="5" [max]="30" (output)="outputCounter($event)"></counter>
             </ion-item>
           </ion-col>
-          <ion-col col-7>
+          <ion-col col-6>
             <button ion-button class="grab" (click)="askApply()">抢</button>
           </ion-col>
         </ion-row>

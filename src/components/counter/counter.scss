@@ -1,0 +1,27 @@
+counter {
+  .counter-wrap{
+    display: inline-block;
+  }
+  .counter-box {
+    display: flex;
+    height: 36px;
+    text-align: center;
+    * {
+      text-align: center;
+    }
+    button {
+      width: 30px;
+      height: 36px;
+      font-size: 24px;
+      border: 0.4px solid #488aff;
+      color: #488aff;
+      background: white;
+      border-radius: 2px;
+    }
+    input {
+      width: 60px;
+      height: 36px;
+      border: 0.2px solid #488aff;
+    }
+  }
+}

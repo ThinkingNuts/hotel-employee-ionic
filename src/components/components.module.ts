@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
-import { RoomComponent } from './room/room';
+import { CounterComponent } from './counter/counter';
 @NgModule({
-	declarations: [RoomComponent],
+	declarations: [
+		CounterComponent],
 	imports: [],
-	exports: [RoomComponent]
+	exports: [
+		CounterComponent]
 })
-export class ComponentsModule {}
+export class ComponentsModule { }

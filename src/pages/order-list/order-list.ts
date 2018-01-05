@@ -9,6 +9,7 @@ import { AreaViewModel } from '../../view-model/area-model';
 import { BaseHttpServiceProvider } from '../../providers/base-http-service/base-http-service';
 import { AppUrlConfigProvider } from '../../providers/app-url-config/app-url-config';
 import { AccountProvider } from '../../providers/account/account';
+import { ApiService } from '../../api/api-resource';
 
 /**
  * Generated class for the OrderListPage page.
@@ -62,6 +63,7 @@ export class OrderListPage {
   // }
 
   constructor(
+    private api: ApiService,
     private app: App,
     private navCtrl: NavController,
     private navParams: NavParams,
@@ -91,18 +93,15 @@ export class OrderListPage {
           console.log("OrderListPage: callback:: " + areaSelected.text);
           this.area = areaSelected;
           console.log("OrderListPage: set area: " + JSON.stringify(this.areaNow));
-          this.getOrderList(this.area , null);
+          this.getOrderList(this.area, null);
         })
       }
     });
   }
 
   getOrderList(area: AreaViewModel, refresher): void {
-    let url: string = this.urlConfig.employeeConfig.areaWorkPlusUrl;
-    url += area.id;
-    this.baseHttp.get<OrderViewModel[]>(url)
-      .then(
-      (res) => {
+    this.api.getOrderList<OrderViewModel[]>(area.id).then(
+      res => {
         if (!res || res.length === 0) {
           this.showResult(true, "当前没有用工信息");
         } else {
@@ -119,8 +118,7 @@ export class OrderListPage {
         if (refresher) {
           refresher.complete();
         }
-      }
-      );
+      });
   }
 
   showResult(isEmpty: boolean, msg: string): void {
