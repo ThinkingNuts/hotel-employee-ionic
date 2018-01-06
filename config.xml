@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.hotel.employee" version="1.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.hotel.employee" version="2.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>星加酒店Job</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -90,18 +90,18 @@
     <chcp>
         <auto-download enabled="true" />
         <auto-install enabled="true" />
-        <config-file url="http://123.56.15.145/hotelstaff" />
+        <config-file url="http://123.56.15.145/hotelstaff/chcp.json" />
     </chcp>
     <allow-navigation href="*" />
     <engine name="android" spec="^6.2.3" />
-    <plugin name="cordova-hot-code-push-plugin" spec="^1.5.3" />
-    <plugin name="cordova-plugin-camera" spec="^2.4.1" />
     <plugin name="cordova-plugin-console" spec="^1.0.5" />
     <plugin name="cordova-plugin-device" spec="^1.1.6" />
-    <plugin name="cordova-plugin-file-transfer" spec="^1.6.3" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
     <plugin name="cordova-plugin-statusbar" spec="^2.2.2" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.1" />
-    <plugin name="cordova-sqlite-storage" spec="^2.0.4" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
+    <plugin name="cordova-sqlite-storage" spec="^2.0.4" />
+    <plugin name="cordova-plugin-file-transfer" spec="^1.6.3" />
+    <plugin name="cordova-plugin-camera" spec="^2.4.1" />
+    <plugin name="cordova-hot-code-push-plugin" spec="^1.5.3" />
 </widget>
