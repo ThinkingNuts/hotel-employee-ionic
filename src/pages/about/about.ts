@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AppVersion } from '@ionic-native/app-version';
 
 /**
  * Generated class for the AboutPage page.
@@ -33,7 +34,13 @@ export class AboutPage {
     linkPage: "ProtocolPage"
   }];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    private appVersion: AppVersion,
+    public navCtrl: NavController,
+    public navParams: NavParams) {
+    this.appVersion.getVersionNumber().then(res=>{
+      this.items[1].value=JSON.stringify(res);
+    });
   }
 
   openPage(pageName: string) {
