@@ -35,13 +35,16 @@ export class RoomCheckPage {
   }
 
   ionViewDidLoad() {
-    this.getRoomList();
+    this.getRoomList(null);
   }
 
-  getRoomList() {
+  getRoomList(refresher) {
     this.api.getRoomList<Room[]>(this.pOrderId).then(res => {
       this.roomList = res;
       this.getLocalRooms();
+      if (refresher) {
+        refresher.complete();
+      }
     });
   }
 
@@ -87,6 +90,11 @@ export class RoomCheckPage {
     });
   }
 
+  doRefresh(refresher): void {
+    console.log("doRefresh ");
+    this.getRoomList(refresher);
+  }
+
   addRoom() {
     let lastRoom = this.roomList[this.roomList.length - 1];
     let newRoom = {
@@ -97,7 +105,7 @@ export class RoomCheckPage {
     this.api.addRoom<any>(newRoom).then(res => {
       // this.showToast(res.message);
       if (res.state) {
-        this.getRoomList();
+        this.getRoomList(null);
       }
     });
   }
