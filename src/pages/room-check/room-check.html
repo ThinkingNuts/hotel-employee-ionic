@@ -34,7 +34,7 @@
   </div>
 
   <ion-list class="room-list" no-lines *ngIf="roomList && roomList.length>0">
-    <ion-item class="room-item" *ngFor="let room of roomList">
+    <div class="room-item" *ngFor="let room of roomList">
       <div class="room-wrap">
         <button class="room" (click)="roomStatusChange(room)" 
           [class.room-normal]="room.RommStatus == 0" 
@@ -48,7 +48,7 @@
           </div>
         </button>
       </div>
-    </ion-item>
+    </div>
   </ion-list>
 
   <ion-grid class="btns-box">
