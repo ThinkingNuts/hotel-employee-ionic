@@ -38,9 +38,9 @@ export class AboutPage {
     private appVersion: AppVersion,
     public navCtrl: NavController,
     public navParams: NavParams) {
-    this.appVersion.getVersionNumber().then(res=>{
-      this.items[1].value=JSON.stringify(res);
-    });
+    // this.appVersion.getVersionNumber().then(res=>{
+    //   this.items[1].value=JSON.stringify(res);
+    // });
   }
 
   openPage(pageName: string) {

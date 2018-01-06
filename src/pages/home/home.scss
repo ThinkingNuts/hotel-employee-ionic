@@ -36,7 +36,7 @@ page-home {
       }
     }
     .avatars-icon {
-      font-size: 56px; 
+      font-size: 48px; 
     }
     .avatars-img {
       border-radius: 50%;
@@ -45,5 +45,9 @@ page-home {
       width: 65%;
       text-align: center;
     }
+  }
+  
+  .no-records {
+    text-align: center;
   }
 }

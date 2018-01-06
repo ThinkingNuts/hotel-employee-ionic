@@ -4,6 +4,12 @@ import { Platform, NavController, Slides, AlertController } from 'ionic-angular'
 import { InfoListPage } from '../info-list/info-list';
 import { TabsPage } from '../tabs/tabs';
 
+import { AccountProvider } from '../../providers/account/account';
+import { ApiService } from '../../api/api-resource';
+
+import { ApplyViewModel } from '../../view-model/apply-model';
+import { UserViewModel } from '../../view-model/user-model';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -43,27 +49,7 @@ export class HomePage {
         linkPage: "TaskPage",
         isImage: false,
         imageUrl: ""
-      }]
-    }, {
-      rowId: 2,
-      cols: [{
-        title: "RoomCheck",
-        icon: "hand",
-        color: "pink",
-        linkPage: "TaskPage",
-        isImage: false,
-        imageUrl: ""
-      }
-      /* {
-        title: "我的申请",
-        value: "apply-records",
-        icon: "hand",
-        color: "pink",
-        linkPage: "MyRecordsPage",
-        tabId: 1,
-        isImage: false,
-        imageUrl: ""
-      } */, {
+      }, {
         title: "我的消息",
         icon: "chatbubbles",
         color: "secondary",
@@ -72,13 +58,32 @@ export class HomePage {
         imageUrl: ""
       }]
     }];
+  private noRecords: boolean = true;
+  private whyEmpty: string = "正在获取工作";
+  private orders: ApplyViewModel[] = [];
+  private ordersCache: ApplyViewModel[] = [];
+  private user: UserViewModel;
 
   constructor(
+    private api: ApiService,
+    private account: AccountProvider,
     private navCtrl: NavController
   ) { }
 
-  openPage(pageName: string) {
-    this.navCtrl.push(pageName);
+  ngOnInit(): void {
+    console.log("HomePage ngOnInit");
+
+    this.account.getUserInfo((value) => {
+      this.user = value;
+      this.getTaskList();
+    });
+  }
+
+  ionViewDidEnter(): void {
+    console.log("HomePage ionViewDidEnter");
+    if (this.user) {
+      this.getTaskList();
+    }
   }
 
   openPageFromMenu(col) {
@@ -92,6 +97,45 @@ export class HomePage {
       TabsPage.whichInfoPage = col.value;
       this.navCtrl.parent.select(col.tabId);
     }
+  }
+
+  getTaskList(): void {
+    this.api.getTask<ApplyViewModel[]>(this.user.GUID).then(
+      res => {
+        // console.log("TaskPage order: " + JSON.stringify(res));
+        if (!res || res.length === 0) {
+          this.showResult(true, "当前没有工作");
+        } else {
+          this.showResult(false, "已获取工作");
+          this.orders = res.filter((value) => {
+            return value.GrabStatus != '已结束';
+          });
+          console.log(this.orders)
+          // this.orders = res;
+          this.ordersCache = this.orders;
+        }
+      },
+      (error) => {
+        this.handleError(error);
+      });
+  }
+
+  openRoomCheck(item) {
+    this.openPage("RoomCheckPage", { POrderId: item.POrderId, finished: item.GrabStatus == '已结束' });
+  }
+
+  openPage(pageName: string, params = null) {
+    this.navCtrl.push(pageName, params);
+  }
+
+  showResult(isEmpty: boolean, msg: string): void {
+    this.noRecords = isEmpty;
+    this.whyEmpty = msg;
+  }
+
+  handleError(error: any) {
+    this.showResult(true, "获取工作失败");
+    console.log("An error occurred: \n", error);
   }
 
   //解决切换其他页面回去轮播图不动问题
