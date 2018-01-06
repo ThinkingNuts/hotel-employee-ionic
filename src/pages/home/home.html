@@ -35,21 +35,11 @@
 
   <h3 class="no-records" *ngIf="noRecords">{{whyEmpty}}</h3>
   <ion-list *ngIf="!noRecords">
-    <ion-item *ngFor="let item of orders" (click)="openRoomCheck(item)" [ngClass]="{'item-finished': item.GrabStatus=='已结束'}">
-      <!-- <ion-avatar class="finish" item-end>
-        <div>
-          <button ion-button block color="danger" small (click)="finishWork(item, true)" *ngIf="item.Status!=0">终止</button>
-          <button ion-button block class="go-comment-btn" small (click)="finishWork(item, true)" *ngIf="item.Status==0 && item.HotelEvaluate==null">评价</button>
-        </div>
-        <div>
-          <button ion-button block color="danger" small clear *ngIf="item.Status==0">已终止</button>
-          <button ion-button block class="show-comment-btn" small (click)="finishWork(item, false)" *ngIf="item.Status==0 && item.HotelEvaluate!=null">查看评论</button>
-        </div>
-      </ion-avatar> -->
+    <ion-item *ngFor="let item of orders" (click)="openRoomCheck(item)">
       <h2>{{item.Order.HotelName}}</h2>
       <h3>{{item.Order.DepartMentName}} - {{item.Order.WorkTypeName}}</h3>
       <p>{{item.Order.Billing}} | {{item.Order.Start | date:"yyyy-MM-dd"}}</p> 
-      <label class="grab-status" [ngClass]="{'grab-status-finished': item.GrabStatus=='已结束'}" item-end >{{item.GrabStatus}}</label>
+      <label class="grab-status" item-end >{{item.GrabStatus}}</label>
     </ion-item>
   </ion-list>
 </ion-content>

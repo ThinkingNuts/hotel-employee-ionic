@@ -61,7 +61,6 @@ export class HomePage {
   private noRecords: boolean = true;
   private whyEmpty: string = "正在获取工作";
   private orders: ApplyViewModel[] = [];
-  private ordersCache: ApplyViewModel[] = [];
   private user: UserViewModel;
 
   constructor(
@@ -102,7 +101,6 @@ export class HomePage {
   getTaskList(): void {
     this.api.getTask<ApplyViewModel[]>(this.user.GUID).then(
       res => {
-        // console.log("TaskPage order: " + JSON.stringify(res));
         if (!res || res.length === 0) {
           this.showResult(true, "当前没有工作");
         } else {
@@ -110,9 +108,6 @@ export class HomePage {
           this.orders = res.filter((value) => {
             return value.GrabStatus != '已结束';
           });
-          console.log(this.orders)
-          // this.orders = res;
-          this.ordersCache = this.orders;
         }
       },
       (error) => {
