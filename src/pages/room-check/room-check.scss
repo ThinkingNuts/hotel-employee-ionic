@@ -37,33 +37,20 @@
         padding: 0;
         margin: 0;
         .room-wrap {
-        // border: 0.2px solid red;
-        padding: 0;
+          display: flex;
+          padding: 0;
           position: relative;
           text-align: center;
         }
-        .room-index {
-          // border: 0.2px solid red;
-          position: absolute; // width: 100%;
-          // height: 100%;
-          // line-height: 50px;
-          text-align: center;
-          color: #555;
-        }
         .room-icon {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          line-height: 50px;
-          text-align: center;
           color: white;
           font-size: 40px;
         }
         .room {
           display: inline-block;
           width: 100%;
-          height: 50px;
-          // border: 1px solid #ddd;
+          height: 50px; 
+          border: 1px solid #ddd;
           border-radius: 8px;
           line-height: 100%;
         }

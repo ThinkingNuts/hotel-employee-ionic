@@ -36,16 +36,15 @@
   <ion-list class="room-list" no-lines *ngIf="roomList && roomList.length>0">
     <ion-item class="room-item" *ngFor="let room of roomList">
       <div class="room-wrap">
-        <!-- <p class="room-index">{{room.RoomIndex + 1}}</p> -->
-        <ion-icon name="help" class="room-icon" *ngIf="room.RommStatus==3"></ion-icon>
-        <ion-icon name="checkmark" class="room-icon" *ngIf="room.RommStatus==2"></ion-icon>
         <button class="room" (click)="roomStatusChange(room)" 
           [class.room-normal]="room.RommStatus == 0" 
           [class.room-checked]="room.RommStatus == 1"
           [class.room-finished]="room.RommStatus == 2 || room.RommStatus==3" 
           [disabled]="room.RommStatus==2 || room.RommStatus==3">
-          <div *ngIf="room.RommStatus==0 || room.RommStatus==1">
-            {{room.RoomIndex + 1}}
+          <div>
+            <ion-icon name="help" class="room-icon" *ngIf="room.RommStatus==3"></ion-icon>
+            <ion-icon name="checkmark" class="room-icon" *ngIf="room.RommStatus==2"></ion-icon>
+            <span *ngIf="room.RommStatus==0 || room.RommStatus==1">{{room.RoomIndex + 1}}</span>
           </div>
         </button>
       </div>
