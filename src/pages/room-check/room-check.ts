@@ -21,6 +21,7 @@ export class RoomCheckPage {
 
   private roomList: Room[] = [];
   private pOrderId: number;
+  private finished: boolean;
 
   constructor(
     private api: ApiService,
@@ -29,7 +30,8 @@ export class RoomCheckPage {
     private navCtrl: NavController,
     private navParams: NavParams) {
     this.pOrderId = navParams.get("POrderId");
-    console.log("pOrderId: " + this.pOrderId);
+    this.finished = navParams.get("finished");
+    console.log("pOrderId: " + this.pOrderId + ", finished: " + this.finished);
   }
 
   ionViewDidLoad() {
@@ -44,11 +46,16 @@ export class RoomCheckPage {
   }
 
   roomStatusChange(room: Room) {
+    console.log(room.RommStatus);
+    if (this.finished) {
+      return;
+    }
     if (room.RommStatus == 0) {
       room.RommStatus = 1;
     } else if (room.RommStatus == 1) {
       room.RommStatus = 0;
     }
+    console.log(room.RommStatus);
     this.saveLocalRooms();
   }
 
@@ -66,7 +73,7 @@ export class RoomCheckPage {
   mergeRooms(localRooms: Room[]) {
     this.roomList.forEach(room => {
       localRooms.forEach(lRoom => {
-        if (room.GUID == lRoom.GUID && room.RommStatus != 2) {
+        if (room.GUID == lRoom.GUID && room.RommStatus != 2 && room.RommStatus != 3) {
           room.RommStatus = lRoom.RommStatus;
         }
       });

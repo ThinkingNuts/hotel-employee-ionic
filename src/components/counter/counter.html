@@ -2,7 +2,7 @@
 <div class="counter-wrap">
   <div class="counter-box">
     <button (click)="operNum(-1)">-</button>
-    <input type="number" [value]="default" [(ngModel)]="num">
+    <input type="number" [value]="default" [(ngModel)]="num" (keyup)="onKey($event)">
     <button (click)="operNum(1)">+</button>
   </div>
 </div>

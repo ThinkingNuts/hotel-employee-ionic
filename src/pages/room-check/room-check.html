@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color="my">
-    <ion-title>RoomCheck</ion-title>
+    <ion-title>工作确认</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -20,15 +20,34 @@
     <div>
       <span class="hint-icon hint-icon-finished"></span>已完成</div>
     <div>
-      <span class="hint-icon hint-icon-confirmed"></span>已确认</div>
+      <span class="hint-icon hint-icon-confirmed">
+        <ion-icon name="checkmark"></ion-icon>
+      </span>
+      已确认
+    </div>
+    <div>
+      <span class="hint-icon hint-icon-confirmed">
+        <ion-icon name="help"></ion-icon>
+      </span>
+      待复核
+    </div>
   </div>
 
   <ion-list class="room-list" no-lines *ngIf="roomList && roomList.length>0">
     <ion-item class="room-item" *ngFor="let room of roomList">
       <div class="room-wrap">
         <!-- <p class="room-index">{{room.RoomIndex + 1}}</p> -->
-        <input type="checkbox" name="room" value="room.Id" (click)="roomStatusChange(room)" [checked]="room.RommStatus==1" [disabled]="room.RommStatus==2"
-        />
+        <ion-icon name="help" class="room-icon" *ngIf="room.RommStatus==3"></ion-icon>
+        <ion-icon name="checkmark" class="room-icon" *ngIf="room.RommStatus==2"></ion-icon>
+        <button class="room" (click)="roomStatusChange(room)" 
+          [class.room-normal]="room.RommStatus == 0" 
+          [class.room-checked]="room.RommStatus == 1"
+          [class.room-finished]="room.RommStatus == 2 || room.RommStatus==3" 
+          [disabled]="room.RommStatus==2 || room.RommStatus==3">
+          <div *ngIf="room.RommStatus==0 || room.RommStatus==1">
+            {{room.RoomIndex + 1}}
+          </div>
+        </button>
       </div>
     </ion-item>
   </ion-list>

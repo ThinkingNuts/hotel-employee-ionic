@@ -15,6 +15,7 @@ export class CounterComponent {
   @Input() default: number = 5;
   @Input() max: number = 100;
   @Input() min: number = 1;
+  @Input() step: number = 1;
   @Output() output: EventEmitter<number> = new EventEmitter<number>();
   private num: number = this.default;
 
@@ -30,13 +31,18 @@ export class CounterComponent {
   operNum(symbol: number) {
     if (symbol < 0) {
       if (this.num > this.min) {
-        this.num--;
+        this.num -= this.step;
       }
     } else if (symbol > 0) {
       if (this.num < this.max) {
-        this.num++;
+        this.num += this.step;
       }
     }
+    this.output.emit(this.num);
+  }
+
+  onKey(event: KeyboardEvent) {
+    this.num = Number((<HTMLInputElement>event.target).value);
     this.output.emit(this.num);
   }
 }

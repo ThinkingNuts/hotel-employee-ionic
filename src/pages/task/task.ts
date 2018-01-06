@@ -91,7 +91,7 @@ export class TaskPage {
   }
 
   openRoomCheck(item) {
-    this.openPage("RoomCheckPage", { POrderId: item.POrderId });
+    this.openPage("RoomCheckPage", { POrderId: item.POrderId, finished: item.GrabStatus == '已结束' });
   }
 
   finishWork(order: ApplyViewModel, commentable: boolean): void {

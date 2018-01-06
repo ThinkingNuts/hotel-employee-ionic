@@ -27,10 +27,16 @@ page-task {
       color: white !important;
     }
   }
-  .room-remain {
+  .grab-status {
     padding: 4px 8px;
     font-size: 15px;
     text-align: center;
     color: #FE7D05;
+  }
+  .grab-status-finished {
+    padding: 4px 8px;
+    font-size: 15px;
+    text-align: center;
+    color: gray;
   }
 }

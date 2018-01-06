@@ -20,7 +20,7 @@
     </ion-refresher>
     <h3 class="no-records" *ngIf="noRecords">{{whyEmpty}}</h3>
     <ion-list *ngIf="!noRecords">
-      <ion-item *ngFor="let item of orders" (click)="openRoomCheck(item)" [ngClass]="{'item-finished': item.Status==0}">
+      <ion-item *ngFor="let item of orders" (click)="openRoomCheck(item)" [ngClass]="{'item-finished': item.GrabStatus=='已结束'}">
         <!-- <ion-avatar class="finish" item-end>
           <div>
             <button ion-button block color="danger" small (click)="finishWork(item, true)" *ngIf="item.Status!=0">终止</button>
@@ -34,7 +34,7 @@
         <h2>{{item.Order.HotelName}}</h2>
         <h3>{{item.Order.DepartMentName}} - {{item.Order.WorkTypeName}}</h3>
         <p>{{item.Order.Billing}} | {{item.Order.Start | date:"yyyy-MM-dd"}}</p> 
-        <label class="room-remain" item-end>{{item.StatusStr}}</label>
+        <label class="grab-status" [ngClass]="{'grab-status-finished': item.GrabStatus=='已结束'}" item-end >{{item.GrabStatus}}</label>
       </ion-item>
     </ion-list>
 </ion-content>

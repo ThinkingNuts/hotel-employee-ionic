@@ -50,7 +50,7 @@ export class HomePage {
         title: "RoomCheck",
         icon: "hand",
         color: "pink",
-        linkPage: "RoomCheckPage",
+        linkPage: "TaskPage",
         isImage: false,
         imageUrl: ""
       }
