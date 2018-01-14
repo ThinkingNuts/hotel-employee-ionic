@@ -102,13 +102,13 @@ export class PersonDetailsPage implements ICameraCallBack {
               this.userAvatar = URL_ROOT + this.user.Icon + "?" + new Date();
             }
             if (this.user.ICardPositive) {
-              this.idCardFront = URL_ROOT + this.user.ICardPositive;
+              this.idCardFront = URL_ROOT + this.user.ICardPositive + "?" + new Date();
             }
             if (this.user.ICardBack) {
-              this.idCardBack = URL_ROOT + this.user.ICardBack;
+              this.idCardBack = URL_ROOT + this.user.ICardBack + "?" + new Date();
             }
             if (this.user.Health) {
-              this.healthCertificate = URL_ROOT + this.user.Health;
+              this.healthCertificate = URL_ROOT + this.user.Health + "?" + new Date();
             }
           }
         })
