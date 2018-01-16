@@ -30,12 +30,12 @@
       </span>
       已确认
     </div>
-    <div>
+    <!-- <div>
       <span class="hint-icon hint-icon-confirmed">
         <ion-icon name="help"></ion-icon>
       </span>
       待复核
-    </div>
+    </div> -->
   </div>
 
   <ion-list class="room-list" no-lines *ngIf="roomList && roomList.length>0">
@@ -44,7 +44,7 @@
         <button class="room" (click)="roomStatusChange(room)" [class.room-normal]="room.RommStatus == 0" [class.room-checked]="room.RommStatus == 1"
           [class.room-finished]="room.RommStatus == 2 || room.RommStatus==3" [disabled]="room.RommStatus==2 || room.RommStatus==3">
           <div>
-            <ion-icon name="help" class="room-icon" *ngIf="room.RommStatus==3"></ion-icon>
+            <!-- <ion-icon name="help" class="room-icon" *ngIf="room.RommStatus==3"></ion-icon> -->
             <ion-icon name="checkmark" class="room-icon" *ngIf="room.RommStatus==2"></ion-icon>
             <span *ngIf="room.RommStatus==0 || room.RommStatus==1">{{room.RoomIndex + 1}}</span>
           </div>
