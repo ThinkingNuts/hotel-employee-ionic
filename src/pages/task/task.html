@@ -32,7 +32,7 @@
           </div>
         </ion-avatar> -->
         <h2>{{item.Order.HotelName}}</h2>
-        <h3>{{item.Order.DepartMentName}} - {{item.Order.WorkTypeName}}</h3>
+        <h3>{{item.Order.DepartMentName}} - {{item.Order.WorkTypeName}} - {{item.Order.ScheduleName}}</h3>
         <p>{{item.Order.Billing}} | {{item.Order.Start | date:"yyyy-MM-dd"}}</p> 
         <label class="grab-status" [ngClass]="{'grab-status-finished': item.GrabStatus=='已结束'}" item-end >{{item.GrabStatus}}</label>
       </ion-item>
